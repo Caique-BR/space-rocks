@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://b2cr5fnxayhs6"]
+
+[ext_resource type="Script" uid="uid://cbw00gtxpj8sc" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="Texture2D" uid="uid://drrrw22bdbpd2" path="res://assets/player_ship.png" id="2_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://rww14wrrravv" path="res://player/bullet.tscn" id="2_yw30f"]
+[ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://obstacles/explosion.tscn" id="4_yw30f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
+radius = 34.0
+
+[node name="Player" type="RigidBody2D" unique_id=37309876 groups=["player"]]
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 1.0
+angular_damp = 5.0
+script = ExtResource("1_rkbax")
+bullet_scente = ExtResource("2_yw30f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=769966194]
+texture_filter = 1
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_g1dw6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1416899759]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_onrkg")
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1198246777]
+position = Vector2(50, 0)
+
+[node name="GunCooldown" type="Timer" parent="." unique_id=1055391723]
+one_shot = true
+autostart = true
+
+[node name="Explosion" parent="." unique_id=1727476015 instance=ExtResource("4_yw30f")]
+visible = false
+
+[node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1589903483]
+wait_time = 2.0
+one_shot = true
+
+[node name="ShieldRechargeCooldown" type="Timer" parent="." unique_id=54345428]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="GunCooldown" to="." method="_on_gun_cooldown_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
+[connection signal="timeout" from="ShieldRechargeCooldown" to="." method="_on_shield_recharge_cooldown_timeout"]
