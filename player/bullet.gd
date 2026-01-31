@@ -4,8 +4,9 @@ extends Area2D
 
 var velocity = Vector2.ZERO
 
-func start(_transform): # calls this when a bullets spawns, telling it correct path
+func start(_transform : Transform2D, _transform_x: Vector2): # calls this when a bullets spawns, telling it correct path
 	transform = _transform
+	transform.x = _transform_x
 	velocity = transform.x * speed
 	
 func _process(delta):
@@ -18,7 +19,6 @@ func _on_body_entered(body): # deletes the bullet if collides with rock
 	if body.is_in_group("rocks"):
 		body.explode()
 		queue_free()
-
 
 func _on_area_entered(area):
 	if area.is_in_group("enemies"): area.take_damage(1)

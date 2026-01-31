@@ -1,5 +1,7 @@
 extends Node
 
+@export var DEBUGGING : bool =  false
+
 # change spawn timer on new level to 5, 10
 
 @export var rock_scene : PackedScene
@@ -12,6 +14,12 @@ var playing = false
 
 func _ready(): # determins the rock spawn point
 	screensize = get_viewport().get_visible_rect().size
+	
+	###### DEBUG
+	if DEBUGGING:
+		$ExplosionSound.volume_db = -100
+		$LevelupSound.volume_db = -100
+		$Music.volume_db = -100
 
 func spawn_rock(size, pos = null, vel = null):
 	if pos == null:

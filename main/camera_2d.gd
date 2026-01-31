@@ -5,4 +5,3 @@ extends Camera2D
 
 func _process(_delta: float) -> void:
 	position = player.global_position / 10
-	print(position + Vector2(64, 64))
