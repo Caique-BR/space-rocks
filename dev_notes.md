@@ -1,16 +1,30 @@
-[ ] Make a hard/easy mode selector on the main menu(add audio setting too?), that changes the fire mode and health of enemies ships
+[ ] Make player able to change difficulty - Normal - Hard
+	1. Game difficulty should escalate both enemies fire modes and enemies health
+	2. Game difficulty should be changeable on menu screen
+	[ ] Add difficulty options on menu
 
-[ ] Pick a better sound for the engine, add a particle for ship turning, like the air being release on the side to turn the other way
+[ ] Make player be able to change audio settings on menu screen
+	1. Audio options must feature slides for both background sound and effects sounds
+	[ ] Add multiple audio slides on menu screen for different types of audio
 
-[ ] Add a cooldown for the shield to start recharging, it currently begins as soon as damage is taken, add a "bubble" for the sheild(starts cracking when close to braking)
+[ ] Add better visuals and sounds for ship
+	[X] Make better sound for engine
+	[ ] Add air-like particle for ship turning 
 
-[ ] New enemy, more than one at once(difficult mode), new weapon for enemies
+[ ] Add a cooldown for the shield to start recharging: 
+	1. Currently it begins as soon as damage is taken, 
+	[] Add a "bubble" for the shield that starts cracking when close to breaking..
 
-[ ] Fixed levels? as in not just rocks in a loop, maybe a set 10 total levels with a boss at the end
+[ ] Add new enemies:
+	1. Multiple enemies should appear at the same time
+	2. Enemies should have different health values and fire mode for different difficulty modes
+
+[ Suggestion ] Add game progression through fixed levels and not by endless progressive waves:
+	1. Levels would have checkpoints where players would fight powerfull enemies after multiple levels
 
 [ ] Add power-ups:
 	[ ] V-Style firing type for the gun
 	[ ] Extra life/fully charge shield
-	[ ] "Omnimovement??" for? the? ship?????
+	[ ] "Omnimovement" like mechanic for the ship?
 	[ ] Missile weapon?
 	
