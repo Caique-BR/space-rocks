@@ -1,5 +1,6 @@
 extends Area2D
 
+# caique gay
 
 @export var speed = 1000 
 
