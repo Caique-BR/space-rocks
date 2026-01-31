@@ -30,14 +30,14 @@ func shoot(): # aims and adds spread to the gun before shooting
 	get_tree().root.add_child(b)
 	b.start(global_position, dir)
 
-func shoot_pusle(n, delay): # full auto gun for the enemy, as n in number of shots per "trigger" pull, and delay as time between bullets fired
+func shoot_pulse(n, delay): # full auto gun for the enemy, as n in number of shots per "trigger" pull, and delay as time between bullets fired
 	for i in n:
 		shoot()
 		await get_tree().create_timer(delay).timeout
 
 func _on_gun_cooldown_timeout(): # choose one or another
 	#shoot() 
-	shoot_pusle(3, 0.15)
+	shoot_pulse(3, 0.15)
 
 func take_damage(amount):
 	health -= amount
