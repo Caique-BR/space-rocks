@@ -1,18 +1,18 @@
-[ ] Make player able to change difficulty - Normal - Hard
+[ ] Make player able to change difficulty - Normal - Hard:
 	1. Game difficulty should escalate both enemies fire modes and enemies health
 	2. Game difficulty should be changeable on menu screen
 	[ ] Add difficulty options on menu
 
-[ ] Make player be able to change audio settings on menu screen
+[ ] Make player be able to change audio settings on menu screen:
 	1. Audio options must feature slides for both background sound and effects sounds
 	[ ] Add multiple audio slides on menu screen for different types of audio
 
-[ ] Add better visuals and sounds for ship
+[ ] Add better visuals and sounds for ship:
 	[X] Make better sound for engine
 	[ ] Add air-like particle for ship turning 
 
 [ ] Add a cooldown for the shield to start recharging: 
-	1. Currently it begins as soon as damage is taken, 
+	1. Currently it begins as soon as damage is taken
 	[] Add a "bubble" for the shield that starts cracking when close to breaking..
 
 [ ] Add new enemies:
