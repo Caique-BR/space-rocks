@@ -2,10 +2,8 @@ extends Node
 
 # change spawn timer on new level to 5, 10
 
-
 @export var rock_scene : PackedScene
 @export var enemy_scene : PackedScene
-
 
 var screensize = Vector2.ZERO
 var level = 0

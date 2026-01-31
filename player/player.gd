@@ -1,4 +1,4 @@
-extends RigidBody2D
+class_name Player extends RigidBody2D
 
 # change the linear/damp and angular/damp later to prefered ships gravity pull
 
@@ -9,13 +9,7 @@ extends RigidBody2D
 @export var max_shield = 100.0 # shield max health
 @export var shield_regen = 5.0 # sheild recharge delay
 
-
-
 @onready var radius = int($Sprite2D.texture.get_size().x / 2 * $Sprite2D.scale.x) # makes the screen wrap smoother
-
-
-
-
 
 signal lives_changed
 signal dead
