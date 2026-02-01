@@ -103,13 +103,13 @@ func change_state(new_state): # code for the "FSM", uses the match to determ the
 	state = new_state
 
 func get_input(): # reads the player input and applies it to the ship
-	$Exhaust.emitting = false
+	$RearExhaust.emitting = false
 	thrust = Vector2.ZERO
 	
 	if state in [DEAD, INIT]: return 
 	
 	if Input.is_action_pressed("thrust"):
-		$Exhaust.emitting = true
+		$RearExhaust.emitting = true
 		thrust = transform.x * engine_power 
 		if not $EngineSound.playing: $EngineSound.play()
 	else: $EngineSound.stop()

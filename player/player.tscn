@@ -15,6 +15,14 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.696)
 colors = PackedColorArray(1, 0.8, 0.14901961, 1, 0.8627451, 0.1254902, 0.08235294, 1)
 
+[sub_resource type="Curve" id="Curve_boad6"]
+_data = [Vector2(0.061594196, 0.66866577), 0.0, 0.0, 0, 0, Vector2(1, 0.14242887), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_rgyib"]
+offsets = PackedFloat32Array(0, 0.64, 0.992)
+colors = PackedColorArray(1, 1, 1, 1, 0.49411765, 0.49411765, 0.49411765, 1, 0.61960787, 0.61960787, 0.61960787, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 34.0
 
@@ -26,7 +34,7 @@ angular_damp = 5.0
 script = ExtResource("1_rkbax")
 bullet_scente = ExtResource("2_yw30f")
 
-[node name="Exhaust" type="CPUParticles2D" parent="." unique_id=1080729462]
+[node name="RearExhaust" type="CPUParticles2D" parent="." unique_id=1080729462]
 show_behind_parent = true
 position = Vector2(-26, 0)
 rotation = -3.1415925
@@ -41,6 +49,44 @@ initial_velocity_max = 400.0
 scale_amount_max = 8.0
 scale_amount_curve = SubResource("Curve_g6k8r")
 color_ramp = SubResource("Gradient_boad6")
+
+[node name="AirExhaustLeft" type="CPUParticles2D" parent="." unique_id=967758001]
+process_mode = 1
+texture_filter = 1
+position = Vector2(-20, -12)
+amount = 200
+lifetime = 0.060000000000000005
+speed_scale = 0.08
+local_coords = true
+emission_shape = 6
+emission_ring_inner_radius = 0.8
+emission_ring_radius = 1.0
+direction = Vector2(0, -100)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 300.0
+scale_amount_curve = SubResource("Curve_boad6")
+color = Color(0.7581918, 0.7581918, 0.7581917, 1)
+color_ramp = SubResource("Gradient_rgyib")
+
+[node name="AirExhaustRight" type="CPUParticles2D" parent="." unique_id=627505569]
+process_mode = 1
+texture_filter = 1
+position = Vector2(-20, 12)
+amount = 200
+lifetime = 0.060000000000000005
+speed_scale = 0.08
+local_coords = true
+emission_shape = 6
+emission_ring_inner_radius = 0.8
+emission_ring_radius = 1.0
+direction = Vector2(0, 100)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 300.0
+scale_amount_curve = SubResource("Curve_boad6")
+color = Color(0.7581918, 0.7581918, 0.7581917, 1)
+color_ramp = SubResource("Gradient_rgyib")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1416899759]
 visible = false

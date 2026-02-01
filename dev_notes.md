@@ -9,11 +9,14 @@
 
 [ ] Add better visuals and sounds for ship:
 	[X] Make better sound for engine
-	[ ] Add air-like particle for ship turning 
+	[X] Add air-like particle for ship turning 
+		[ ] Make the particle appear only when turning
 
 [ ] Add a cooldown for the shield to start recharging: 
 	1. Currently it begins as soon as damage is taken
 	[] Add a "bubble" for the shield that starts cracking when close to breaking..
+	
+[ ] Make the saucer trail match the saucer color
 
 [ ] Add new enemies:
 	1. Multiple enemies should appear at the same time
