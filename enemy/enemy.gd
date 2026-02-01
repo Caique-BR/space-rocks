@@ -56,6 +56,6 @@ func explode(): # triggers when hit, destroys the enemy ship
 	queue_free()
 
 func _on_body_entered(body): # explodes when colliding with the player, maybe make it explodes on rocks too?
-	if body.is_in_group("rocks"): return
+	if body.is_in_group("asteroids"): return
 	explode()
 	body.shield -= 50
