@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://drh7pfo4ut07y" path="res://assets/space_background.png" id="1_pjrb6"]
 [ext_resource type="Script" uid="uid://dpwttbn6dtxn" path="res://main/main.gd" id="1_xwkvk"]
-[ext_resource type="PackedScene" uid="uid://bhrt44op5mi6s" path="res://obstacles/rock.tscn" id="2_c651c"]
+[ext_resource type="PackedScene" uid="uid://bhrt44op5mi6s" path="res://asteroid/asteroid.tscn" id="2_c651c"]
 [ext_resource type="PackedScene" uid="uid://b2cr5fnxayhs6" path="res://player/player.tscn" id="2_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://dcgcg5blxa5gh" path="res://enemy/enemy.tscn" id="3_kfbq2"]
 [ext_resource type="PackedScene" uid="uid://c28f8ive544sl" path="res://hud/hud.tscn" id="5_3wy1v"]
@@ -21,7 +21,7 @@ point_count = 5
 process_mode = 3
 script = ExtResource("1_xwkvk")
 DEBUGGING = true
-rock_scene = ExtResource("2_c651c")
+asteroid_scene = ExtResource("2_c651c")
 enemy_scene = ExtResource("3_kfbq2")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1517349513]

@@ -89,7 +89,6 @@ color = Color(0.7581918, 0.7581918, 0.7581917, 1)
 color_ramp = SubResource("Gradient_rgyib")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1416899759]
-visible = false
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_onrkg")
 

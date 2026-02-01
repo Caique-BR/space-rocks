@@ -4,7 +4,7 @@ extends Node
 
 # change spawn timer on new level to 5, 10
 
-@export var rock_scene : PackedScene
+@export var asteroid_scene : PackedScene
 @export var enemy_scene : PackedScene
 
 var screensize = Vector2.ZERO
@@ -12,7 +12,7 @@ var level = 0
 var score = 0
 var playing = false
 
-func _ready(): # determins the rock spawn point
+func _ready(): # determins the asteroid spawn point
 	screensize = get_viewport().get_visible_rect().size
 	
 	new_game()
@@ -23,7 +23,7 @@ func _ready(): # determins the rock spawn point
 		$LevelupSound.volume_db = -100
 		$Music.volume_db = -100
 
-func spawn_rock(size, pos = null, vel = null):
+func spawn_asteroid(size, pos = null, vel = null):
 	if pos == null:
 		$RockPath/RockSpawn.progress = randi()
 		pos = $RockPath/RockSpawn.position
@@ -31,14 +31,14 @@ func spawn_rock(size, pos = null, vel = null):
 	if vel == null: 
 		vel = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
 
-	var r = rock_scene.instantiate()
-	
-	r.screensize = screensize
-	call_deferred("add_child", r)
-	r.start(pos, vel, size)
-	r.exploded.connect(self._on_rock_exploded)
+	var a : Asteroid = asteroid_scene.instantiate()
 
-func _on_rock_exploded(size, radius, pos, vel): #dupes the rocks that gets shot
+	call_deferred("add_child", a)
+	a.screensize = screensize
+	a.start(pos, vel, size)
+	a.exploded.connect(self._on_asteroid_exploded)
+
+func _on_asteroid_exploded(size, radius, pos, vel): #dupes the asteroids that gets shot
 	$ExplosionSound.play()
 	score += 1
 	if size <= 1: $HUD.update_score(score)
@@ -48,12 +48,12 @@ func _on_rock_exploded(size, radius, pos, vel): #dupes the rocks that gets shot
 			
 			var newpos = pos + dir * radius
 			var newvel = dir * vel.length() * 1.1
-			spawn_rock(size - 1, newpos, newvel)
+			spawn_asteroid(size - 1, newpos, newvel)
 			$HUD.update_score(score)
 
 func new_game(): # starts the game when receiving the "start_game" signal
 	$Player.show()
-	get_tree().call_group("rocks", "queue_free") # removes rocks from previous run
+	get_tree().call_group("asteroids", "queue_free") # removes asteroids from previous run
 	level = 0 
 	score = 0
 	$HUD.update_score(score)
@@ -64,17 +64,18 @@ func new_game(): # starts the game when receiving the "start_game" signal
 	$Music.play()
 
 func new_level(): # increaces the difficult when changing levels
-	$LevelupSound.play()
 	level += 1
+	$LevelupSound.play()
+	
 	$HUD.show_message("Wave %s" % level)
-	for i in level:
-		spawn_rock(3)
 	$EnemyTimer.start(randi_range(1, 3)) # enemy spawn on timer end
+	
+	for i in level: spawn_asteroid(3)
 
-func _process(_delta): # changes the level when all the rocks are destroyed in the currente level
+func _process(_delta): # changes the level when all the asteroids are destroyed in the currente level
 	if not playing:
 		return
-	if get_tree().get_nodes_in_group("rocks").size() == 0:
+	if get_tree().get_nodes_in_group("asteroids").size() == 0:
 		new_level()
 
 func game_over():

@@ -33,9 +33,6 @@ var shield = 0: set = set_shield
 
 ######################## SHIP METHODS
 
-func return_array() -> Array:
-	return []
-
 func shoot(): 
 	if state == INVUL: return # can't shoot and be invulnerable at the same time
 
@@ -156,7 +153,7 @@ func _on_gun_cooldown_timeout(): # refresh the gun on cooldown end
 func _on_invulnerability_timer_timeout(): # time immune after taking dmg
 	change_state(ALIVE)
 
-func _on_body_entered(body): # when the contact signal is receieved damages the shield, and explodes the rock
-	if body.is_in_group("rocks"):
+func _on_body_entered(body): # when the contact signal is receieved damages the shield, and explodes the asteroid
+	if body.is_in_group("asteroids"):
 		shield -= body.size * 25
-		body.explode()
+		body.hurt()
