@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://u8tjqsmo33hg" path="res://assets/sounds/engine.ogg" id="6_boad6"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="7_boad6"]
 [ext_resource type="Script" uid="uid://delb4ia663h6v" path="res://player/components/player_input_component.gd" id="8_rgyib"]
+[ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="9_hg6s5"]
+[ext_resource type="Script" uid="uid://cningoo26cdpa" path="res://player/components/shield_component.gd" id="10_8t03j"]
 
 [sub_resource type="Curve" id="Curve_g6k8r"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.17166424), 0.0, 0.0, 0, 0]
@@ -28,6 +30,9 @@ colors = PackedColorArray(1, 1, 1, 1, 0.49411765, 0.49411765, 0.49411765, 1, 0.6
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 34.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg6s5"]
+radius = 34.0
+
 [node name="Player" type="RigidBody2D" unique_id=37309876]
 contact_monitor = true
 max_contacts_reported = 1
@@ -40,6 +45,7 @@ bullet_scente = ExtResource("2_yw30f")
 show_behind_parent = true
 position = Vector2(-26, 0)
 rotation = -3.1415925
+emitting = false
 amount = 25
 lifetime = 0.1
 local_coords = true
@@ -128,6 +134,7 @@ stream = ExtResource("6_boad6")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1302177192]
 script = ExtResource("7_boad6")
+health = 3
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269 node_paths=PackedStringArray("player", "rear_exhaust", "engine_sound")]
@@ -137,6 +144,21 @@ rear_exhaust = NodePath("../RearExhaust")
 engine_sound = NodePath("../EngineSound")
 metadata/_custom_type_script = "uid://delb4ia663h6v"
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="ShieldComponent" type="Node" parent="." unique_id=1509943478 node_paths=PackedStringArray("health_component")]
+script = ExtResource("10_8t03j")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cningoo26cdpa"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=2055247690 node_paths=PackedStringArray("health_component")]
+collision_layer = 0
+script = ExtResource("9_hg6s5")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://bh5hqmbepj133"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=512164640]
+shape = SubResource("CircleShape2D_hg6s5")
+
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
 [connection signal="timeout" from="GunCooldown" to="." method="_on_gun_cooldown_timeout"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
+[connection signal="shield_changed" from="ShieldComponent" to="." method="_on_shield_changed"]

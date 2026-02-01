@@ -1,8 +1,8 @@
 class_name Player extends RigidBody2D
 
-signal lives_changed
-signal dead
+signal health_changed
 signal shield_changed
+signal dead
 
 # change the linear/damp and angular/damp later to prefered ships gravity pull
 
@@ -13,8 +13,6 @@ signal shield_changed
 @export var fire_rate = 0.25 # sets the gun fire rate
 @export var engine_power = 500 # Sets the ships speed
 @export var spin_power = 8000 # Sets the shipss turn speed
-@export var max_shield = 100.0 # shield max health
-@export var shield_regen = 5.0 # sheild recharge delay
 
 enum { INIT, ALIVE, INVUL, DEAD } # "FSM" to manage ships current state
 
@@ -27,9 +25,6 @@ var state = INIT
 var reset_pos = false
 var can_shoot = true
 var current_muzzle : int = 0 # index of the current muzzle used as anchor for the next bullet
-
-var lives = 0: set = set_lives
-var shield = 0: set = set_shield
 
 ######################## SHIP METHODS
 
@@ -62,25 +57,7 @@ func explode(): # player explode animation
 func reset(): # resets the game for the next try
 	reset_pos = true
 	$Sprite2D.show()
-	lives = 3
 	change_state(ALIVE)
-
-func set_shield(value):
-	value = min(value, max_shield)
-	shield = value
-	shield_changed.emit(shield / max_shield) # sends the raito of shield compared to total shield, so hud can display a porcentage of remaning shield isntead of full value
-	if shield <= 0:
-		lives -= 1
-		explode()
-
-func set_lives(value): # set the starting lives for the player
-	shield = max_shield
-	lives = value
-	lives_changed.emit(lives) # sends the signal when taking dmg and changes the state depending on lives remaning 
-	if lives <= 0:
-		change_state(DEAD)
-	else:
-		change_state(INVUL)
 
 func change_state(new_state): # code for the "FSM", uses the match to determ the state of the ship
 	match new_state:
@@ -109,9 +86,6 @@ func _ready():
 	screensize = get_viewport_rect().size
 	$GunCooldown.wait_time = fire_rate
 
-func _process(delta): # executes the player input
-	shield += shield_regen * delta
-
 func _physics_process(_delta):
 	constant_force = thrust
 	
@@ -130,15 +104,20 @@ func _integrate_forces(physics_state): # screenwrap
 		physics_state.transform.origin = screensize / 2
 		reset_pos = false
 
-######################## SIGNAL HANDLERS
+####################### SIGNAL HANDLERS
+
+func _on_health_changed(_old_health, new_health): # set the starting lives for the player
+	if new_health <= 0:
+		change_state(DEAD)
+	else:
+		change_state(INVUL)
+	health_changed.emit(new_health)
+
+func _on_shield_changed(new_shield: float):
+	shield_changed.emit(new_shield)
 
 func _on_gun_cooldown_timeout(): # refresh the gun on cooldown end
 	can_shoot = true
 
 func _on_invulnerability_timer_timeout(): # time immune after taking dmg
 	change_state(ALIVE)
-
-func _on_body_entered(body): # when the contact signal is receieved damages the shield, and explodes the asteroid
-	if body.is_in_group("asteroids"):
-		shield -= body.size * 25
-		body.hurt()
