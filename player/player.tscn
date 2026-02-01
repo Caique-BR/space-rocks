@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="4_yw30f"]
 [ext_resource type="AudioStream" uid="uid://jrp3gj72c0t6" path="res://assets/sounds/laser.ogg" id="5_g6k8r"]
 [ext_resource type="AudioStream" uid="uid://u8tjqsmo33hg" path="res://assets/sounds/engine.ogg" id="6_boad6"]
+[ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="7_boad6"]
+[ext_resource type="Script" uid="uid://delb4ia663h6v" path="res://player/components/player_input_component.gd" id="8_rgyib"]
 
 [sub_resource type="Curve" id="Curve_g6k8r"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.17166424), 0.0, 0.0, 0, 0]
@@ -123,6 +125,17 @@ volume_db = -20.0
 
 [node name="EngineSound" type="AudioStreamPlayer" parent="." unique_id=1321843519]
 stream = ExtResource("6_boad6")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1302177192]
+script = ExtResource("7_boad6")
+metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
+
+[node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269 node_paths=PackedStringArray("player", "rear_exhaust", "engine_sound")]
+script = ExtResource("8_rgyib")
+player = NodePath("..")
+rear_exhaust = NodePath("../RearExhaust")
+engine_sound = NodePath("../EngineSound")
+metadata/_custom_type_script = "uid://delb4ia663h6v"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

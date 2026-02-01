@@ -102,20 +102,6 @@ func change_state(new_state): # code for the "FSM", uses the match to determ the
 			$EngineSound.stop()
 	state = new_state
 
-func get_input(): # reads the player input and applies it to the ship
-	$RearExhaust.emitting = false
-	thrust = Vector2.ZERO
-	
-	if state in [DEAD, INIT]: return 
-	
-	if Input.is_action_pressed("thrust"):
-		$RearExhaust.emitting = true
-		thrust = transform.x * engine_power 
-		if not $EngineSound.playing: $EngineSound.play()
-	else: $EngineSound.stop()
-
-	if Input.is_action_pressed("shoot") and can_shoot: shoot()
-
 ######################## BUILT-IN METHODS
 
 func _ready():
@@ -124,7 +110,6 @@ func _ready():
 	$GunCooldown.wait_time = fire_rate
 
 func _process(delta): # executes the player input
-	get_input()
 	shield += shield_regen * delta
 
 func _physics_process(_delta):
