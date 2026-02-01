@@ -17,24 +17,6 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="Environment" id="Environment_0i4oc"]
-background_mode = 3
-ssao_enabled = true
-ssao_radius = 7.62
-ssao_detail = 4.1
-ssao_horizon = 1.0
-ssao_ao_channel_affect = 1.0
-ssil_enabled = true
-glow_enabled = true
-glow_normalized = true
-glow_intensity = 2.76
-glow_strength = 2.0
-glow_blend_mode = 2
-glow_hdr_threshold = 0.0
-glow_hdr_scale = 0.01
-glow_hdr_luminance_cap = 21.3
-glow_map_strength = 0.44
-
 [node name="Main" type="Node" unique_id=1414078381]
 process_mode = 3
 script = ExtResource("1_xwkvk")
@@ -76,9 +58,6 @@ offset = Vector2(960, 540)
 enabled = false
 script = ExtResource("10_0i4oc")
 player = NodePath("../Player")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=689187089]
-environment = SubResource("Environment_0i4oc")
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

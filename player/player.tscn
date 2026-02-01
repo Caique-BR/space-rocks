@@ -42,6 +42,7 @@ script = ExtResource("1_rkbax")
 laser_scene = ExtResource("2_yw30f")
 
 [node name="RearExhaust" type="CPUParticles2D" parent="." unique_id=1080729462]
+visible = false
 show_behind_parent = true
 position = Vector2(-26, 0)
 rotation = -3.1415925
@@ -60,6 +61,7 @@ color_ramp = SubResource("Gradient_boad6")
 
 [node name="AirExhaustLeft" type="CPUParticles2D" parent="." unique_id=967758001]
 process_mode = 1
+visible = false
 texture_filter = 1
 position = Vector2(-20, -12)
 amount = 200
@@ -79,6 +81,7 @@ color_ramp = SubResource("Gradient_rgyib")
 
 [node name="AirExhaustRight" type="CPUParticles2D" parent="." unique_id=627505569]
 process_mode = 1
+visible = false
 texture_filter = 1
 position = Vector2(-20, 12)
 amount = 200

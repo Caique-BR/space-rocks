@@ -8,7 +8,6 @@ extends Node
 func get_input(): # reads the player input and applies it to the ship
 	rear_exhaust.emitting = false
 	player.thrust = Vector2.ZERO
-		
 	if player.state in [player.DEAD, player.INIT]: return 
 	
 	if Input.is_action_pressed("thrust"):

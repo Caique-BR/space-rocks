@@ -27,6 +27,10 @@ var current_muzzle : int = 0 # Index of the current muzzle used as anchor for th
 
 ######################## SHIP METHODS
 
+func air_exhaust_show():
+	while get_local_mouse_position().y <= 0:
+		$AirExhaustRight.show()
+
 func shoot(): 
 	if state == INVUL: return # can't shoot and be invulnerable at the same time
 
@@ -83,12 +87,15 @@ func change_state(new_state): # Code for the "FSM", uses the match to determ the
 func _ready():
 	change_state(ALIVE)
 	screensize = get_viewport_rect().size
-	print(fire_rate)
 	$GunCooldown.wait_time = fire_rate
 
 func _physics_process(_delta):
-	constant_force = thrust
 	
+	while get_local_mouse_position().y <= 0:
+		$AirExhaustRight.show()
+	
+	
+	constant_force = thrust
 	var mouse_pos = get_global_mouse_position()
 	var new_rotatation = rotation + get_angle_to(mouse_pos)
 	rotation = lerp_angle(rotation, new_rotatation, 0.06)
