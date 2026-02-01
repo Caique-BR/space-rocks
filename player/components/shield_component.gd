@@ -9,11 +9,8 @@ signal shield_changed(shield: float)
 @export var max_shield : float = 100.0 # Shield's max value
 @export var shield_regen : float = 5.0 # Shield's recharge delay
 
-var can_regen : bool = false
-
 func _process(delta: float) -> void:
-	if can_regen and shield < 100.0:
-		shield += shield_regen * delta
+	shield += shield_regen * delta
 
 func set_shield(value: float) -> void:
 	shield = clampf(value, 0, max_shield)
@@ -21,7 +18,7 @@ func set_shield(value: float) -> void:
 	if shield <= 0:
 		health_component.health -= 1
 		shield_broken.emit()
-		get_tree().create_timer(1).timeout.connect(func(): can_regen = true)
+		shield = max_shield
 	shield_changed.emit(shield)
 
 func get_shield() -> float:

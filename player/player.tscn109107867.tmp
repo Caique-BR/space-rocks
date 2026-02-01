@@ -31,7 +31,7 @@ colors = PackedColorArray(1, 1, 1, 1, 0.49411765, 0.49411765, 0.49411765, 1, 0.6
 radius = 34.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg6s5"]
-radius = 35.014282
+radius = 34.0
 
 [node name="Player" type="RigidBody2D" unique_id=37309876]
 contact_monitor = true
@@ -147,22 +147,18 @@ metadata/_custom_type_script = "uid://delb4ia663h6v"
 [node name="ShieldComponent" type="Node" parent="." unique_id=1509943478 node_paths=PackedStringArray("health_component")]
 script = ExtResource("10_8t03j")
 health_component = NodePath("../HealthComponent")
-shield = 100.0
 metadata/_custom_type_script = "uid://cningoo26cdpa"
 
-[node name="HurtboxComponent" type="Area2D" parent="." unique_id=2055247690 node_paths=PackedStringArray("health_component", "shield_component")]
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=2055247690 node_paths=PackedStringArray("health_component")]
 collision_layer = 0
 script = ExtResource("9_hg6s5")
 health_component = NodePath("../HealthComponent")
-shield_component = NodePath("../ShieldComponent")
 metadata/_custom_type_script = "uid://bh5hqmbepj133"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=512164640]
-position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_hg6s5")
 
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
 [connection signal="timeout" from="GunCooldown" to="." method="_on_gun_cooldown_timeout"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
-[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
 [connection signal="shield_changed" from="ShieldComponent" to="." method="_on_shield_changed"]

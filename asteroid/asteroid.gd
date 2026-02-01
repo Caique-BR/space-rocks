@@ -5,6 +5,8 @@ signal exploded
 @onready var animated_sprite2d : AnimatedSprite2D = get_node("AnimatedSprite2D")
 @onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
 @onready var collision_shape : CollisionShape2D = get_node("CollisionShape2D")
+@onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
+
 
 @onready var asteroid_texture : Texture2D = load("res://assets/asteroid/asteroid.png")
 
@@ -54,8 +56,12 @@ func _ready() -> void:
 	radius = int(asteroid_texture.get_size().x / 2 * animated_sprite2d.scale.x)
 	
 	var shape = CircleShape2D.new()
+	var hit_box_shape = CircleShape2D.new()
 	shape.radius = radius
+	hit_box_shape.radius = radius
 	$CollisionShape2D.shape = shape
+	
+	$HitboxComponent/CollisionShape2D.shape = hit_box_shape
 
 func _integrate_forces(physics_state): # screen wrap for the asteroids
 	var xform = physics_state.transform

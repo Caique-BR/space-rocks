@@ -1,16 +1,15 @@
 class_name Player extends RigidBody2D
 
-signal health_changed
-signal shield_changed
-signal dead
-
-# change the linear/damp and angular/damp later to prefered ships gravity pull
+signal health_changed(new_health)
+signal shield_changed(new_shield)
+signal died
 
 @onready var radius = int($Sprite2D.texture.get_size().x / 2 * $Sprite2D.scale.x) # makes the screen wrap smoother
 @onready var muzzles : Array[Node] = $Muzzles.get_children() # stores both muzzles on a list (array)
+@onready var shield_component : ShieldComponent = get_node("ShieldComponent")
 
-@export var bullet_scente : PackedScene
-@export var fire_rate = 0.25 # sets the gun fire rate
+@export var laser_scene : PackedScene
+@export var fire_rate = 0.25 # Sets the gun fire rate
 @export var engine_power = 500 # Sets the ships speed
 @export var spin_power = 8000 # Sets the shipss turn speed
 
@@ -18,13 +17,13 @@ enum { INIT, ALIVE, INVUL, DEAD } # "FSM" to manage ships current state
 
 var screensize = Vector2.ZERO
 
-var thrust = Vector2.ZERO # force being applied to the engine
-var rotation_dir = 0 # ships turn direction
+var thrust = Vector2.ZERO # Force being applied to the engine
+var rotation_dir = 0 # Ships turn direction
 
 var state = INIT
 var reset_pos = false
 var can_shoot = true
-var current_muzzle : int = 0 # index of the current muzzle used as anchor for the next bullet
+var current_muzzle : int = 0 # Index of the current muzzle used as anchor for the next bullet
 
 ######################## SHIP METHODS
 
@@ -33,33 +32,33 @@ func shoot():
 
 	can_shoot = false
 	
-	var b = bullet_scente.instantiate()
-	get_tree().root.add_child(b)
+	var laser = laser_scene.instantiate()
+	get_tree().root.add_child(laser)
 	
 	var mouse_pos : Vector2 = get_global_mouse_position()
 	var final_transform : Transform2D = muzzles[current_muzzle].global_transform
 	var final_position : Vector2 = muzzles[current_muzzle].global_position
 	var final_transform_x : Vector2 = (mouse_pos - final_position).normalized()
 	
-	b.start(final_transform, final_transform_x)
+	laser.start(2, final_transform, final_transform_x)
 
 	current_muzzle = 1 - current_muzzle
 
 	$GunCooldown.start()
 	$LaserSound.play()
 
-func explode(): # player explode animation
+func explode(): # Player explode animation
 	$Explosion.show()
 	$Explosion/AnimationPlayer.play("explosion")
 	await $Explosion/AnimationPlayer.animation_finished
 	$Explosion.hide()
 
-func reset(): # resets the game for the next try
+func reset(): # Resets the game for the next try
 	reset_pos = true
 	$Sprite2D.show()
 	change_state(ALIVE)
 
-func change_state(new_state): # code for the "FSM", uses the match to determ the state of the ship
+func change_state(new_state): # Code for the "FSM", uses the match to determ the state of the ship
 	match new_state:
 		INIT:
 			$CollisionShape2D.set_deferred("disabled", true)
@@ -75,7 +74,7 @@ func change_state(new_state): # code for the "FSM", uses the match to determ the
 			$CollisionShape2D.set_deferred("disabled", true)
 			$Sprite2D.hide()
 			linear_velocity = Vector2.ZERO
-			dead.emit()
+			died.emit()
 			$EngineSound.stop()
 	state = new_state
 
@@ -84,6 +83,7 @@ func change_state(new_state): # code for the "FSM", uses the match to determ the
 func _ready():
 	change_state(ALIVE)
 	screensize = get_viewport_rect().size
+	print(fire_rate)
 	$GunCooldown.wait_time = fire_rate
 
 func _physics_process(_delta):
@@ -106,15 +106,15 @@ func _integrate_forces(physics_state): # screenwrap
 
 ####################### SIGNAL HANDLERS
 
-func _on_health_changed(_old_health, new_health): # set the starting lives for the player
-	if new_health <= 0:
-		change_state(DEAD)
-	else:
-		change_state(INVUL)
+func _on_health_changed(new_health): # set the starting lives for the player
+	change_state(INVUL)
 	health_changed.emit(new_health)
 
+func _on_health_depleted() -> void:
+	change_state(DEAD)
+
 func _on_shield_changed(new_shield: float):
-	shield_changed.emit(new_shield)
+	shield_changed.emit(new_shield / shield_component.max_shield)
 
 func _on_gun_cooldown_timeout(): # refresh the gun on cooldown end
 	can_shoot = true

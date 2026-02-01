@@ -28,7 +28,7 @@ func show_message(text):
 func update_score(value): # updates the score counter when needed
 	score_label.text = str(value)
 
-func update_lives(value): # updates the lives counter when needed
+func update_health(value): # updates the lives counter when needed
 	for item in 3:
 		lives_counter[item].visible = value > item
 
