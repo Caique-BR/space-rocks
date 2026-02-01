@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b4yrsqg6hy4nm"]
 
-[ext_resource type="Texture2D" uid="uid://bu0m6tpqge754" path="res://assets/explosion.png" id="1_6lgfm"]
+[ext_resource type="Texture2D" uid="uid://bu0m6tpqge754" path="res://assets/explosion.png" id="1_dqhef"]
 
 [sub_resource type="Animation" id="Animation_wtm71"]
 length = 0.001
@@ -41,7 +41,7 @@ _data = {
 }
 
 [node name="Explosion" type="Sprite2D" unique_id=1727476015]
-texture = ExtResource("1_6lgfm")
+texture = ExtResource("1_dqhef")
 hframes = 8
 vframes = 8
 frame = 63

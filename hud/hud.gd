@@ -4,8 +4,8 @@ signal start_game
 
 @onready var lives_counter = $MarginContainer/HBoxContainer/LivesCounter.get_children()
 @onready var score_label = $MarginContainer/HBoxContainer/ScoreLabel
-@onready var message = $VBoxContainer/Message
-@onready var start_button = $VBoxContainer/StartButton
+@onready var message = $Message
+@onready var start_button = $StartButton
 @onready var shield_bar = $MarginContainer/HBoxContainer/ShieldBar
 
 var bar_textures = { # preloads sheild bar color

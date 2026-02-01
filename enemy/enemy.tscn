@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://fbb7l2gpqu3p" path="res://enemy/enemy.gd" id="1_p200p"]
 [ext_resource type="PackedScene" uid="uid://c41tjmx7et8tx" path="res://enemy/enemy_bullet.tscn" id="2_pmsee"]
 [ext_resource type="PackedScene" uid="uid://btajq18ixqwbo" path="res://enemy/enemy_paths.tscn" id="2_ppra6"]
-[ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://obstacles/explosion.tscn" id="3_p200p"]
+[ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="3_p200p"]
 [ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="6_1wwld"]
 [ext_resource type="AudioStream" uid="uid://kw56inesd5uj" path="res://assets/sounds/enemy_laser.wav" id="7_y5vj3"]
 [ext_resource type="Texture2D" uid="uid://1c4pwlthdw0e" path="res://assets/corona.png" id="8_5ffra"]

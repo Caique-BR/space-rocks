@@ -15,6 +15,8 @@ var playing = false
 func _ready(): # determins the rock spawn point
 	screensize = get_viewport().get_visible_rect().size
 	
+	new_game()
+	
 	###### DEBUG
 	if DEBUGGING:
 		$ExplosionSound.volume_db = -100
@@ -25,9 +27,12 @@ func spawn_rock(size, pos = null, vel = null):
 	if pos == null:
 		$RockPath/RockSpawn.progress = randi()
 		pos = $RockPath/RockSpawn.position
-	if vel == null:
+
+	if vel == null: 
 		vel = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
+
 	var r = rock_scene.instantiate()
+	
 	r.screensize = screensize
 	call_deferred("add_child", r)
 	r.start(pos, vel, size)
@@ -40,12 +45,14 @@ func _on_rock_exploded(size, radius, pos, vel): #dupes the rocks that gets shot
 	else:
 		for offset in [-1, 1]:
 			var dir = $Player.position.direction_to(pos).orthogonal() * offset
+			
 			var newpos = pos + dir * radius
 			var newvel = dir * vel.length() * 1.1
 			spawn_rock(size - 1, newpos, newvel)
 			$HUD.update_score(score)
 
 func new_game(): # starts the game when receiving the "start_game" signal
+	$Player.show()
 	get_tree().call_group("rocks", "queue_free") # removes rocks from previous run
 	level = 0 
 	score = 0

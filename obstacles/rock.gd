@@ -11,6 +11,7 @@ func start(_position, _velocity, _size): # handles rock creation size and speed
 	position = _position
 	size = _size
 	mass = 1.5 * size
+	
 	$RockImage.scale = Vector2.ONE * scale_factor * size
 	radius = int($RockImage.texture.get_size().x / 2 * $RockImage.scale.x)
 	var shape = CircleShape2D.new()
@@ -27,11 +28,13 @@ func _integrate_forces(physics_state): # screen wrap for the rocks
 	physics_state.transform = xform
 
 func explode(): # rock goes boom
-	$CollisionShape2D.set_deferred("disabled", true)
 	$RockImage.hide()
+	$CollisionShape2D.set_deferred("disabled", true)
 	$Explosion/AnimationPlayer.play("explosion")
 	$Explosion.show()
+	
 	exploded.emit(size, radius, position, linear_velocity) # emits the exploded signal for dupping rocks
 	angular_velocity = 0 
 	await $Explosion/AnimationPlayer.animation_finished
+	
 	queue_free()

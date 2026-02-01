@@ -30,6 +30,7 @@ position = Vector2(960, 540)
 texture = ExtResource("1_pjrb6")
 
 [node name="Player" parent="." unique_id=37309876 instance=ExtResource("2_xwkvk")]
+visible = false
 position = Vector2(973, 542)
 
 [node name="RockPath" type="Path2D" parent="." unique_id=2123958418]

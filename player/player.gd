@@ -33,6 +33,9 @@ var shield = 0: set = set_shield
 
 ######################## SHIP METHODS
 
+func return_array() -> Array:
+	return []
+
 func shoot(): 
 	if state == INVUL: return # can't shoot and be invulnerable at the same time
 
@@ -131,8 +134,8 @@ func _physics_process(_delta):
 	constant_force = thrust
 	
 	var mouse_pos = get_global_mouse_position()
-	
-	rotation += get_angle_to(mouse_pos)
+	var new_rotatation = rotation + get_angle_to(mouse_pos)
+	rotation = lerp_angle(rotation, new_rotatation, 0.06)
 
 func _integrate_forces(physics_state): # screenwrap
 	var xform = physics_state.transform

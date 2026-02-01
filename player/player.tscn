@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cbw00gtxpj8sc" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://drrrw22bdbpd2" path="res://assets/player_ship.png" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://rww14wrrravv" path="res://player/bullet.tscn" id="2_yw30f"]
-[ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://obstacles/explosion.tscn" id="4_yw30f"]
+[ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="4_yw30f"]
 [ext_resource type="AudioStream" uid="uid://jrp3gj72c0t6" path="res://assets/sounds/laser.ogg" id="5_g6k8r"]
 [ext_resource type="AudioStream" uid="uid://u8tjqsmo33hg" path="res://assets/sounds/engine.ogg" id="6_boad6"]
 
@@ -55,7 +55,7 @@ process_mode = 1
 texture_filter = 1
 position = Vector2(-20, -12)
 amount = 200
-lifetime = 0.060000000000000005
+lifetime = 0.06
 speed_scale = 0.08
 local_coords = true
 emission_shape = 6
@@ -74,7 +74,7 @@ process_mode = 1
 texture_filter = 1
 position = Vector2(-20, 12)
 amount = 200
-lifetime = 0.060000000000000005
+lifetime = 0.06
 speed_scale = 0.08
 local_coords = true
 emission_shape = 6
@@ -120,7 +120,7 @@ autostart = true
 
 [node name="LaserSound" type="AudioStreamPlayer" parent="." unique_id=248277576]
 stream = ExtResource("5_g6k8r")
-volume_db = -10.0
+volume_db = -20.0
 
 [node name="EngineSound" type="AudioStreamPlayer" parent="." unique_id=1321843519]
 stream = ExtResource("6_boad6")

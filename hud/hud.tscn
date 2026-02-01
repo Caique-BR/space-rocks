@@ -5,8 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://dl7t8dg8h5a0p" path="res://assets/player_small.png" id="2_mdr80"]
 [ext_resource type="Texture2D" uid="uid://bnd0634tmuwn2" path="res://assets/shield_gold.png" id="3_1kkc0"]
 [ext_resource type="Texture2D" uid="uid://l78hjh8usmfn" path="res://assets/bar_glass_200.png" id="4_qv4qp"]
-[ext_resource type="Texture2D" uid="uid://batfj8mqveu7w" path="res://assets/play_button.png" id="4_r8jus"]
-[ext_resource type="Texture2D" uid="uid://bqixowdjau7ba" path="res://assets/play_button_h.png" id="5_6dxa8"]
 [ext_resource type="Texture2D" uid="uid://cigd0i42pga8r" path="res://assets/bar_green_200.png" id="5_sh35x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pkqra"]
@@ -77,28 +75,21 @@ layout_mode = 2
 texture = ExtResource("2_mdr80")
 stretch_mode = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=103299972]
-anchors_preset = 14
+[node name="Message" type="Label" parent="." unique_id=556684035]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = -13.5
-offset_bottom = 13.5
+offset_left = -960.0
+offset_top = -36.0
+offset_right = 960.0
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 100
-
-[node name="Message" type="Label" parent="VBoxContainer" unique_id=556684035]
-layout_mode = 2
 text = "Space Rocks!"
 label_settings = SubResource("LabelSettings_uget6")
 horizontal_alignment = 1
 
-[node name="StartButton" type="TextureButton" parent="VBoxContainer" unique_id=789477859]
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("4_r8jus")
-texture_hover = ExtResource("5_6dxa8")
-
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

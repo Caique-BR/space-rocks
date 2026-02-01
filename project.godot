@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="space_rocks"
-run/main_scene="uid://y2m51psxxec5"
+run/main_scene="uid://ciaskmvoq0wkq"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
 [display]
@@ -61,3 +61,7 @@ pause={
 [physics]
 
 2d/default_gravity=0.0
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
