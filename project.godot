@@ -18,6 +18,10 @@ config/name="space_rocks"
 run/main_scene="uid://ciaskmvoq0wkq"
 config/features=PackedStringArray("4.6", "Forward Plus")
 
+[autoload]
+
+CameraControls="*uid://78bdkc3xgqpa"
+
 [display]
 
 window/size/viewport_width=1920

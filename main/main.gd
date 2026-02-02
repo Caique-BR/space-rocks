@@ -6,7 +6,6 @@ extends Node
 
 @export var asteroid_scene : PackedScene
 @export var enemy_scene : PackedScene
-
 @onready var camera : Camera = get_node("Camera2D")
 
 var screensize = Vector2.ZERO
@@ -14,20 +13,19 @@ var level = 0
 var score = 0
 var playing = false
 
-func spawn_asteroid(size, pos = null, vel = null):
-	if pos == null:
-		$RockPath/RockSpawn.progress = randi()
-		pos = $RockPath/RockSpawn.position
+func spawn_asteroid():
+	$RockPath/RockSpawn.progress = randi()
 
-	if vel == null: 
-		vel = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
+	var pos = $RockPath/RockSpawn.position
+	print(pos)
+	var vel = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
 
 	var a : Asteroid = asteroid_scene.instantiate()
 
-	call_deferred("add_child", a)
+	a.start(pos, vel)
 	a.screensize = screensize
-	a.start(pos, vel, size)
 	a.exploded.connect(self._on_asteroid_exploded)
+	call_deferred("add_child", a)
 
 func new_game(): # starts the game when receiving the "start_game" signal
 	$Player.show()
@@ -46,9 +44,9 @@ func new_level(): # increaces the difficult when changing levels
 	$LevelupSound.play()
 	
 	$HUD.show_message("Wave %s" % level)
-	$EnemyTimer.start(randi_range(1, 3)) # enemy spawn on timer end
+	#$EnemyTimer.start(randi_range(1, 3)) # enemy spawn on timer end
 	
-	for i in level: spawn_asteroid(3)
+	for i in level: spawn_asteroid()
 
 func game_over():
 	playing = false
@@ -57,8 +55,9 @@ func game_over():
 
 ## BUILT-IN
 
-func _ready(): # determins the asteroid spawn point
+func _ready():
 	screensize = get_viewport().get_visible_rect().size
+	CameraControls.camera = camera
 	
 	new_game()
 	
@@ -88,21 +87,12 @@ func _input(event): # pause game func
 
 ## SIGNAL HANDLERS
 
-func _on_asteroid_exploded(size, radius, pos, vel): #dupes the asteroids that gets shot
+func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 	#camera.screen_shake(15, 0.5)
 	$ExplosionSound.play()
 	score += 1
 	
-	if size <= 2: 
-		$HUD.update_score(score)
-	else:
-		for offset in [-1, 1]:
-			var dir = $Player.position.direction_to(pos).orthogonal() * offset
-			
-			var newpos = pos + dir * radius
-			var newvel = dir * vel.length() * 1.1
-			spawn_asteroid(size - 1, newpos, newvel)
-			$HUD.update_score(score)
+	$HUD.update_score(score)
 
 func _on_enemy_timer_timeout(): # enemy spawn
 	var e = enemy_scene.instantiate()

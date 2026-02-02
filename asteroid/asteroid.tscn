@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://bhrt44op5mi6s"]
 
 [ext_resource type="Script" uid="uid://cjxv0emd6jpsf" path="res://asteroid/asteroid.gd" id="1_iic4w"]
-[ext_resource type="Texture2D" uid="uid://chswsfmjap7tx" path="res://assets/asteroid/asteroid.png" id="2_84fqd"]
-[ext_resource type="Texture2D" uid="uid://cn70vuye720wg" path="res://assets/asteroid/explosion.png" id="3_7gw88"]
+[ext_resource type="Texture2D" uid="uid://cbxt68nf007il" path="res://asteroid/assets/asteroid.png" id="2_84fqd"]
+[ext_resource type="Texture2D" uid="uid://de8bjw0ohp4n6" path="res://asteroid/assets/asteroid_left_debris.png" id="2_k5a7f"]
+[ext_resource type="Texture2D" uid="uid://cn70vuye720wg" path="res://asteroid/assets/explosion.png" id="3_7gw88"]
+[ext_resource type="Texture2D" uid="uid://dtmh73gay75kr" path="res://asteroid/assets/asteroid_right_debris.png" id="3_cyn6k"]
 [ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="4_iic4w"]
 [ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="5_84fqd"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="6_7gw88"]
@@ -10,9 +12,29 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_olyy0"]
 bounce = 1.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gghyl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7ufr"]
+atlas = ExtResource("2_k5a7f")
+region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl1rw"]
+atlas = ExtResource("3_cyn6k")
+region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5a7f"]
 atlas = ExtResource("2_84fqd")
 region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyn6k"]
+atlas = ExtResource("2_84fqd")
+region = Rect2(38, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4nvy"]
+atlas = ExtResource("2_84fqd")
+region = Rect2(76, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gfwk"]
+atlas = ExtResource("2_84fqd")
+region = Rect2(114, 0, 38, 33)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y6kuk"]
 atlas = ExtResource("3_7gw88")
@@ -46,9 +68,34 @@ region = Rect2(576, 0, 96, 96)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gghyl")
+"texture": SubResource("AtlasTexture_f7ufr")
 }],
 "loop": true,
+"name": &"debris_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl1rw")
+}],
+"loop": true,
+"name": &"debris_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5a7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cyn6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4nvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gfwk")
+}],
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -78,6 +125,9 @@ animations = [{
 "name": &"explode",
 "speed": 18.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gw88"]
+radius = 65.12296
 
 [sub_resource type="Animation" id="Animation_84fqd"]
 length = 0.001
@@ -117,12 +167,6 @@ _data = {
 &"hurt": SubResource("Animation_iic4w")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_iic4w"]
-radius = 81.055534
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7gw88"]
-radius = 81.055534
-
 [node name="Asteroid" type="RigidBody2D" unique_id=1555947250 groups=["asteroids"]]
 position = Vector2(-1, 0)
 physics_material_override = SubResource("PhysicsMaterial_olyy0")
@@ -130,14 +174,17 @@ linear_damp_mode = 1
 script = ExtResource("1_iic4w")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2098477608 groups=["asteroids"]]
-scale = Vector2(4.25, 4.25)
+scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_8s8wb")
-autoplay = "default"
+animation = &"debris_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=352147838 groups=["asteroids"]]
+visible = false
+shape = SubResource("CircleShape2D_7gw88")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=659913720]
 libraries/ = SubResource("AnimationLibrary_84fqd")
+autoplay = &"RESET"
 speed_scale = 3.0
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1453108272]
@@ -147,7 +194,8 @@ damage = 1
 metadata/_custom_type_script = "uid://d33wds1kipash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=780293824]
-shape = SubResource("CircleShape2D_iic4w")
+visible = false
+shape = SubResource("CircleShape2D_7gw88")
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=2136352451 node_paths=PackedStringArray("health_component")]
 collision_layer = 6
@@ -157,10 +205,12 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://bh5hqmbepj133"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1711146476]
+visible = false
 shape = SubResource("CircleShape2D_7gw88")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=2027917006]
 script = ExtResource("6_7gw88")
+health = 3
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]

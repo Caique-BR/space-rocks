@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dpwttbn6dtxn" path="res://main/main.gd" id="1_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://bhrt44op5mi6s" path="res://asteroid/asteroid.tscn" id="2_c651c"]
 [ext_resource type="PackedScene" uid="uid://b2cr5fnxayhs6" path="res://player/player.tscn" id="2_xwkvk"]
-[ext_resource type="PackedScene" uid="uid://dcgcg5blxa5gh" path="res://enemy/enemy.tscn" id="3_kfbq2"]
+[ext_resource type="PackedScene" uid="uid://dcgcg5blxa5gh" path="res://enemies/saucer/enemy.tscn" id="3_kfbq2"]
 [ext_resource type="PackedScene" uid="uid://c28f8ive544sl" path="res://hud/hud.tscn" id="5_3wy1v"]
 [ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="7_grrlh"]
 [ext_resource type="AudioStream" uid="uid://dngoy0poqy7t7" path="res://assets/sounds/levelup.ogg" id="8_0i4oc"]
@@ -13,13 +13,14 @@
 
 [sub_resource type="Curve2D" id="Curve2D_c651c"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1920, 0, 0, 0, 0, 0, 1920, 1080, 0, 0, 0, 0, 0, 1080, 0, 0, 0, 0, 0, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 119, 62, 0, 0, 0, 0, 1808, 52, 0, 0, 0, 0, 1810, 1004, 0, 0, 0, 0, 118, 1010, 0, 0, 0, 0, 121, 63)
 }
 point_count = 5
 
 [node name="Main" type="Node" unique_id=1414078381]
 process_mode = 3
 script = ExtResource("1_xwkvk")
+DEBUGGING = true
 asteroid_scene = ExtResource("2_c651c")
 enemy_scene = ExtResource("3_kfbq2")
 
@@ -33,11 +34,11 @@ texture = ExtResource("1_pjrb6")
 position = Vector2(973, 542)
 
 [node name="RockPath" type="Path2D" parent="." unique_id=2123958418]
-position = Vector2(-147.55542, -82.99994)
-scale = Vector2(1.1537036, 1.1537036)
 curve = SubResource("Curve2D_c651c")
 
 [node name="RockSpawn" type="PathFollow2D" parent="RockPath" unique_id=95194906]
+position = Vector2(119, 62)
+rotation = -0.005920594
 
 [node name="HUD" parent="." unique_id=921773207 instance=ExtResource("5_3wy1v")]
 

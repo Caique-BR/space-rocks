@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b082g2egywgl"]
+
+[ext_resource type="Script" uid="uid://dgv5nv48qpahf" path="res://enemies/dreadnought/dreadnought.gd" id="1_vui1v"]
+
+[node name="Dreadnought" type="RigidBody2D" unique_id=1616877565]
+script = ExtResource("1_vui1v")

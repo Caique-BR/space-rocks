@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dcgcg5blxa5gh"]
 
 [ext_resource type="Texture2D" uid="uid://dtrg21vp1rrfb" path="res://assets/enemy_saucer.png" id="1_2mvqj"]
-[ext_resource type="Script" uid="uid://fbb7l2gpqu3p" path="res://enemy/enemy.gd" id="1_p200p"]
+[ext_resource type="Script" uid="uid://fbb7l2gpqu3p" path="res://enemies/saucer/enemy.gd" id="1_p200p"]
 [ext_resource type="PackedScene" uid="uid://rww14wrrravv" path="res://projectiles/laser/laser.tscn" id="2_78jik"]
-[ext_resource type="PackedScene" uid="uid://btajq18ixqwbo" path="res://enemy/enemy_paths.tscn" id="2_ppra6"]
+[ext_resource type="PackedScene" uid="uid://btajq18ixqwbo" path="res://enemies/saucer/enemy_paths.tscn" id="2_ppra6"]
 [ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="3_p200p"]
 [ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="6_1wwld"]
 [ext_resource type="AudioStream" uid="uid://kw56inesd5uj" path="res://assets/sounds/enemy_laser.wav" id="7_y5vj3"]
