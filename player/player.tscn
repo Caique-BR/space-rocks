@@ -33,16 +33,17 @@ radius = 34.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg6s5"]
 radius = 35.014282
 
-[node name="Player" type="RigidBody2D" unique_id=37309876]
+[node name="Player" type="RigidBody2D" unique_id=37309876 node_paths=PackedStringArray("air_exhaust_left", "air_exhaust_right")]
 contact_monitor = true
 max_contacts_reported = 1
 linear_damp = 1.0
 angular_damp = 5.0
 script = ExtResource("1_rkbax")
 laser_scene = ExtResource("2_yw30f")
+air_exhaust_left = NodePath("AirExhaustLeft")
+air_exhaust_right = NodePath("AirExhaustRight")
 
 [node name="RearExhaust" type="CPUParticles2D" parent="." unique_id=1080729462]
-visible = false
 show_behind_parent = true
 position = Vector2(-26, 0)
 rotation = -3.1415925

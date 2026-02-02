@@ -20,7 +20,6 @@ point_count = 5
 [node name="Main" type="Node" unique_id=1414078381]
 process_mode = 3
 script = ExtResource("1_xwkvk")
-DEBUGGING = true
 asteroid_scene = ExtResource("2_c651c")
 enemy_scene = ExtResource("3_kfbq2")
 

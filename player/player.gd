@@ -12,6 +12,8 @@ signal died
 @export var fire_rate = 0.25 # Sets the gun fire rate
 @export var engine_power = 500 # Sets the ships speed
 @export var spin_power = 8000 # Sets the shipss turn speed
+@export var air_exhaust_left : CPUParticles2D
+@export var air_exhaust_right : CPUParticles2D
 
 enum { INIT, ALIVE, INVUL, DEAD } # "FSM" to manage ships current state
 
@@ -28,9 +30,15 @@ var current_muzzle : int = 0 # Index of the current muzzle used as anchor for th
 ######################## SHIP METHODS
 
 func air_exhaust_show():
-	while get_local_mouse_position().y <= 0:
-		$AirExhaustRight.show()
-
+	if get_local_mouse_position().y <= 0 and air_exhaust_left.visible == false:
+		air_exhaust_right.hide()
+		air_exhaust_left.show()
+		print("left")
+	if get_local_mouse_position().y >= 0 and air_exhaust_right.visible == false:
+		air_exhaust_left.hide()
+		air_exhaust_right.show()
+		print("right")
+		
 func shoot(): 
 	if state == INVUL: return # can't shoot and be invulnerable at the same time
 
@@ -90,16 +98,27 @@ func _ready():
 	$GunCooldown.wait_time = fire_rate
 
 func _physics_process(_delta):
+	print(floori(get_local_mouse_position().y))
+	if floori(get_local_mouse_position().y)  < -80:
+		air_exhaust_right.hide()
+		air_exhaust_left.show()
+	elif floori(get_local_mouse_position().y)  > 80:
+		air_exhaust_left.hide()
+		air_exhaust_right.show()
+	else:
+		air_exhaust_left.hide()
+		air_exhaust_right.hide()
 	
-	while get_local_mouse_position().y <= 0:
-		$AirExhaustRight.show()
+	
+	
 	
 	
 	constant_force = thrust
 	var mouse_pos = get_global_mouse_position()
 	var new_rotatation = rotation + get_angle_to(mouse_pos)
+	
 	rotation = lerp_angle(rotation, new_rotatation, 0.06)
-
+	
 func _integrate_forces(physics_state): # screenwrap
 	var xform = physics_state.transform
 	
