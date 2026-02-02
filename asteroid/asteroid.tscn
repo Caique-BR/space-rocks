@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://chswsfmjap7tx" path="res://assets/asteroid/asteroid.png" id="2_84fqd"]
 [ext_resource type="Texture2D" uid="uid://cn70vuye720wg" path="res://assets/asteroid/explosion.png" id="3_7gw88"]
 [ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="4_iic4w"]
+[ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="5_84fqd"]
+[ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="6_7gw88"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_olyy0"]
 bounce = 1.0
@@ -118,6 +120,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_iic4w"]
 radius = 81.055534
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gw88"]
+radius = 81.055534
+
 [node name="Asteroid" type="RigidBody2D" unique_id=1555947250 groups=["asteroids"]]
 position = Vector2(-1, 0)
 physics_material_override = SubResource("PhysicsMaterial_olyy0")
@@ -143,3 +148,20 @@ metadata/_custom_type_script = "uid://d33wds1kipash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=780293824]
 shape = SubResource("CircleShape2D_iic4w")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=2136352451 node_paths=PackedStringArray("health_component")]
+collision_layer = 6
+collision_mask = 6
+script = ExtResource("5_84fqd")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://bh5hqmbepj133"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1711146476]
+shape = SubResource("CircleShape2D_7gw88")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=2027917006]
+script = ExtResource("6_7gw88")
+metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
+
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]

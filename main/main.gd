@@ -7,6 +7,8 @@ extends Node
 @export var asteroid_scene : PackedScene
 @export var enemy_scene : PackedScene
 
+@onready var camera : Camera = get_node("Camera2D")
+
 var screensize = Vector2.ZERO
 var level = 0
 var score = 0
@@ -87,8 +89,10 @@ func _input(event): # pause game func
 ## SIGNAL HANDLERS
 
 func _on_asteroid_exploded(size, radius, pos, vel): #dupes the asteroids that gets shot
+	#camera.screen_shake(15, 0.5)
 	$ExplosionSound.play()
 	score += 1
+	
 	if size <= 2: 
 		$HUD.update_score(score)
 	else:

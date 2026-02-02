@@ -26,12 +26,15 @@ enemy_scene = ExtResource("3_kfbq2")
 [node name="Background" type="Sprite2D" parent="." unique_id=1517349513]
 texture_filter = 1
 position = Vector2(960, 540)
+scale = Vector2(1.1537038, 1.1537037)
 texture = ExtResource("1_pjrb6")
 
 [node name="Player" parent="." unique_id=37309876 instance=ExtResource("2_xwkvk")]
 position = Vector2(973, 542)
 
 [node name="RockPath" type="Path2D" parent="." unique_id=2123958418]
+position = Vector2(-147.55542, -82.99994)
+scale = Vector2(1.1537036, 1.1537036)
 curve = SubResource("Curve2D_c651c")
 
 [node name="RockSpawn" type="PathFollow2D" parent="RockPath" unique_id=95194906]
@@ -53,8 +56,7 @@ stream = ExtResource("9_bsumw")
 volume_db = -10.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1809309133 node_paths=PackedStringArray("player")]
-offset = Vector2(960, 540)
-enabled = false
+position = Vector2(960, 540)
 script = ExtResource("10_0i4oc")
 player = NodePath("../Player")
 

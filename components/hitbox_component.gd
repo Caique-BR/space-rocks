@@ -1,10 +1,13 @@
 class_name HitboxComponent
 extends Area2D
 
-@export var damage : int = 0: set = set_damage, get = get_damage
+signal hit(hurtbox)
 
-func set_damage(value: int) -> void:
-	damage = value
-	
-func get_damage() -> int:
-	return damage
+@export var damage : int = 0
+
+func _ready() -> void:
+	connect("area_entered", _on_area_entered)
+
+func _on_area_entered(area):
+	if area is HurtboxComponent:
+		emit_signal("hit", area)

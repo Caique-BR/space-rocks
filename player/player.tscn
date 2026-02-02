@@ -155,7 +155,6 @@ shield = 100.0
 metadata/_custom_type_script = "uid://cningoo26cdpa"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=2055247690 node_paths=PackedStringArray("health_component", "shield_component")]
-collision_layer = 0
 script = ExtResource("9_hg6s5")
 health_component = NodePath("../HealthComponent")
 shield_component = NodePath("../ShieldComponent")

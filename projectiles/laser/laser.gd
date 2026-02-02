@@ -14,6 +14,7 @@ func start(layer: int, _transform : Transform2D, _transform_x: Vector2): # calls
 	transform.x = _transform_x
 	velocity = transform.x * speed
 	hitbox_component.set_collision_layer_value(layer, true)
+	hitbox_component.set_collision_mask_value(layer, true)
 
 func explode_bullet(): # Called when bullet hits something
 	## The bullet disappearing instanly after hitting a target does not give enough response to the player
@@ -33,6 +34,9 @@ func explode_bullet(): # Called when bullet hits something
 	
 func _process(delta):
 	position += velocity * delta
+
+func _on_hit(_hurtbox: Variant) -> void:
+	explode_bullet()
 
 func _on_visible_on_screen_notifier_2d_screen_exited(): # delets the bullet when exiting the sceen
 	queue_free()

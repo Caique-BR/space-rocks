@@ -98,7 +98,6 @@ func _ready():
 	$GunCooldown.wait_time = fire_rate
 
 func _physics_process(_delta):
-	print(floori(get_local_mouse_position().y))
 	if floori(get_local_mouse_position().y)  < -80:
 		air_exhaust_right.hide()
 		air_exhaust_left.show()
@@ -108,10 +107,6 @@ func _physics_process(_delta):
 	else:
 		air_exhaust_left.hide()
 		air_exhaust_right.hide()
-	
-	
-	
-	
 	
 	constant_force = thrust
 	var mouse_pos = get_global_mouse_position()
