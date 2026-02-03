@@ -4,12 +4,10 @@ signal health_changed(new_health)
 signal shield_changed(new_shield)
 signal died
 
-@onready var radius = int($Sprite2D.texture.get_size().x / 2 * $Sprite2D.scale.x) # makes the screen wrap smoother
-@onready var muzzles : Array[Node] = $Muzzles.get_children() # stores both muzzles on a list (array)
+@onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
 @onready var shield_component : ShieldComponent = get_node("ShieldComponent")
+@onready var radius : int
 
-@export var laser_scene : PackedScene
-@export var fire_rate = 0.25 # Sets the gun fire rate
 @export var engine_power = 500 # Sets the ships speed
 @export var spin_power = 8000 # Sets the shipss turn speed
 
@@ -22,30 +20,8 @@ var rotation_dir = 0 # Ships turn direction
 
 var state = INIT
 var reset_pos = false
-var can_shoot = true
-var current_muzzle : int = 0 # Index of the current muzzle used as anchor for the next bullet
 
-######################## SHIP METHODS
-
-func shoot(): 
-	if state == INVUL: return # can't shoot and be invulnerable at the same time
-
-	can_shoot = false
-	
-	var laser = laser_scene.instantiate()
-	get_tree().root.add_child(laser)
-	
-	var mouse_pos : Vector2 = get_global_mouse_position()
-	var final_transform : Transform2D = muzzles[current_muzzle].global_transform
-	var final_position : Vector2 = muzzles[current_muzzle].global_position
-	var final_transform_x : Vector2 = (mouse_pos - final_position).normalized()
-	
-	laser.start(2, final_transform, final_transform_x)
-
-	current_muzzle = 1 - current_muzzle
-
-	$GunCooldown.start()
-	$LaserSound.play()
+## SHIP METHODS
 
 func explode(): # Player explode animation
 	$Explosion.show()
@@ -55,35 +31,36 @@ func explode(): # Player explode animation
 
 func reset(): # Resets the game for the next try
 	reset_pos = true
-	$Sprite2D.show()
+	ship_sprite.show()
 	change_state(ALIVE)
 
 func change_state(new_state): # Code for the "FSM", uses the match to determ the state of the ship
 	match new_state:
 		INIT:
 			$CollisionShape2D.set_deferred("disabled", true)
-			$Sprite2D.modulate.a = .5 
+			ship_sprite.modulate.a = .5 
 		ALIVE:
 			$CollisionShape2D.set_deferred("disabled", false)
-			$Sprite2D.modulate.a = 1
+			ship_sprite.modulate.a = 1
 		INVUL:
 			$CollisionShape2D.set_deferred("disabled", true)
-			$Sprite2D.modulate.a = .5 # modulate changes the opacity of the sprite, when half transparent the player is immune to dmg
+			ship_sprite.modulate.a = .5 # modulate changes the opacity of the sprite, when half transparent the player is immune to dmg
 			$InvulnerabilityTimer.start()
 		DEAD:
 			$CollisionShape2D.set_deferred("disabled", true)
-			$Sprite2D.hide()
+			ship_sprite.hide()
 			linear_velocity = Vector2.ZERO
 			died.emit()
 			$EngineSound.stop()
 	state = new_state
 
-######################## BUILT-IN METHODS
+## BUILT-IN METHODS
 
 func _ready():
 	change_state(ALIVE)
 	screensize = get_viewport_rect().size
-	$GunCooldown.wait_time = fire_rate
+	radius = int(ship_sprite.sprite_frames.get_frame_texture("default", 0).get_size().x / 2 * ship_sprite.scale.x)
+	
 
 func _physics_process(_delta):
 	constant_force = thrust
@@ -103,7 +80,7 @@ func _integrate_forces(physics_state): # screenwrap
 		physics_state.transform.origin = screensize / 2
 		reset_pos = false
 
-####################### SIGNAL HANDLERS
+## SIGNAL HANDLERS
 
 func _on_health_changed(new_health): # set the starting lives for the player
 	change_state(INVUL)
@@ -114,9 +91,6 @@ func _on_health_depleted() -> void:
 
 func _on_shield_changed(new_shield: float):
 	shield_changed.emit(new_shield / shield_component.max_shield)
-
-func _on_gun_cooldown_timeout(): # refresh the gun on cooldown end
-	can_shoot = true
 
 func _on_invulnerability_timer_timeout(): # time immune after taking dmg
 	change_state(ALIVE)
