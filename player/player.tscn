@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://b2cr5fnxayhs6"]
 
 [ext_resource type="Script" uid="uid://cbw00gtxpj8sc" path="res://player/player.gd" id="1_rkbax"]
-[ext_resource type="PackedScene" uid="uid://rww14wrrravv" path="res://projectiles/laser/laser.tscn" id="2_yw30f"]
+[ext_resource type="Script" uid="uid://uvjvtnuj3d2b" path="res://player/weapons/weapon_module.gd" id="2_yllr7"]
+[ext_resource type="Texture2D" uid="uid://beomgdn6psmo6" path="res://player/assets/ship_dmg0.png" id="3_2ieo8"]
 [ext_resource type="Texture2D" uid="uid://djotuycnviqby" path="res://player/assets/ship.png" id="3_8t03j"]
+[ext_resource type="PackedScene" uid="uid://byo566t5go7kd" path="res://player/weapons/cannon/cannon.tscn" id="3_yllr7"]
+[ext_resource type="Texture2D" uid="uid://ce6cbkkl1ebyh" path="res://player/assets/ship_dmg1.png" id="4_ebec5"]
 [ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="4_yw30f"]
-[ext_resource type="AudioStream" uid="uid://jrp3gj72c0t6" path="res://assets/sounds/laser.ogg" id="5_g6k8r"]
+[ext_resource type="Texture2D" uid="uid://88xkle8ei4g6" path="res://player/assets/ship_dmg2.png" id="5_yllr7"]
 [ext_resource type="AudioStream" uid="uid://u8tjqsmo33hg" path="res://assets/sounds/engine.ogg" id="6_boad6"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="7_boad6"]
 [ext_resource type="Script" uid="uid://delb4ia663h6v" path="res://player/components/player_input_component.gd" id="8_rgyib"]
@@ -22,6 +25,26 @@ colors = PackedColorArray(1, 0.8, 0.14901961, 1, 0.8627451, 0.1254902, 0.0823529
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 34.0
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_kb6p2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8t03j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2ieo8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ebec5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yllr7")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg6s5"]
 radius = 35.014282
 
@@ -31,7 +54,6 @@ max_contacts_reported = 1
 linear_damp = 1.0
 angular_damp = 5.0
 script = ExtResource("1_rkbax")
-laser_scene = ExtResource("2_yw30f")
 
 [node name="RearExhaust" type="CPUParticles2D" parent="." unique_id=1080729462]
 show_behind_parent = true
@@ -54,23 +76,21 @@ color_ramp = SubResource("Gradient_boad6")
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_onrkg")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=769966194]
+[node name="WeaponModule" type="Node2D" parent="." unique_id=1709160419 node_paths=PackedStringArray("current_weapon")]
+script = ExtResource("2_yllr7")
+current_weapon = NodePath("Cannon")
+
+[node name="Cannon" parent="WeaponModule" unique_id=1175998548 instance=ExtResource("3_yllr7")]
+
+[node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=1026891787]
 texture_filter = 1
 position = Vector2(3.999999, 0)
 rotation = 1.5707964
-scale = Vector2(2.185, 2.185)
-texture = ExtResource("3_8t03j")
+scale = Vector2(2.1, 2.1)
+sprite_frames = SubResource("SpriteFrames_kb6p2")
 
 [node name="Explosion" parent="." unique_id=1727476015 instance=ExtResource("4_yw30f")]
 visible = false
-
-[node name="Muzzles" type="Node2D" parent="." unique_id=758845634]
-
-[node name="MuzzleLeft" type="Marker2D" parent="Muzzles" unique_id=1178629661]
-position = Vector2(20, -13)
-
-[node name="MuzzleRight" type="Marker2D" parent="Muzzles" unique_id=1198246777]
-position = Vector2(20, 13)
 
 [node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1589903483]
 wait_time = 2.0
@@ -79,10 +99,6 @@ one_shot = true
 [node name="GunCooldown" type="Timer" parent="." unique_id=1055391723]
 one_shot = true
 autostart = true
-
-[node name="LaserSound" type="AudioStreamPlayer" parent="." unique_id=248277576]
-stream = ExtResource("5_g6k8r")
-volume_db = -20.0
 
 [node name="EngineSound" type="AudioStreamPlayer" parent="." unique_id=1321843519]
 stream = ExtResource("6_boad6")
@@ -120,4 +136,5 @@ shape = SubResource("CircleShape2D_hg6s5")
 [connection signal="timeout" from="GunCooldown" to="." method="_on_gun_cooldown_timeout"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
+[connection signal="shoot" from="PlayerInputComponent" to="WeaponModule" method="_on_shoot"]
 [connection signal="shield_changed" from="ShieldComponent" to="." method="_on_shield_changed"]
