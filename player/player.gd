@@ -97,6 +97,9 @@ func _ready():
 	screensize = get_viewport_rect().size
 	$GunCooldown.wait_time = fire_rate
 
+func _process(_delta: float) -> void:
+	print(transform)
+
 func _physics_process(_delta):
 	if floori(get_local_mouse_position().y)  < -80:
 		air_exhaust_right.hide()

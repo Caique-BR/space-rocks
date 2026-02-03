@@ -7,12 +7,12 @@ signal damage_taken(total: int)
 @export var shield_component: ShieldComponent
 
 func disable_hurtbox():
-	set_deferred("monitorable", false)	
-	set_deferred("monitoring", false)	
+	set_deferred("monitorable", false)
+	set_deferred("monitoring", false)
 
 func enable_hurtbox():
-	set_deferred("monitorable", true)	
-	set_deferred("monitoring", true)	
+	set_deferred("monitorable", true)
+	set_deferred("monitoring", true)
 
 ## BUILT-IN
 

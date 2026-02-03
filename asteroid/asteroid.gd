@@ -2,6 +2,8 @@ class_name Asteroid extends RigidBody2D
 
 signal exploded
 
+@export var asteroid_scene : PackedScene = load("res://asteroid/asteroid.tscn")
+
 @onready var animated_sprite2d : AnimatedSprite2D = get_node("AnimatedSprite2D")
 @onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
 @onready var collision_shape2d : CollisionShape2D = get_node("CollisionShape2D")
@@ -13,14 +15,22 @@ signal exploded
 
 var screensize = Vector2.ZERO
 var tween_spawn : Tween
+var is_debris : bool = false
+var debris_side : int = 0
 
-func start(_position, _velocity): # handles asteroid creation size and speed
-	position = _position
-	linear_velocity = _velocity
+func start(pos, vel): # handles asteroid creation size and speed
+	position = pos
+	linear_velocity = vel
 	angular_velocity = randf_range(-PI, PI)
 
-func explode(): # asteroid goes boom
-	
+func start_debris(pos, vel, side): # handles asteroid creation size and speed
+	is_debris = true
+	position = pos
+	linear_velocity = vel
+	angular_velocity = randf_range(-PI, PI)
+	debris_side = side
+
+func explode(): 
 	collision_shape2d.set_deferred("disabled", true)
 	linear_velocity = Vector2.ZERO
 	
@@ -29,11 +39,25 @@ func explode(): # asteroid goes boom
 	await animated_sprite2d.animation_finished
 	
 	exploded.emit() # emits the exploded signal for dupping asteroids
-	queue_free()
+	
+	if is_debris: queue_free()
+	else: create_debris(-1)
+
+func create_debris(side: int):
+	
+	
+	var debris : Asteroid = asteroid_scene.instantiate()
+	debris.start_debris(global_position, linear_velocity, side)
+	
+	get_parent().call_deferred("add_child", debris)
 
 ## BUILT-IN
 
 func _ready() -> void:
+	if is_debris:
+		if debris_side == -1: animated_sprite2d.animation = "debris_left"
+		else: animated_sprite2d.animation = "debris_right"
+
 	animated_sprite2d.scale = Vector2(1.0, 1.0)
 	tween_spawn = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween_spawn.tween_property(animated_sprite2d, "scale", Vector2(3.5, 3.5), 1)
