@@ -5,11 +5,11 @@ signal hit(hurtbox)
 
 @export var damage : int = 0
 
-func disable_hurtbox():
+func disable_hitbox():
 	set_deferred("monitorable", false)
 	set_deferred("monitoring", false)
 
-func enable_hurtbox():
+func enable_hitbox():
 	set_deferred("monitorable", true)
 	set_deferred("monitoring", true)
 

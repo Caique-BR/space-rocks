@@ -2,8 +2,6 @@ class_name Asteroid extends RigidBody2D
 
 signal exploded
 
-@export var asteroid_scene : PackedScene = load("res://asteroid/asteroid.tscn")
-
 @onready var animated_sprite2d : AnimatedSprite2D = get_node("AnimatedSprite2D")
 @onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
 @onready var collision_shape2d : CollisionShape2D = get_node("CollisionShape2D")
@@ -47,10 +45,7 @@ func explode():
 		queue_free()
 
 func create_debris(side: int):
-	hitbox_component.disable_hurtbox()
-	hurtbox_component.disable_hurtbox()
-	
-	var debris : Asteroid = asteroid_scene.instantiate()
+	var debris : Asteroid = duplicate()
 	var debris_velocity = (transform.x * side) * 100
 	
 	debris.start_debris(global_position + (transform.x * 10) * side, debris_velocity, side)
@@ -61,9 +56,14 @@ func create_debris(side: int):
 
 func _ready() -> void:
 	screensize = get_viewport().get_visible_rect().size
+	
 	if is_debris:
 		if debris_side == -1: animated_sprite2d.animation = "debris_left"
 		else: animated_sprite2d.animation = "debris_right"
+		collision_shape2d.set_deferred("disabled", false)
+		health_component.max_health = 2
+		hitbox_component.enable_hitbox()
+		hurtbox_component.enable_hurtbox()
 
 	animated_sprite2d.scale = Vector2(1.0, 1.0)
 	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -78,6 +78,8 @@ func _integrate_forces(physics_state): # screen wrap for the asteroids
 ## SIGNAL HANDLERS
 
 func _on_health_changed(_health: int) -> void:
+	if _health == health_component.max_health: return
+	
 	animation_player.play("hurt")
 	animated_sprite2d.frame += 1
 	animated_sprite2d.scale = Vector2(3, 3)
@@ -88,6 +90,9 @@ func _on_health_changed(_health: int) -> void:
 
 func _on_health_depleted() -> void:
 	animation_player.play("hurt")
-	CameraControls.camera.screen_shake(10, 0.25)
+	
+	hitbox_component.disable_hitbox()
 	hurtbox_component.disable_hurtbox()
+	
+	CameraControls.camera.screen_shake(10, 0.25)
 	explode()

@@ -154,7 +154,6 @@ _data = {
 }
 
 [node name="Asteroid" type="RigidBody2D" unique_id=1555947250 groups=["asteroids"]]
-position = Vector2(-1, 0)
 physics_material_override = SubResource("PhysicsMaterial_olyy0")
 linear_damp_mode = 1
 script = ExtResource("1_iic4w")
@@ -162,7 +161,6 @@ script = ExtResource("1_iic4w")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2098477608 groups=["asteroids"]]
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_8s8wb")
-animation = &"debris_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=352147838 groups=["asteroids"]]
 visible = false
@@ -196,7 +194,7 @@ shape = SubResource("CircleShape2D_7gw88")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=2027917006]
 script = ExtResource("6_7gw88")
-health = 3
+max_health = 3
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]

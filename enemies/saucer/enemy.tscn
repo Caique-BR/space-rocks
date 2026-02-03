@@ -85,7 +85,7 @@ libraries/ = SubResource("AnimationLibrary_5ffra")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1393354376]
 script = ExtResource("9_78jik")
-health = 3
+max_health = 3
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1998445922 node_paths=PackedStringArray("health_component")]

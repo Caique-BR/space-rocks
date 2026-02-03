@@ -1,15 +1,29 @@
 class_name HealthComponent
 extends Node
 
-signal health_changed(old_value: int, new_value: int)
+signal max_health_changed(new_value: int)
+signal health_changed(new_value: int)
 signal health_depleted
 
-@export var health : int = 0: set = set_health
+@export var max_health : int = 0: set = set_max_health;
+var health : int = 0: set = set_health
+
+func _ready() -> void:
+	health = max_health
+
+func set_max_health(value: int) -> void:
+	var clamped_value : int = 1 if value <= 0 else value
+	
+	if not clamped_value == max_health:
+		max_health = value
+		max_health_changed.emit(max_health)
+		
+		if health > max_health:
+			health = max_health
 
 func set_health(value: int) -> void:
 	health = value
-
-	if health <= 0:
-		health_depleted.emit()
-	else:
-		health_changed.emit(health)
+	
+	if not health == max_health:
+		if health <= 0: health_depleted.emit()
+		else: health_changed.emit(health)

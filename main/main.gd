@@ -84,6 +84,18 @@ func _input(event): # pause game func
 		else:
 			message.text = ""
 			message.hide()
+	if event.is_action_pressed("spawn_asteroid"):
+		$RockPath/RockSpawn.progress = randi()
+
+		var pos = get_viewport().get_mouse_position()
+		var vel = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
+
+		var a : Asteroid = asteroid_scene.instantiate()
+
+		a.start(pos, vel)
+		a.exploded.connect(self._on_asteroid_exploded)
+		call_deferred("add_child", a)
+
 
 ## SIGNAL HANDLERS
 
@@ -103,8 +115,4 @@ func _on_enemy_timer_timeout(): # enemy spawn
 func _on_dreadnought_timertest_timeout() -> void:
 	var e = dreadnought_scene.instantiate()
 	e.position = Vector2(950, 200)
-	add_child(e)
-	
-	
-	
-	pass
+	#add_child(e)

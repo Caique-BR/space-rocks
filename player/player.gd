@@ -12,8 +12,6 @@ signal died
 @export var fire_rate = 0.25 # Sets the gun fire rate
 @export var engine_power = 500 # Sets the ships speed
 @export var spin_power = 8000 # Sets the shipss turn speed
-@export var air_exhaust_left : CPUParticles2D
-@export var air_exhaust_right : CPUParticles2D
 
 enum { INIT, ALIVE, INVUL, DEAD } # "FSM" to manage ships current state
 
@@ -88,16 +86,6 @@ func _ready():
 	$GunCooldown.wait_time = fire_rate
 
 func _physics_process(_delta):
-	if floori(get_local_mouse_position().y)  < -80:
-		air_exhaust_right.hide()
-		air_exhaust_left.show()
-	elif floori(get_local_mouse_position().y)  > 80:
-		air_exhaust_left.hide()
-		air_exhaust_right.show()
-	else:
-		air_exhaust_left.hide()
-		air_exhaust_right.hide()
-	
 	constant_force = thrust
 	var mouse_pos = get_global_mouse_position()
 	var new_rotatation = rotation + get_angle_to(mouse_pos)

@@ -17,25 +17,20 @@ func start(layer: int, _transform : Transform2D, _transform_x: Vector2): # calls
 	hitbox_component.set_collision_mask_value(layer, true)
 
 func explode_bullet(): # Called when bullet hits something
-	## The bullet disappearing instanly after hitting a target does not give enough response to the player
-	## This function guarantees that after hitting a target the bullet will then play a exploding animation and the leaves the screen 
-	
-	## This prevents bullet from hitting a target again while on exploding animation
-	
-	velocity = Vector2.ZERO ## We set velocity to Vector.ZERO so the bullet ceases moving
+	velocity = Vector2.ZERO
 	
 	bullet_sprite.hide()
 	explosion_sprite.show()
-	## We hide the bullet sprite and start showing the explosion to start the animation
 	
-	explosion_sprite.play("explode") ## Tells the explosion sprite to start animating
-	await explosion_sprite.animation_finished ## Wait for the animation to finish
-	queue_free() ## Safely remove bullet from the scene
+	explosion_sprite.play("explode")
+	await explosion_sprite.animation_finished
+	queue_free()
 	
 func _process(delta):
 	position += velocity * delta
 
 func _on_hit(_hurtbox: Variant) -> void:
+	hitbox_component.disable_hitbox()
 	explode_bullet()
 
 func _on_visible_on_screen_notifier_2d_screen_exited(): # delets the bullet when exiting the sceen
