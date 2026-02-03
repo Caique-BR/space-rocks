@@ -17,8 +17,16 @@ atlas = ExtResource("2_k5a7f")
 region = Rect2(0, 0, 38, 33)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yl1rw"]
+atlas = ExtResource("2_k5a7f")
+region = Rect2(38, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oasy2"]
 atlas = ExtResource("3_cyn6k")
 region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1svxc"]
+atlas = ExtResource("3_cyn6k")
+region = Rect2(38, 0, 38, 33)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k5a7f"]
 atlas = ExtResource("2_84fqd")
@@ -48,27 +56,14 @@ region = Rect2(96, 0, 96, 96)
 atlas = ExtResource("3_7gw88")
 region = Rect2(192, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4drs7"]
-atlas = ExtResource("3_7gw88")
-region = Rect2(288, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmxhy"]
-atlas = ExtResource("3_7gw88")
-region = Rect2(384, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ddiw"]
-atlas = ExtResource("3_7gw88")
-region = Rect2(480, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e26ss"]
-atlas = ExtResource("3_7gw88")
-region = Rect2(576, 0, 96, 96)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_8s8wb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f7ufr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl1rw")
 }],
 "loop": true,
 "name": &"debris_left",
@@ -76,7 +71,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yl1rw")
+"texture": SubResource("AtlasTexture_oasy2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1svxc")
 }],
 "loop": true,
 "name": &"debris_right",
@@ -108,18 +106,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_61b0o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4drs7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pmxhy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ddiw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e26ss")
 }],
 "loop": false,
 "name": &"explode",

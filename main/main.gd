@@ -19,13 +19,11 @@ func spawn_asteroid():
 	$RockPath/RockSpawn.progress = randi()
 
 	var pos = $RockPath/RockSpawn.position
-	print(pos)
 	var vel = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
 
 	var a : Asteroid = asteroid_scene.instantiate()
 
 	a.start(pos, vel)
-	a.screensize = screensize
 	a.exploded.connect(self._on_asteroid_exploded)
 	call_deferred("add_child", a)
 
@@ -102,7 +100,7 @@ func _on_enemy_timer_timeout(): # enemy spawn
 	e.target = $Player
 	$EnemyTimer.start(randf_range(20, 40)) # reset the enemy timer 
 
-
 func _on_dreadnought_timertest_timeout() -> void:
-	var e = dreadnought_scene.instantiate()
-	add_child(e)
+	#var e = dreadnought_scene.instantiate()
+	#add_child(e)
+	pass

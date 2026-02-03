@@ -14,7 +14,7 @@ signal exploded
 @onready var asteroid_texture : Texture2D = load("res://assets/asteroid/asteroid.png")
 
 var screensize = Vector2.ZERO
-var tween_spawn : Tween
+var tween : Tween
 var is_debris : bool = false
 var debris_side : int = 0
 
@@ -41,26 +41,33 @@ func explode():
 	exploded.emit() # emits the exploded signal for dupping asteroids
 	
 	if is_debris: queue_free()
-	else: create_debris(-1)
+	else:
+		for s in [-1, 1]:
+			create_debris(s)
+		queue_free()
 
 func create_debris(side: int):
-	
+	hitbox_component.disable_hurtbox()
+	hurtbox_component.disable_hurtbox()
 	
 	var debris : Asteroid = asteroid_scene.instantiate()
-	debris.start_debris(global_position, linear_velocity, side)
+	var debris_velocity = (transform.x * side) * 100
+	
+	debris.start_debris(global_position + (transform.x * 10) * side, debris_velocity, side)
 	
 	get_parent().call_deferred("add_child", debris)
 
 ## BUILT-IN
 
 func _ready() -> void:
+	screensize = get_viewport().get_visible_rect().size
 	if is_debris:
 		if debris_side == -1: animated_sprite2d.animation = "debris_left"
 		else: animated_sprite2d.animation = "debris_right"
 
 	animated_sprite2d.scale = Vector2(1.0, 1.0)
-	tween_spawn = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	tween_spawn.tween_property(animated_sprite2d, "scale", Vector2(3.5, 3.5), 1)
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(animated_sprite2d, "scale", Vector2(3.5, 3.5), 1)
 
 func _integrate_forces(physics_state): # screen wrap for the asteroids
 	var xform = physics_state.transform
@@ -73,9 +80,11 @@ func _integrate_forces(physics_state): # screen wrap for the asteroids
 func _on_health_changed(_health: int) -> void:
 	animation_player.play("hurt")
 	animated_sprite2d.frame += 1
-	animated_sprite2d.scale = Vector2(3.25, 3.25)
-	tween_spawn = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	tween_spawn.tween_property(animated_sprite2d, "scale", Vector2(3.5, 3.5), 0.5)
+	animated_sprite2d.scale = Vector2(3, 3)
+	
+	if tween: tween.kill()
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(animated_sprite2d, "scale", Vector2(3.5, 3.5), 0.5)
 
 func _on_health_depleted() -> void:
 	animation_player.play("hurt")
