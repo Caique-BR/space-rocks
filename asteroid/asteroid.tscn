@@ -154,6 +154,7 @@ _data = {
 }
 
 [node name="Asteroid" type="RigidBody2D" unique_id=1555947250 groups=["asteroids"]]
+mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_olyy0")
 linear_damp_mode = 1
 script = ExtResource("1_iic4w")
