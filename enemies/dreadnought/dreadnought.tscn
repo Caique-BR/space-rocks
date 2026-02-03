@@ -360,15 +360,14 @@ radius = 88.0
 height = 320.0
 
 [node name="Dreadnought" type="AnimatableBody2D" unique_id=666695883]
-rotation = 1.5707964
-constant_linear_velocity = Vector2(196.51, 22.695)
 script = ExtResource("1_vui1v")
-checkpoints = Array[Vector2]([Vector2(950, 280), Vector2(950, 144), Vector2(256, 144), Vector2(256, 960), Vector2(1650, 144), Vector2(1650, 960)])
+checkpoints = Array[Vector2]([Vector2(950, -200), Vector2(950, 144), Vector2(256, 144), Vector2(256, 960), Vector2(1650, 144), Vector2(1650, 960)])
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=775575944]
+rotation = 1.5707964
 scale = Vector2(3.25, 3.25)
 sprite_frames = SubResource("SpriteFrames_g4n8t")
-animation = &"shoot"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=923101043]
 visible = false

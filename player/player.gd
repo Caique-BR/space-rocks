@@ -29,16 +29,6 @@ var current_muzzle : int = 0 # Index of the current muzzle used as anchor for th
 
 ######################## SHIP METHODS
 
-func air_exhaust_show():
-	if get_local_mouse_position().y <= 0 and air_exhaust_left.visible == false:
-		air_exhaust_right.hide()
-		air_exhaust_left.show()
-		print("left")
-	if get_local_mouse_position().y >= 0 and air_exhaust_right.visible == false:
-		air_exhaust_left.hide()
-		air_exhaust_right.show()
-		print("right")
-		
 func shoot(): 
 	if state == INVUL: return # can't shoot and be invulnerable at the same time
 
