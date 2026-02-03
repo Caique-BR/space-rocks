@@ -114,5 +114,5 @@ func _on_enemy_timer_timeout(): # enemy spawn
 
 func _on_dreadnought_timertest_timeout() -> void:
 	var e = dreadnought_scene.instantiate()
-	e.position = Vector2(950, 200)
-	#add_child(e)
+	e.position = Vector2(950, -200)
+	add_child(e)
