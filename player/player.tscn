@@ -86,6 +86,7 @@ volume_db = -20.0
 
 [node name="EngineSound" type="AudioStreamPlayer" parent="." unique_id=1321843519]
 stream = ExtResource("6_boad6")
+volume_db = -10.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1302177192]
 script = ExtResource("7_boad6")
