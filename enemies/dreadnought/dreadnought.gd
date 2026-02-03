@@ -10,25 +10,51 @@ var tween_move : Tween
 
 func _ready() -> void:
 	var next_position: Vector2 = checkpoints[0]
-	move_to_spawn(next_position)
+	move_to_spawn()
 
 
 	
-func move_to_spawn(to: Vector2): # boss arrives from outside the top center of the screen and stop a top mid of screen
+func move_to_spawn(): # boss arrives from outside the top center of the screen and stop a top mid of screen
 	
-		look_at(to)
+		look_at(checkpoints[0])
 		if tween_move: tween_move.kill()
 		tween_move = create_tween()
-		tween_move.tween_property(self, "position", to, 1)
-		
+		tween_move.tween_property(self, "position", checkpoints[0], 3)
+		tween_move.tween_interval(3)
 		tween_move.finished.connect(move_to_top_left)
 		
-		
-		
 func move_to_top_left(): 
-		print("finished")
 		look_at(checkpoints[1])
 		if tween_move: tween_move.kill()
 		tween_move = create_tween()
-		tween_move.tween_property(self, "position", checkpoints[1], 1)
+		tween_move.tween_property(self, "position", checkpoints[1], 3)
+		##shots at the player
+		##spawn enemies
+		tween_move.tween_interval(3)
+		tween_move.finished.connect(move_to_bottom_right)
+		look_at(get_tree().get_nodes_in_group("player")[0].global_position)
+
+
+func move_to_bottom_right():
+		look_at(checkpoints[4])
+		if tween_move: tween_move.kill()
+		tween_move = create_tween()
+		tween_move.tween_property(self, "position", checkpoints[4], 3)
+		tween_move.tween_interval(3)
+		tween_move.finished.connect(move_to_top_right)
 		
+func move_to_top_right():
+		look_at(checkpoints[3])
+		if tween_move: tween_move.kill()
+		tween_move = create_tween()
+		tween_move.tween_property(self, "position", checkpoints[3], 3)
+		tween_move.tween_interval(3)
+		tween_move.finished.connect(move_to_bottom_left)
+		
+func move_to_bottom_left():
+		look_at(checkpoints[2])
+		if tween_move: tween_move.kill()
+		tween_move = create_tween()
+		tween_move.tween_property(self, "position", checkpoints[2], 3)
+		tween_move.tween_interval(3)
+		tween_move.finished.connect(move_to_top_left)

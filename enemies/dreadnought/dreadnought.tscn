@@ -511,7 +511,7 @@ height = 352.0
 [node name="Dreadnought" type="AnimatableBody2D" unique_id=666695883]
 sync_to_physics = false
 script = ExtResource("1_vui1v")
-checkpoints = Array[Vector2]([Vector2(950, 200), Vector2(256, 120), Vector2(256, 850), Vector2(1650, 144), Vector2(1650, 850)])
+checkpoints = Array[Vector2]([Vector2(950, 200), Vector2(256, 200), Vector2(256, 850), Vector2(1650, 200), Vector2(1650, 850)])
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=775575944]
 rotation = 1.5707964
