@@ -2,6 +2,8 @@ extends Node
 
 @export var DEBUGGING : bool =  false
 
+@export var dreadnought_scene : PackedScene
+
 # change spawn timer on new level to 5, 10
 
 @export var asteroid_scene : PackedScene
@@ -99,3 +101,8 @@ func _on_enemy_timer_timeout(): # enemy spawn
 	add_child(e)
 	e.target = $Player
 	$EnemyTimer.start(randf_range(20, 40)) # reset the enemy timer 
+
+
+func _on_dreadnought_timertest_timeout() -> void:
+	var e = dreadnought_scene.instantiate()
+	add_child(e)

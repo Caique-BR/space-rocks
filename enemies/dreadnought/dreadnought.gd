@@ -1,12 +1,23 @@
 class_name Dreadnought
-extends Node2D
+extends AnimatableBody2D
+
+@export var health = 3
+@export var checkpoints : Array[Vector2] ## 0 = spawn, 1 enters screen, 2 = top left, 3 bot left, 4 top right, 5 bot right
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+		
+	
+	
+	rotation_degrees
+	
+	
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	#follow.progress += speed * delta
+	#position = follow.global_position
 	pass

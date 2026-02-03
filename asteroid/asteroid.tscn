@@ -176,7 +176,7 @@ script = ExtResource("1_iic4w")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2098477608 groups=["asteroids"]]
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_8s8wb")
-animation = &"debris_right"
+animation = &"debris_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=352147838 groups=["asteroids"]]
 visible = false
