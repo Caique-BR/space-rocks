@@ -1,7 +1,7 @@
 class_name CannonBullet
 extends Node2D
 
-@onready var bullet_sprite : Sprite2D = get_node("Sprite2D")
+@onready var bullet_sprite : AnimatedSprite2D = get_node("AnimatedSprite2D")
 @onready var explosion_sprite : AnimatedSprite2D = get_node("Explosion")
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 
@@ -12,6 +12,7 @@ var velocity = Vector2.ZERO
 func start(_transform : Transform2D): # calls this when a bullets spawns, telling it correct path
 	transform = _transform
 	velocity = transform.x * speed
+	print("aaa")
 
 func explode_bullet(): # Called when bullet hits something
 	velocity = Vector2.ZERO

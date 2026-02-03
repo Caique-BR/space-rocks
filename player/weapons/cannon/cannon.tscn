@@ -89,5 +89,5 @@ frame_progress = 0.23924027
 [node name="MuzzleLeft" type="Marker2D" parent="Muzzles" unique_id=697924358]
 position = Vector2(14, -19)
 
-[node name="MuzzleLeft2" type="Marker2D" parent="Muzzles" unique_id=610831849]
+[node name="MuzzleRight" type="Marker2D" parent="Muzzles" unique_id=610831849]
 position = Vector2(14, 19)
