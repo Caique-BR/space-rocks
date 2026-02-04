@@ -10,7 +10,7 @@
 [ ] Add better visuals and sounds for ship:
 	[X] Make better sound for engine
 	[X] Add air-like particle for ship turning 
-		[ ] Make the particle appear only when turning
+		[X] Make the particle appear only when turning
 
 [ ] Add a cooldown for the shield to start recharging: 
 	1. Currently it begins as soon as damage is taken
@@ -31,3 +31,21 @@
 	[ ] "Omnimovement" like mechanic for the ship?
 	[ ] Missile weapon?
 	
+[ ] Make bosses for fixed levels:
+	
+	[ ] Dreadnought
+		[ ] Finish the moving path
+		[ ] Spawn enemies on every stop
+			[ ] Spawn shield droids
+				[ ]The shield is only up while the "shield droids" are alive (shield is imunne to damage and can damage the boss while the shield is up)
+					[ ] Make the shield droids
+			[ ] Saucers "ejects" from its sides
+				[ ]Spawn saucer 
+		[ ] Attacks
+			[ ] Shoots the laser gun
+				[ ] Turn off the shield to shoot
+			[ ] Spin like attack from the center of the screen
+		[ ] Make colision and physics apropriate to the character
+		[ ] Define hit box and health
+		
+		
