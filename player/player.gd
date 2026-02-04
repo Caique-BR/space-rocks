@@ -61,7 +61,6 @@ func _ready():
 	screensize = get_viewport_rect().size
 	radius = int(ship_sprite.sprite_frames.get_frame_texture("default", 0).get_size().x / 2 * ship_sprite.scale.x)
 	
-
 func _physics_process(_delta):
 	constant_force = thrust
 	var mouse_pos = get_global_mouse_position()

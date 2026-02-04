@@ -13,6 +13,5 @@ func _ready() -> void:
 
 func _on_shoot() -> void:
 	if gun_cooldown.time_left: return
-	print("AAAAAAAAAAAAAAA")
 	current_weapon.shoot()
 	gun_cooldown.start(current_weapon.fire_rate)

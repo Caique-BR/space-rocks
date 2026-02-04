@@ -2,6 +2,8 @@ class_name PlayerInputComponent
 extends Node
 
 signal shoot
+signal dash_left
+signal dash_right
 
 @export var player : Player;
 @export var rear_exhaust : CPUParticles2D
@@ -20,6 +22,8 @@ func get_input(): # reads the player input and applies it to the ship
 	else: engine_sound.stop()
 
 	if Input.is_action_pressed("shoot"): emit_signal("shoot")
+	if Input.is_action_just_pressed("dash_left"): emit_signal("dash_left")
+	if Input.is_action_just_pressed("dash_right"): emit_signal("dash_right")
 
 ## BUILT-IN
 

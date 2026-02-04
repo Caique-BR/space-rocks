@@ -17,5 +17,6 @@ func _ready() -> void:
 	connect("area_entered", _on_area_entered)
 
 func _on_area_entered(area):
+	print(area.get_parent())
 	if area is HurtboxComponent:
 		emit_signal("hit", area)
