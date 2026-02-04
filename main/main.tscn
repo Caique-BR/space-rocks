@@ -69,15 +69,8 @@ one_shot = true
 autostart = true
 
 [node name="Fighter" parent="." unique_id=501067181 instance=ExtResource("12_fwcvl")]
-position = Vector2(704, 543)
-
-[node name="Fighter2" parent="." unique_id=1335816764 instance=ExtResource("12_fwcvl")]
-position = Vector2(1257, 543)
-rotation = -3.1415927
-
-[node name="Fighter3" parent="." unique_id=470128765 instance=ExtResource("12_fwcvl")]
-position = Vector2(973, 744)
-rotation = -1.5707964
+position = Vector2(968, 728)
+metadata/_edit_group_ = true
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

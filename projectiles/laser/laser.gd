@@ -9,9 +9,8 @@ extends Node2D
 
 var velocity = Vector2.ZERO
 
-func start(layer: int, _transform : Transform2D, _transform_x: Vector2): # calls this when a bullets spawns, telling it correct path
+func start(layer: int, _transform : Transform2D): # calls this when a bullets spawns, telling it correct path
 	transform = _transform
-	transform.x = _transform_x
 	velocity = transform.x * speed
 	hitbox_component.set_collision_layer_value(layer, true)
 	hitbox_component.set_collision_mask_value(layer, true)

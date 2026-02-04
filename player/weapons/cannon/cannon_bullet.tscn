@@ -521,8 +521,6 @@ frame_progress = 1.0
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=704902294]
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=721176043]
-collision_layer = 6
-collision_mask = 6
 script = ExtResource("4_yxtme")
 damage = 1
 metadata/_custom_type_script = "uid://d33wds1kipash"
