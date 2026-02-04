@@ -41,8 +41,10 @@
 					[ ] Make the shield droids
 			[ ] Saucers "ejects" from its sides
 				[ ]Spawn saucer 
-		[ ] Shots at the player
-			[ ] Turn off the shield to shoot
+		[ ] Attacks
+			[ ] Shoots the laser gun
+				[ ] Turn off the shield to shoot
+			[ ] Spin like attack from the center of the screen
 		[ ] Make colision and physics apropriate to the character
 		[ ] Define hit box and health
 		

@@ -1,10 +1,75 @@
 [gd_scene format=3 uid="uid://b082g2egywgl"]
 
 [ext_resource type="Script" uid="uid://dgv5nv48qpahf" path="res://enemies/dreadnought/dreadnought.gd" id="1_vui1v"]
+[ext_resource type="Texture2D" uid="uid://hxjfrydotqgi" path="res://enemies/dreadnought/assets/dreadnought _engine_effect.png" id="2_ke85k"]
 [ext_resource type="Texture2D" uid="uid://byqmf1pbiv08u" path="res://enemies/dreadnought/assets/dreadnought _base.png" id="2_yp1th"]
 [ext_resource type="Texture2D" uid="uid://crmigyib2esqm" path="res://enemies/dreadnought/assets/dreadnought.png" id="3_jyc1m"]
 [ext_resource type="Texture2D" uid="uid://d2e0p6s70aege" path="res://enemies/dreadnought/assets/dreadnought _weapons.png" id="4_jyc1m"]
 [ext_resource type="Texture2D" uid="uid://duxpcdxna50kb" path="res://enemies/dreadnought/assets/dreadnought _shield.png" id="5_034d7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7y86e"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1qr2"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14i1p"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk6jg"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c64do"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl75v"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afrrk"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jattk"]
+atlas = ExtResource("2_ke85k")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u4nry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7y86e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1qr2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14i1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk6jg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c64do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl75v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afrrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jattk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_034d7"]
 atlas = ExtResource("3_jyc1m")
@@ -501,7 +566,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 16.0
+"speed": 11.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yp1th"]
@@ -513,15 +578,23 @@ sync_to_physics = false
 script = ExtResource("1_vui1v")
 checkpoints = Array[Vector2]([Vector2(950, 200), Vector2(256, 200), Vector2(256, 850), Vector2(1650, 200), Vector2(1650, 850)])
 
+[node name="EngineSprite" type="AnimatedSprite2D" parent="." unique_id=766740792]
+rotation = 1.5707964
+scale = Vector2(3.25, 3.25)
+sprite_frames = SubResource("SpriteFrames_u4nry")
+autoplay = "default"
+frame_progress = 0.23155552
+
 [node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=775575944]
 rotation = 1.5707964
 scale = Vector2(3.25, 3.25)
 sprite_frames = SubResource("SpriteFrames_g4n8t")
-animation = &"idle"
+animation = &"shoot"
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="." unique_id=697132795]
+modulate = Color(1, 1, 1, 0.62352943)
 position = Vector2(-10, -1)
-scale = Vector2(2.890625, 2.8906252)
+scale = Vector2(3.25, 3.25)
 sprite_frames = SubResource("SpriteFrames_7y86e")
 autoplay = "default"
 frame_progress = 0.47015715
