@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dngoy0poqy7t7" path="res://assets/sounds/levelup.ogg" id="8_0i4oc"]
 [ext_resource type="AudioStream" uid="uid://jl64dctvfi40" path="res://assets/sounds/Funky-Gameplay_Looping.ogg" id="9_bsumw"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
+[ext_resource type="PackedScene" uid="uid://jiyo2cxtidff" path="res://enemies/fighter/fighter.tscn" id="12_fwcvl"]
 
 [sub_resource type="Curve2D" id="Curve2D_c651c"]
 _data = {
@@ -66,6 +67,17 @@ player = NodePath("../Player")
 [node name="DreadnoughtTimertest" type="Timer" parent="." unique_id=915849720]
 one_shot = true
 autostart = true
+
+[node name="Fighter" parent="." unique_id=501067181 instance=ExtResource("12_fwcvl")]
+position = Vector2(704, 543)
+
+[node name="Fighter2" parent="." unique_id=1335816764 instance=ExtResource("12_fwcvl")]
+position = Vector2(1257, 543)
+rotation = -3.1415927
+
+[node name="Fighter3" parent="." unique_id=470128765 instance=ExtResource("12_fwcvl")]
+position = Vector2(973, 744)
+rotation = -1.5707964
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

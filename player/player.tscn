@@ -96,6 +96,9 @@ sprite_frames = SubResource("SpriteFrames_kb6p2")
 [node name="Explosion" parent="." unique_id=1727476015 instance=ExtResource("4_yw30f")]
 visible = false
 
+[node name="DashTimer" type="Timer" parent="." unique_id=582847639]
+one_shot = true
+
 [node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1589903483]
 wait_time = 2.0
 one_shot = true
@@ -136,5 +139,7 @@ shape = SubResource("CircleShape2D_hg6s5")
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
+[connection signal="dash_left" from="PlayerInputComponent" to="." method="_on_dash_left"]
+[connection signal="dash_right" from="PlayerInputComponent" to="." method="_on_dash_right"]
 [connection signal="shoot" from="PlayerInputComponent" to="WeaponModule" method="_on_shoot"]
 [connection signal="shield_changed" from="ShieldComponent" to="." method="_on_shield_changed"]
