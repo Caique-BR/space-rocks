@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b082g2egywgl"]
 
 [ext_resource type="Script" uid="uid://dgv5nv48qpahf" path="res://enemies/dreadnought/dreadnought.gd" id="1_vui1v"]
+[ext_resource type="PackedScene" uid="uid://rww14wrrravv" path="res://projectiles/laser/laser.tscn" id="2_iq7lo"]
 [ext_resource type="Texture2D" uid="uid://hxjfrydotqgi" path="res://enemies/dreadnought/assets/dreadnought _engine_effect.png" id="2_ke85k"]
 [ext_resource type="Texture2D" uid="uid://byqmf1pbiv08u" path="res://enemies/dreadnought/assets/dreadnought _base.png" id="2_yp1th"]
 [ext_resource type="Texture2D" uid="uid://crmigyib2esqm" path="res://enemies/dreadnought/assets/dreadnought.png" id="3_jyc1m"]
@@ -576,6 +577,7 @@ height = 352.0
 [node name="Dreadnought" type="AnimatableBody2D" unique_id=666695883]
 sync_to_physics = false
 script = ExtResource("1_vui1v")
+laser_scene = ExtResource("2_iq7lo")
 checkpoints = Array[Vector2]([Vector2(950, 200), Vector2(256, 200), Vector2(256, 850), Vector2(1650, 200), Vector2(1650, 850)])
 
 [node name="EngineSprite" type="AnimatedSprite2D" parent="." unique_id=766740792]

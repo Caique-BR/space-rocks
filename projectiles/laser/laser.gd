@@ -5,7 +5,7 @@ extends Node2D
 @onready var explosion_sprite : AnimatedSprite2D = get_node("Explosion")
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 
-@export var speed = 1000 
+@export var speed = 1000
 
 var velocity = Vector2.ZERO
 
