@@ -158,7 +158,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"shoot",
-"speed": 14.0
+"speed": 20.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27l01"]
@@ -352,6 +352,8 @@ rotation = 1.5707964
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_27l01")
 animation = &"shoot"
+frame = 8
+frame_progress = 1.0
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="." unique_id=1206294132]
 rotation = 1.5707964
@@ -397,5 +399,13 @@ shape = SubResource("CapsuleShape2D_2e8pa")
 libraries/ = SubResource("AnimationLibrary_fg2hu")
 speed_scale = 2.5
 
+[node name="MuzzleLeft" type="Marker2D" parent="." unique_id=91916510]
+position = Vector2(29, -23)
+
+[node name="MuzzleRight" type="Marker2D" parent="." unique_id=1864043161]
+position = Vector2(29, 22)
+
+[connection signal="animation_finished" from="ShipSprite" to="." method="_on_ship_sprite_animation_finished"]
+[connection signal="frame_changed" from="ShipSprite" to="." method="_on_ship_sprite_frame_changed"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]

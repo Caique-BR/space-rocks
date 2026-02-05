@@ -47,10 +47,179 @@ size = Vector2(1557, 9)
 script = ExtResource("1_8q4a0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1409859463]
-position = Vector2(778.8771, 3.321528e-05)
+position = Vector2(38, 3.321528e-05)
 rotation = 1.5707964
-scale = Vector2(1, 40.99353)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=1694138220]
+position = Vector2(114, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="." unique_id=1839757575]
+position = Vector2(190, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="." unique_id=1406423546]
+position = Vector2(266, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="." unique_id=1728372294]
+position = Vector2(342, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="." unique_id=960048236]
+position = Vector2(418, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="." unique_id=1570104240]
+position = Vector2(494, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D8" type="AnimatedSprite2D" parent="." unique_id=1007362954]
+position = Vector2(570, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D9" type="AnimatedSprite2D" parent="." unique_id=1243698755]
+position = Vector2(646, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D10" type="AnimatedSprite2D" parent="." unique_id=1382605668]
+position = Vector2(722, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D11" type="AnimatedSprite2D" parent="." unique_id=432338140]
+position = Vector2(798, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D12" type="AnimatedSprite2D" parent="." unique_id=1351921362]
+position = Vector2(874, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D13" type="AnimatedSprite2D" parent="." unique_id=1481083814]
+position = Vector2(950, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D14" type="AnimatedSprite2D" parent="." unique_id=381536461]
+position = Vector2(1026, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D15" type="AnimatedSprite2D" parent="." unique_id=1367072968]
+position = Vector2(1102, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D16" type="AnimatedSprite2D" parent="." unique_id=1671619128]
+position = Vector2(1178, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D17" type="AnimatedSprite2D" parent="." unique_id=1724129419]
+position = Vector2(1254, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D18" type="AnimatedSprite2D" parent="." unique_id=1864868352]
+position = Vector2(1330, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D19" type="AnimatedSprite2D" parent="." unique_id=1249254829]
+position = Vector2(1406, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D20" type="AnimatedSprite2D" parent="." unique_id=303262191]
+position = Vector2(1482, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D21" type="AnimatedSprite2D" parent="." unique_id=656510907]
+position = Vector2(1558, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
+frame_progress = 0.6344866
+
+[node name="AnimatedSprite2D22" type="AnimatedSprite2D" parent="." unique_id=1727497040]
+position = Vector2(1558, 3.321528e-05)
+rotation = 1.5707964
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_co0fr")
+autoplay = "default"
 frame_progress = 0.6344866
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1133143495]

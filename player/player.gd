@@ -74,7 +74,7 @@ func _physics_process(_delta):
 	var mouse_pos = get_global_mouse_position()
 	var new_rotatation = rotation + get_angle_to(mouse_pos)
 	
-	rotation = lerp_angle(rotation, new_rotatation, 0.06)
+	rotation = lerp_angle(rotation, new_rotatation, 0.1)
 	
 func _integrate_forces(physics_state): # screenwrap
 	var xform = physics_state.transform

@@ -607,6 +607,10 @@ script = ExtResource("1_vui1v")
 ray_beam = ExtResource("2_iq7lo")
 checkpoints = Array[Vector2]([Vector2(256, 200), Vector2(256, 850), Vector2(1650, 200), Vector2(1650, 850)])
 
+[node name="RayBeam" parent="." unique_id=547538170 instance=ExtResource("2_iq7lo")]
+visible = false
+position = Vector2(131, 0)
+
 [node name="EngineSprite" type="AnimatedSprite2D" parent="." unique_id=766740792]
 rotation = 1.5707964
 scale = Vector2(3.25, 3.25)
@@ -637,10 +641,6 @@ shape = SubResource("CapsuleShape2D_yp1th")
 [node name="Muzzle" type="Marker2D" parent="." unique_id=618618681]
 light_mask = 0
 visibility_layer = 0
-position = Vector2(152, 0)
-
-[node name="RayBeam" parent="." unique_id=547538170 instance=ExtResource("2_iq7lo")]
-visible = false
 position = Vector2(152, 0)
 
 [connection signal="frame_changed" from="ShipSprite" to="." method="_on_ship_sprite_frame_changed"]

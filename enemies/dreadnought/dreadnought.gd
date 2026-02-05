@@ -17,7 +17,6 @@ var player : Player
 var target = null
 var has_shot = false
 
-
 func move_to(to: Vector2, on_finished: Callable):
 	look_at(to)
 	

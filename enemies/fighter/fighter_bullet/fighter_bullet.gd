@@ -1,9 +1,39 @@
 class_name FighterBullet
 extends Node2D
 
-func _ready() -> void:
-	pass # Replace with function body.
+@onready var bullet_sprite : AnimatedSprite2D = get_node("BulletSprite")
+@onready var explosion_sprite : AnimatedSprite2D = get_node("ExplosionSprite")
+@onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+@export var speed = 1000 
+
+var velocity = Vector2.ZERO
+
+func start(layers: Array[int], _transform : Transform2D): # calls this when a bullets spawns, telling it correct path
+	transform = _transform
+	velocity = transform.x * speed
+	
+	for layer in layers:
+		hitbox_component.set_collision_layer_value(layer, true)
+		hitbox_component.set_collision_mask_value(layer, true)
+
+func explode_bullet(): # Called when bullet hits something
+	velocity = Vector2.ZERO
+
+	bullet_sprite.hide()
+	explosion_sprite.show()
+
+	explosion_sprite.play("explode")
+	await explosion_sprite.animation_finished
+	queue_free()
+
+func _process(delta):
+	position += velocity * delta
+
+func _on_hit(_hurtbox: Variant) -> void:
+	hitbox_component.disable_hitbox()
+	queue_free()
+	#explode_bullet()
+
+func _on_visible_on_screen_notifier_2d_screen_exited(): # delets the bullet when exiting the sceen
+	queue_free()
