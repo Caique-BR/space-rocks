@@ -66,7 +66,16 @@ player = NodePath("../Player")
 one_shot = true
 
 [node name="Fighter" parent="." unique_id=501067181 instance=ExtResource("12_fwcvl")]
-position = Vector2(968, 728)
+position = Vector2(-93, 204)
+metadata/_edit_group_ = true
+
+[node name="Fighter2" parent="." unique_id=225824626 instance=ExtResource("12_fwcvl")]
+position = Vector2(2015, 543)
+rotation = 3.1415927
+metadata/_edit_group_ = true
+
+[node name="Fighter3" parent="." unique_id=391862573 instance=ExtResource("12_fwcvl")]
+position = Vector2(-93, 956)
 metadata/_edit_group_ = true
 
 [connection signal="died" from="Player" to="." method="game_over"]

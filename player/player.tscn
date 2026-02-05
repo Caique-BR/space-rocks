@@ -19,8 +19,8 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.17166424), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_boad6"]
-offsets = PackedFloat32Array(0, 0.696)
-colors = PackedColorArray(1, 0.8, 0.14901961, 1, 0.8627451, 0.1254902, 0.08235294, 1)
+offsets = PackedFloat32Array(0, 0.42137095, 0.766129)
+colors = PackedColorArray(0.3801221, 0.8538752, 0.5398637, 1, 0.086000025, 0.6794002, 0.86, 1, 0.6524862, 0.1616782, 0.68890446, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 34.0
@@ -57,9 +57,8 @@ script = ExtResource("1_rkbax")
 
 [node name="RearExhaust" type="CPUParticles2D" parent="." unique_id=1080729462]
 show_behind_parent = true
-position = Vector2(-26, 0)
+position = Vector2(-22, 0)
 rotation = -3.1415925
-emitting = false
 amount = 25
 lifetime = 0.1
 local_coords = true
@@ -68,6 +67,10 @@ emission_rect_extents = Vector2(1, 5)
 spread = 0.0
 gravity = Vector2(0, 0)
 initial_velocity_max = 400.0
+angular_velocity_min = 720.0
+angular_velocity_max = 720.0
+radial_accel_min = 85.09
+radial_accel_max = 85.09
 scale_amount_max = 8.0
 scale_amount_curve = SubResource("Curve_g6k8r")
 color_ramp = SubResource("Gradient_boad6")

@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="7_nsd5a"]
 [ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="8_i50q5"]
 [ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="9_fg2hu"]
+[ext_resource type="Texture2D" uid="uid://wfkb1qxgwkm0" path="res://assets/laser_green.png" id="10_i50q5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r4an7"]
 atlas = ExtResource("1_l10tx")
@@ -344,6 +345,14 @@ _data = {
 &"hurt": SubResource("Animation_i50q5")
 }
 
+[sub_resource type="Curve" id="Curve_nsd5a"]
+_limits = [0.0, 10.0, 0.0, 1.0]
+_data = [Vector2(0, 0.36703587), 0.0, 0.0, 0, 0, Vector2(0.9640152, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_i50q5"]
+colors = PackedColorArray(0.5591542, 0.91834027, 0.7200156, 1, 0, 0.78, 0.025999974, 0)
+
 [node name="Fighter" type="Node2D" unique_id=501067181]
 script = ExtResource("1_r4an7")
 
@@ -363,7 +372,6 @@ autoplay = "default"
 frame_progress = 0.008473163
 
 [node name="EngineSprite" type="AnimatedSprite2D" parent="." unique_id=1942407726]
-visible = false
 rotation = 1.5707964
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_p4j8g")
@@ -404,6 +412,20 @@ position = Vector2(29, -23)
 
 [node name="MuzzleRight" type="Marker2D" parent="." unique_id=1864043161]
 position = Vector2(29, 22)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1468937374]
+rect = Rect2(-46, -19, 92, 38)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=70423881]
+position = Vector2(-54, 0)
+amount = 20
+texture = ExtResource("10_i50q5")
+emission_shape = 1
+emission_sphere_radius = 10.07
+gravity = Vector2(-980, 0)
+scale_amount_curve = SubResource("Curve_nsd5a")
+color = Color(0, 0.9905943, 1.1638972, 1)
+color_ramp = SubResource("Gradient_i50q5")
 
 [connection signal="animation_finished" from="ShipSprite" to="." method="_on_ship_sprite_animation_finished"]
 [connection signal="frame_changed" from="ShipSprite" to="." method="_on_ship_sprite_frame_changed"]

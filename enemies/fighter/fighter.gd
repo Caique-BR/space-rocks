@@ -11,6 +11,8 @@ var tween_damage : Tween
 var shooting : bool = false
 var bleft : FighterBullet
 var bright : FighterBullet
+var velocity : Vector2 = Vector2(0, 0)
+var speed : int = 1500
 
 func shoot():
 	if shooting: return
@@ -19,15 +21,15 @@ func shoot():
 	
 	ship_sprite.play("shoot")
 	shooting = true
-	
+
 ## BUILT-IN
 
 func _ready() -> void:
-	pass # Replace with function body.
-	shoot()
-
-func _process(_delta: float) -> void:
+	#shoot()
 	pass
+
+func _process(delta: float) -> void:
+	position += transform.x * speed * delta
 
 ## SIGNAL HANDLERS
 
