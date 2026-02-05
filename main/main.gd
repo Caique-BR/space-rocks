@@ -7,7 +7,6 @@ extends Node
 # change spawn timer on new level to 5, 10
 
 @export var asteroid_scene : PackedScene
-@export var enemy_scene : PackedScene
 @onready var camera : Camera = get_node("Camera2D")
 
 var screensize = Vector2.ZERO
@@ -106,13 +105,7 @@ func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 	
 	$HUD.update_score(score)
 
-func _on_enemy_timer_timeout(): # enemy spawn
-	var e = enemy_scene.instantiate()
-	add_child(e)
-	e.target = $Player
-	$EnemyTimer.start(randf_range(20, 40)) # reset the enemy timer 
-
 func _on_dreadnought_timertest_timeout() -> void:
 	var e = dreadnought_scene.instantiate()
 	e.position = Vector2(950, -200)
-	add_child(e)
+	#add_child(e)

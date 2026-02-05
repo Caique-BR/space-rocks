@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://bmoea58f0tnqw"]
+
+[ext_resource type="Script" uid="uid://dfguymvpxwaeu" path="res://enemies/fighter/fighter_bullet/fighter_bullet.gd" id="1_sva8d"]
+[ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="2_0ch8d"]
+[ext_resource type="Texture2D" uid="uid://nrqj31epwnd7" path="res://enemies/fighter/fighter_bullet/assets/bullet.png" id="2_p4q4a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mjd8"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(0, 0, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxmfq"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(9, 0, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0umuh"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(18, 0, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ad6n"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(27, 0, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ivro"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(36, 0, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg87y"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(45, 0, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bodm1"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(54, 0, 9, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pphbp"]
+atlas = ExtResource("2_p4q4a")
+region = Rect2(63, 0, 9, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0ch8d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mjd8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxmfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0umuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ad6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ivro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dg87y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bodm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pphbp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 11.0
+}]
+
+[node name="FighterBullet" type="Node2D" unique_id=808963504]
+script = ExtResource("1_sva8d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=631090881]
+rotation = 1.5707964
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_0ch8d")
+autoplay = "default"
+frame_progress = 0.3688086
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=450265676]
+script = ExtResource("2_0ch8d")
+damage = 1
+metadata/_custom_type_script = "uid://d33wds1kipash"

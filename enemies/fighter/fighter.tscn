@@ -158,7 +158,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"shoot",
-"speed": 12.0
+"speed": 14.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27l01"]
@@ -351,12 +351,13 @@ script = ExtResource("1_r4an7")
 rotation = 1.5707964
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_27l01")
+animation = &"shoot"
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="." unique_id=1206294132]
-visible = false
 rotation = 1.5707964
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_p5t0c")
+autoplay = "default"
 frame_progress = 0.008473163
 
 [node name="EngineSprite" type="AnimatedSprite2D" parent="." unique_id=1942407726]
@@ -364,6 +365,7 @@ visible = false
 rotation = 1.5707964
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_p4j8g")
+autoplay = "default"
 frame_progress = 0.49001357
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1782410067]
