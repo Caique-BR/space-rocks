@@ -1,10 +1,21 @@
 extends Node2D
 
+var speed = 0
+var velocity = Vector2.ZERO
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+
+
+func _on_hitbox_component_hit(_hurtbox: Variant) -> void:
+
+
+
+
+
 	pass
