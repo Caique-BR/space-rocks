@@ -62,9 +62,8 @@ position = Vector2(960, 540)
 script = ExtResource("10_0i4oc")
 player = NodePath("../Player")
 
-[node name="DreadnoughtTimertest" type="Timer" parent="." unique_id=915849720]
+[node name="DreadnoughtTimer" type="Timer" parent="." unique_id=915849720]
 one_shot = true
-autostart = true
 
 [node name="Fighter" parent="." unique_id=501067181 instance=ExtResource("12_fwcvl")]
 position = Vector2(968, 728)
@@ -75,4 +74,4 @@ metadata/_edit_group_ = true
 [connection signal="shield_changed" from="Player" to="HUD" method="update_shield"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
-[connection signal="timeout" from="DreadnoughtTimertest" to="." method="_on_dreadnought_timertest_timeout"]
+[connection signal="timeout" from="DreadnoughtTimer" to="." method="_on_dreadnought_timertest_timeout"]

@@ -8,11 +8,14 @@ extends Node
 
 @export var asteroid_scene : PackedScene
 @onready var camera : Camera = get_node("Camera2D")
-
+@onready var boss_timer : Timer = $DreadnoughtTimer
 var screensize = Vector2.ZERO
 var level = 0
 var score = 0
 var playing = false
+
+func spawn_boss():
+	if level == 1: boss_timer.start()
 
 func spawn_asteroid():
 	$RockPath/RockSpawn.progress = randi()
@@ -39,6 +42,7 @@ func new_game(): # starts the game when receiving the "start_game" signal
 	$Music.play()
 
 func new_level(): # increaces the difficult when changing levels
+	spawn_boss()
 	level += 1
 	$LevelupSound.play()
 	

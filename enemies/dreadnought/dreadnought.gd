@@ -9,6 +9,7 @@ extends AnimatableBody2D
 @export var health = 3
 @export var checkpoints : Array[Vector2] ## 0 = top left, 1 bot left, 2 top right, 3 bot right
 
+@onready var hitbox : HitboxComponent = get_tree().root.get_node("/root/Main/Dreadnought/RayBeam/HitboxComponent")
 var checkpoints_index = 0
 var speed = 100
 var current_pos : Vector2 = global_position
@@ -16,6 +17,7 @@ var tween_move : Tween
 var player : Player
 var target = null
 var has_shot = false
+
 
 func move_to(to: Vector2, on_finished: Callable):
 	look_at(to)
@@ -32,6 +34,7 @@ func move_to(to: Vector2, on_finished: Callable):
 
 func step_enter_scene(): # Boss arrives from outside the top center of the screen and stop at the top mid of the screen
 		move_to(Vector2(950, 200), func(): 
+			
 			engine_thrust.hide()
 			#Spawn shield droid
 			#Spawn saucer
@@ -74,4 +77,5 @@ func _on_ship_sprite_frame_changed() -> void:
 		if ship_sprite.frame >= 17 and ship_sprite.frame <= 41:
 			look_at(player.global_position)
 			raybeam.show()
-		
+			if ship_sprite.frame % 2: hitbox.set_collision_layer_value(4, true)
+			else: hitbox.set_collision_layer_value(4, false)
