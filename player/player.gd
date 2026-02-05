@@ -69,7 +69,6 @@ func _physics_process(_delta):
 		constant_force = Vector2(transform.x.orthogonal() * dash_dir) * 5000
 		dash_dir = 0
 		dash_timer.start(0.05)
-		print("aaa")
 	elif not dash_timer.time_left: constant_force = thrust
 	
 	var mouse_pos = get_global_mouse_position()
@@ -88,7 +87,7 @@ func _integrate_forces(physics_state): # screenwrap
 		physics_state.transform.origin = screensize / 2
 		reset_pos = false
 
-## SIGNAL HANDLERS
+## SIGNAL HANDLERS\
 
 func _on_health_changed(new_health): # set the starting lives for the player
 	change_state(INVUL)

@@ -1,10 +1,11 @@
 class_name Dreadnought
 extends AnimatableBody2D
 
-@export var laser_scene : PackedScene
+@export var ray_beam : PackedScene
 @onready var engine_thrust = $EngineSprite
 @onready var shield_sprite = $ShieldSprite
 @onready var ship_sprite = $ShipSprite
+@onready var raybeam : Node2D = $RayBeam
 @export var health = 3
 @export var checkpoints : Array[Vector2] ## 0 = top left, 1 bot left, 2 top right, 3 bot right
 
@@ -14,12 +15,8 @@ var current_pos : Vector2 = global_position
 var tween_move : Tween 
 var player : Player
 var target = null
+var has_shot = false
 
-
-func shoot() -> void:
-	var laser : Laser = laser_scene.instantiate()
-	get_tree().root.add_child(laser)
-	laser.start(1, $Muzzle.global_transform)
 
 func move_to(to: Vector2, on_finished: Callable):
 	look_at(to)
@@ -50,14 +47,15 @@ func start_routine(): # top left of the screen
 		look_at(player.global_position) # Takes aim at the player
 		
 		shield_sprite.hide() # turns off the shield to shoot, is vunlerable at this moment
+		has_shot = false
 		ship_sprite.play("shoot")
 		await ship_sprite.animation_finished
-		shoot() # Shoot at the player
+		has_shot = true
+		if has_shot == true: raybeam.hide()
 		ship_sprite.play("idle")
 		shield_sprite.show() # Turns the shield back on, thus becoming invul again
-		
+	
 		await get_tree().create_timer(1).timeout
-		
 		checkpoints_index += 1 # index managment to loop the 4 positions
 		if checkpoints_index == 4: checkpoints_index = 0
 		start_routine()
@@ -74,6 +72,7 @@ func _ready() -> void:
 
 func _on_ship_sprite_frame_changed() -> void:
 	if ship_sprite.animation == "shoot":
-		if ship_sprite.frame >= 17 and ship_sprite.frame <= 31:
+		if ship_sprite.frame >= 17 and ship_sprite.frame <= 41:
 			look_at(player.global_position)
-			shoot()
+			raybeam.show()
+		

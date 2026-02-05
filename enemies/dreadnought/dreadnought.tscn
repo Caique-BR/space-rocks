@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b082g2egywgl"]
 
 [ext_resource type="Script" uid="uid://dgv5nv48qpahf" path="res://enemies/dreadnought/dreadnought.gd" id="1_vui1v"]
-[ext_resource type="PackedScene" uid="uid://rww14wrrravv" path="res://projectiles/laser/laser.tscn" id="2_iq7lo"]
+[ext_resource type="PackedScene" uid="uid://cc8eksgjbehh3" path="res://enemies/dreadnought/ray_beam/ray_beam.tscn" id="2_iq7lo"]
 [ext_resource type="Texture2D" uid="uid://hxjfrydotqgi" path="res://enemies/dreadnought/assets/dreadnought _engine_effect.png" id="2_ke85k"]
 [ext_resource type="Texture2D" uid="uid://byqmf1pbiv08u" path="res://enemies/dreadnought/assets/dreadnought _base.png" id="2_yp1th"]
 [ext_resource type="Texture2D" uid="uid://crmigyib2esqm" path="res://enemies/dreadnought/assets/dreadnought.png" id="3_jyc1m"]
@@ -397,6 +397,33 @@ animations = [{
 "texture": SubResource("AtlasTexture_5ickc")
 }, {
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ickc")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_5htew")
 }, {
 "duration": 1.0,
@@ -419,7 +446,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"shoot",
-"speed": 12.0
+"speed": 20.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g4n8t"]
@@ -577,7 +604,7 @@ height = 352.0
 [node name="Dreadnought" type="AnimatableBody2D" unique_id=666695883]
 sync_to_physics = false
 script = ExtResource("1_vui1v")
-laser_scene = ExtResource("2_iq7lo")
+ray_beam = ExtResource("2_iq7lo")
 checkpoints = Array[Vector2]([Vector2(256, 200), Vector2(256, 850), Vector2(1650, 200), Vector2(1650, 850)])
 
 [node name="EngineSprite" type="AnimatedSprite2D" parent="." unique_id=766740792]
@@ -591,7 +618,7 @@ frame_progress = 0.23155552
 rotation = 1.5707964
 scale = Vector2(3.25, 3.25)
 sprite_frames = SubResource("SpriteFrames_g4n8t")
-animation = &"idle"
+animation = &"shoot"
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="." unique_id=697132795]
 modulate = Color(1, 1, 1, 0.62352943)
@@ -608,6 +635,12 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_yp1th")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=618618681]
+light_mask = 0
+visibility_layer = 0
+position = Vector2(152, 0)
+
+[node name="RayBeam" parent="." unique_id=547538170 instance=ExtResource("2_iq7lo")]
+visible = false
 position = Vector2(152, 0)
 
 [connection signal="frame_changed" from="ShipSprite" to="." method="_on_ship_sprite_frame_changed"]

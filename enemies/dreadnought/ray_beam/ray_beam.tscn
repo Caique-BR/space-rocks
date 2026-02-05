@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dsgyofd6md4q8" path="res://enemies/dreadnought/ray_beam/ray_beam.gd" id="1_8q4a0"]
 [ext_resource type="Texture2D" uid="uid://c4cl5l7g1bgpy" path="res://enemies/dreadnought/ray_beam/assets/ray_beam.png" id="1_j56l0"]
+[ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="3_27g3q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8q4a0"]
 atlas = ExtResource("1_j56l0")
@@ -39,13 +40,28 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t0vn1"]
+size = Vector2(1557, 9)
+
 [node name="RayBeam" type="Node2D" unique_id=547538170]
 script = ExtResource("1_8q4a0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1409859463]
-position = Vector2(271.54834, 1.1039238e-05)
+position = Vector2(778.8771, 3.321528e-05)
 rotation = 1.5707964
-scale = Vector2(1, 14.292018)
+scale = Vector2(1, 40.99353)
 sprite_frames = SubResource("SpriteFrames_co0fr")
-autoplay = "default"
-frame_progress = 0.3375995
+frame_progress = 0.6344866
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1133143495]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_27g3q")
+damage = 1
+metadata/_custom_type_script = "uid://d33wds1kipash"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1555194424]
+position = Vector2(781.5, 0)
+shape = SubResource("RectangleShape2D_t0vn1")
+
+[connection signal="hit" from="HitboxComponent" to="." method="_on_hitbox_component_hit"]
