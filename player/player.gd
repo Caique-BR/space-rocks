@@ -4,6 +4,7 @@ signal health_changed(new_health)
 signal shield_changed(new_shield)
 signal died
 
+@onready var rear_exhaust : CPUParticles2D = get_node("RearExhaust")
 @onready var dash_timer : Timer = get_node("DashTimer")
 @onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
 @onready var shield_component : ShieldComponent = get_node("ShieldComponent")
@@ -18,7 +19,8 @@ var screensize = Vector2.ZERO
 
 var thrust = Vector2.ZERO # Force being applied to the engine
 var rotation_dir : int = 0 # Ships turn direction
-var dash_dir : int = 0
+var movement_vector : Vector2
+var aim_vector : Vector2
 
 var state = INIT
 var reset_pos = false
@@ -64,17 +66,20 @@ func _ready():
 	radius = int(ship_sprite.sprite_frames.get_frame_texture("default", 0).get_size().x / 2 * ship_sprite.scale.x)
 	
 func _physics_process(_delta):
-	if dash_dir != 0:
-		linear_velocity = Vector2.ZERO
-		constant_force = Vector2(transform.x * dash_dir) * 10000
-		dash_dir = 0
-		dash_timer.start(0.05)
-	elif not dash_timer.time_left: constant_force = thrust
+	if movement_vector:
+		rear_exhaust.emitting = true
+		thrust = transform.x * engine_power
+		Input.start_joy_vibration(0, 0.05, 0.05, 0.1)
+		
+		rotation = lerp_angle(rotation, movement_vector.angle(), 0.1)
+	else:
+		rear_exhaust.emitting = false
+		thrust = Vector2.ZERO
 	
-	var mouse_pos = get_global_mouse_position()
-	var new_rotatation = rotation + get_angle_to(mouse_pos)
+	if not movement_vector and aim_vector:
+		rotation = lerp_angle(rotation, aim_vector.angle(), 0.1)
 	
-	rotation = lerp_angle(rotation, new_rotatation, 0.1)
+	constant_force = thrust
 	
 func _integrate_forces(physics_state): # screenwrap
 	var xform = physics_state.transform
@@ -102,8 +107,8 @@ func _on_shield_changed(new_shield: float):
 func _on_invulnerability_timer_timeout(): # time immune after taking dmg
 	change_state(ALIVE)
 
-func _on_dash_left() -> void:
-	dash_dir = 1
+func _on_player_input_component_move(m: Vector2) -> void:
+	movement_vector = m
 
-func _on_dash_right() -> void:
-	dash_dir = -1
+func _on_player_input_component_aim(a: Vector2) -> void:
+	aim_vector = a

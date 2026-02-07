@@ -6,8 +6,10 @@ extends Node
 # change spawn timer on new level to 5, 10
 
 @export var asteroid_scene : PackedScene
+@export var fighter_spawner : FighterSpawner
 @onready var camera : Camera = get_node("Camera2D")
 @onready var boss_timer : Timer = get_node("DreadnoughtTimer")
+
 var screensize = Vector2.ZERO
 var level = 0
 var score = 0
@@ -61,6 +63,7 @@ func _ready():
 	screensize = get_viewport().get_visible_rect().size
 	CameraControls.camera = camera
 	
+	fighter_spawner.spawn_fighter_duo()
 	new_game()
 	
 	###### DEBUG

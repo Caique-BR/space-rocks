@@ -4,19 +4,25 @@ extends Node2D
 signal routine_ended
 
 @onready var fighter_bullet_scene : PackedScene = load("res://enemies/fighter/fighter_bullet/fighter_bullet.tscn")
+
 @onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
+@onready var shield_sprite : AnimatedSprite2D = get_node("ShieldSprite")
+@onready var engine_sprite : AnimatedSprite2D = get_node("EngineSprite")
+@onready var engine_particles : CPUParticles2D = get_node("EngineParticles")
+@onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
+
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 @onready var hurtbox_component : HurtboxComponent = get_node("HurtboxComponent")
-@onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
-@export var walking_curve : Curve
 
 var tween_damage : Tween
 var shooting : bool = false
 var bleft : FighterBullet
 var bright : FighterBullet
-var velocity : Vector2 = Vector2(0, 0)
-var speed : int = 500
+var speed : int = 3000
 var delta_count : float = 0.0
+var velocity : Vector2 = Vector2.ZERO
+var on_routine: bool = false
+var tween_move : Tween
 
 func shoot():
 	if shooting: return
@@ -26,24 +32,29 @@ func shoot():
 	ship_sprite.play("shoot")
 	shooting = true
 
-func start():
-	pass;
+func start_routine(_transform: Transform2D, _side: int):
+	transform = _transform
+	velocity = transform.x
+	
+	if tween_move: tween_move.kill()
+	tween_move = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	tween_move.tween_property(self, "position", position + transform.x * 200, 1)
+	
+	await tween_move.finished
+	CameraControls.camera.screen_shake(10, 1)
+	on_routine = true
 
-func start_routine(pos: Vector2, path: Path2D, side: int):
-	position = pos
-	
-	
-func start_y_routine(side: int):
-	pass
+func start_shooting(shooting_point: Transform2D):
+	pass;
 
 ## BUILT-IN
 
 func _ready() -> void:
-	shoot()
 	pass
 
 func _process(delta: float) -> void:
 	delta_count += delta
+	position += velocity * speed * delta
 
 ## SIGNAL HANDLERS
 
@@ -76,3 +87,8 @@ func _on_ship_sprite_animation_finished() -> void:
 	if ship_sprite.animation == "shoot":
 		shooting = false
 		shoot()
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	if on_routine:
+		on_routine = false
+		routine_ended.emit()

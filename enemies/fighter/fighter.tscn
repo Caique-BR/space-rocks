@@ -11,10 +11,6 @@
 [ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="9_fg2hu"]
 [ext_resource type="Texture2D" uid="uid://lt24bf667k3v" path="res://assets/effects/arcane.png" id="10_i50q5"]
 
-[sub_resource type="Curve" id="Curve_i50q5"]
-_data = [Vector2(0, 0), 0.0, 5.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.0, 0.0, 0, 0]
-point_count = 3
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_r4an7"]
 atlas = ExtResource("1_l10tx")
 region = Rect2(0, 0, 64, 64)
@@ -359,7 +355,6 @@ _data = {
 
 [node name="Fighter" type="Node2D" unique_id=501067181]
 script = ExtResource("1_r4an7")
-walking_curve = SubResource("Curve_i50q5")
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=1560386329]
 rotation = 1.5707964
@@ -376,7 +371,7 @@ sprite_frames = SubResource("SpriteFrames_p5t0c")
 autoplay = "default"
 frame_progress = 0.008473163
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=70423881]
+[node name="EngineParticles" type="CPUParticles2D" parent="." unique_id=70423881]
 position = Vector2(-54, 0)
 amount = 20
 texture = ExtResource("10_i50q5")
@@ -420,10 +415,6 @@ metadata/_custom_type_script = "uid://d33wds1kipash"
 rotation = 1.5687381
 shape = SubResource("CapsuleShape2D_2e8pa")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1632965821]
-libraries/ = SubResource("AnimationLibrary_fg2hu")
-speed_scale = 2.5
-
 [node name="MuzzleLeft" type="Marker2D" parent="." unique_id=91916510]
 position = Vector2(29, -23)
 
@@ -433,7 +424,12 @@ position = Vector2(29, 22)
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1468937374]
 rect = Rect2(-46, -19, 92, 38)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1632965821]
+libraries/ = SubResource("AnimationLibrary_fg2hu")
+speed_scale = 2.5
+
 [connection signal="animation_finished" from="ShipSprite" to="." method="_on_ship_sprite_animation_finished"]
 [connection signal="frame_changed" from="ShipSprite" to="." method="_on_ship_sprite_frame_changed"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

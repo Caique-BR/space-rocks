@@ -1,3 +1,4 @@
+class_name FighterSpawner
 extends Node2D
 
 @export var fighter_scene : PackedScene
@@ -5,7 +6,6 @@ extends Node2D
 var current_fighters : Array[Fighter] = []
 @onready var spawnpoint_x : Marker2D = get_node("SpawnPointX")
 @onready var spawnpoint_y : Marker2D = get_node("SpawnPointY")
-@onready var path_x : Path2D = get_node("PathX")
 
 func spawn_fighter():
 	var fighter = fighter_scene.instantiate()
@@ -19,12 +19,27 @@ func spawn_fighter_duo():
 	
 	current_fighters.append(f1)
 	current_fighters.append(f2)
+	start_x_routine()
+
+func start_x_routine():
+	var side = 1
 	
-	get_tree().root.add_child(f1)
-	get_tree().root.add_child(f2)
+	for fighter in current_fighters:
+		get_tree().root.add_child(fighter)
+		fighter.start_routine(spawnpoint_x.global_transform, side)
+		await get_tree().create_timer(0.25).timeout
+		side *= -1
+
+func start_y_routine():
+	var side = 1
 	
-	#f1.start_x_routine(1)
-	#f2.start_x_routine(2)
+	for fighter in current_fighters:
+		get_tree().root.add_child(fighter)
+		fighter.start_routine(spawnpoint_y.global_transform, side)
+		await get_tree().create_timer(0.25).timeout
+		side *= -1
 
 func _on_routine_ended():
-	pass;
+	if current_fighters.all(func(fighter: Fighter): return not fighter.on_routine):
+		await get_tree().create_timer(1).timeout
+		start_y_routine()
