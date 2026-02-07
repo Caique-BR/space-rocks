@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://djotuycnviqby" path="res://player/assets/ship.png" id="3_8t03j"]
 [ext_resource type="PackedScene" uid="uid://byo566t5go7kd" path="res://player/weapons/cannon/cannon.tscn" id="3_yllr7"]
 [ext_resource type="Texture2D" uid="uid://ce6cbkkl1ebyh" path="res://player/assets/ship_dmg1.png" id="4_ebec5"]
+[ext_resource type="Texture2D" uid="uid://chvud7x3ki5os" path="res://player/engines/assets/base_spritesheet.png" id="4_wodsf"]
 [ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="4_yw30f"]
 [ext_resource type="Texture2D" uid="uid://88xkle8ei4g6" path="res://player/assets/ship_dmg2.png" id="5_yllr7"]
 [ext_resource type="AudioStream" uid="uid://u8tjqsmo33hg" path="res://assets/sounds/engine.ogg" id="6_boad6"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="7_boad6"]
+[ext_resource type="Texture2D" uid="uid://fi6jgnrh0o0k" path="res://player/engines/assets/base_engine.png" id="8_kb6p2"]
 [ext_resource type="Script" uid="uid://delb4ia663h6v" path="res://player/components/player_input_component.gd" id="8_rgyib"]
 [ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="9_hg6s5"]
 [ext_resource type="Script" uid="uid://cningoo26cdpa" path="res://player/components/shield_component.gd" id="10_8t03j"]
@@ -24,6 +26,68 @@ colors = PackedColorArray(0.3801221, 0.8538752, 0.5398637, 1, 0.086000025, 0.679
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 34.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32hag"]
+atlas = ExtResource("4_wodsf")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqiix"]
+atlas = ExtResource("4_wodsf")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7oew"]
+atlas = ExtResource("4_wodsf")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c35mf"]
+atlas = ExtResource("4_wodsf")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65viv"]
+atlas = ExtResource("4_wodsf")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7c3f"]
+atlas = ExtResource("4_wodsf")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjvpn"]
+atlas = ExtResource("4_wodsf")
+region = Rect2(144, 48, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wodsf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32hag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqiix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7oew")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c35mf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65viv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7c3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjvpn")
+}],
+"loop": true,
+"name": &"power",
+"speed": 20.0
+}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kb6p2"]
 animations = [{
@@ -51,7 +115,7 @@ radius = 35.014282
 [node name="Player" type="RigidBody2D" unique_id=37309876 groups=["player"]]
 contact_monitor = true
 max_contacts_reported = 1
-linear_damp = 1.0
+linear_damp = 4.0
 angular_damp = 5.0
 script = ExtResource("1_rkbax")
 
@@ -88,6 +152,20 @@ current_weapon = NodePath("Cannon")
 [node name="GunCooldown" type="Timer" parent="WeaponModule" unique_id=1055391723]
 one_shot = true
 autostart = true
+
+[node name="EngineModule" type="Node2D" parent="." unique_id=652974926]
+rotation = 1.5707964
+scale = Vector2(2.1, 2.1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EngineModule" unique_id=703296753]
+visible = false
+sprite_frames = SubResource("SpriteFrames_wodsf")
+animation = &"power"
+autoplay = "power"
+frame_progress = 0.66313994
+
+[node name="Sprite2D" type="Sprite2D" parent="EngineModule" unique_id=1550722980]
+texture = ExtResource("8_kb6p2")
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=1026891787]
 texture_filter = 1
@@ -129,7 +207,7 @@ shield = 100.0
 metadata/_custom_type_script = "uid://cningoo26cdpa"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=2055247690 node_paths=PackedStringArray("health_component", "shield_component")]
-collision_layer = 0
+collision_layer = 9
 collision_mask = 9
 script = ExtResource("9_hg6s5")
 health_component = NodePath("../HealthComponent")

@@ -1,14 +1,13 @@
 extends Node
 
 @export var DEBUGGING : bool =  false
-
 @export var dreadnought_scene : PackedScene
 
 # change spawn timer on new level to 5, 10
 
 @export var asteroid_scene : PackedScene
 @onready var camera : Camera = get_node("Camera2D")
-@onready var boss_timer : Timer = $DreadnoughtTimer
+@onready var boss_timer : Timer = get_node("DreadnoughtTimer")
 var screensize = Vector2.ZERO
 var level = 0
 var score = 0
@@ -42,7 +41,7 @@ func new_game(): # starts the game when receiving the "start_game" signal
 	$Music.play()
 
 func new_level(): # increaces the difficult when changing levels
-	spawn_boss()
+	#spawn_boss()
 	level += 1
 	$LevelupSound.play()
 	
@@ -99,7 +98,6 @@ func _input(event): # pause game func
 		a.exploded.connect(self._on_asteroid_exploded)
 		call_deferred("add_child", a)
 
-
 ## SIGNAL HANDLERS
 
 func _on_asteroid_exploded(): #dupes the asteroids that gets shot
@@ -112,4 +110,4 @@ func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 func _on_dreadnought_timertest_timeout() -> void:
 	var e = dreadnought_scene.instantiate()
 	e.position = Vector2(950, -200)
-	#add_child(e)
+	add_child(e)

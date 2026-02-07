@@ -163,7 +163,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"shoot",
-"speed": 40.0
+"speed": 30.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27l01"]
@@ -380,7 +380,6 @@ frame_progress = 0.008473163
 position = Vector2(-54, 0)
 amount = 20
 texture = ExtResource("10_i50q5")
-local_coords = true
 emission_shape = 1
 emission_sphere_radius = 10.07
 gravity = Vector2(-980, 0)

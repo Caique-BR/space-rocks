@@ -1,18 +1,22 @@
 class_name Fighter
 extends Node2D
 
+signal routine_ended
+
 @onready var fighter_bullet_scene : PackedScene = load("res://enemies/fighter/fighter_bullet/fighter_bullet.tscn")
 @onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 @onready var hurtbox_component : HurtboxComponent = get_node("HurtboxComponent")
 @onready var animation_player : AnimationPlayer = get_node("AnimationPlayer")
+@export var walking_curve : Curve
 
 var tween_damage : Tween
 var shooting : bool = false
 var bleft : FighterBullet
 var bright : FighterBullet
 var velocity : Vector2 = Vector2(0, 0)
-var speed : int = 1500
+var speed : int = 500
+var delta_count : float = 0.0
 
 func shoot():
 	if shooting: return
@@ -22,14 +26,24 @@ func shoot():
 	ship_sprite.play("shoot")
 	shooting = true
 
+func start():
+	pass;
+
+func start_routine(pos: Vector2, path: Path2D, side: int):
+	position = pos
+	
+	
+func start_y_routine(side: int):
+	pass
+
 ## BUILT-IN
 
 func _ready() -> void:
-	#shoot()
+	shoot()
 	pass
 
 func _process(delta: float) -> void:
-	position += transform.x * speed * delta
+	delta_count += delta
 
 ## SIGNAL HANDLERS
 
@@ -46,6 +60,8 @@ func _on_health_depleted() -> void:
 	hitbox_component.disable_hitbox()	
 	hurtbox_component.disable_hurtbox()	
 	ship_sprite.play("explode")
+	await ship_sprite.animation_finished
+	queue_free()
 
 func _on_ship_sprite_frame_changed() -> void:
 	if shooting:

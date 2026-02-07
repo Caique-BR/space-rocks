@@ -75,7 +75,7 @@ func _ready() -> void:
 func _on_ship_sprite_frame_changed() -> void:
 	if ship_sprite.animation == "shoot":
 		if ship_sprite.frame >= 17 and ship_sprite.frame <= 41:
-			look_at(player.global_position)
+			rotation = lerp_angle(rotation, rotation + get_angle_to(player.global_position), 0.1)
 			raybeam.show()
 			if ship_sprite.frame % 2: hitbox.set_collision_layer_value(4, true)
 			else: hitbox.set_collision_layer_value(4, false)

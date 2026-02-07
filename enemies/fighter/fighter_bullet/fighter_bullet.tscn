@@ -525,10 +525,12 @@ animations = [{
 "speed": 100.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_8mjd8"]
+
 [node name="FighterBullet" type="Node2D" unique_id=808963504]
 script = ExtResource("1_sva8d")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=631090881]
+[node name="BulletSprite" type="AnimatedSprite2D" parent="." unique_id=631090881]
 rotation = 1.5707964
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_0ch8d")
@@ -537,9 +539,11 @@ frame_progress = 0.3688086
 
 [node name="ExplosionSprite" type="AnimatedSprite2D" parent="." unique_id=234994259]
 visible = false
-scale = Vector2(0.28125, 0.28125)
+scale = Vector2(0.46093753, 0.4609375)
 sprite_frames = SubResource("SpriteFrames_fxmfq")
 autoplay = "default"
+frame = 63
+frame_progress = 1.0
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1995529796]
 
@@ -548,4 +552,14 @@ script = ExtResource("2_0ch8d")
 damage = 1
 metadata/_custom_type_script = "uid://d33wds1kipash"
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1556177244]
+shape = SubResource("CircleShape2D_8mjd8")
+
+[node name="Lifetime" type="Timer" parent="." unique_id=1205645903]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="hit" from="HitboxComponent" to="." method="_on_hit"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]

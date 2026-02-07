@@ -32,6 +32,7 @@ scale = Vector2(1.1537038, 1.1537037)
 texture = ExtResource("1_pjrb6")
 
 [node name="Player" parent="." unique_id=37309876 instance=ExtResource("2_xwkvk")]
+visible = false
 position = Vector2(973, 542)
 
 [node name="RockPath" type="Path2D" parent="." unique_id=2123958418]
@@ -65,17 +66,8 @@ player = NodePath("../Player")
 [node name="DreadnoughtTimer" type="Timer" parent="." unique_id=915849720]
 one_shot = true
 
-[node name="Fighter" parent="." unique_id=501067181 instance=ExtResource("12_fwcvl")]
-position = Vector2(-93, 204)
-metadata/_edit_group_ = true
-
-[node name="Fighter2" parent="." unique_id=225824626 instance=ExtResource("12_fwcvl")]
-position = Vector2(2015, 543)
-rotation = 3.1415927
-metadata/_edit_group_ = true
-
-[node name="Fighter3" parent="." unique_id=391862573 instance=ExtResource("12_fwcvl")]
-position = Vector2(-93, 956)
+[node name="Fighter" parent="." unique_id=391862573 instance=ExtResource("12_fwcvl")]
+position = Vector2(-80, 540)
 metadata/_edit_group_ = true
 
 [connection signal="died" from="Player" to="." method="game_over"]

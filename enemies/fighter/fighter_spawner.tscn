@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cdjkr5cyeea87"]
+
+[ext_resource type="Script" uid="uid://cr4nj3qpk2lvo" path="res://enemies/fighter/fighter_spawner.gd" id="1_abwtm"]
+[ext_resource type="PackedScene" uid="uid://jiyo2cxtidff" path="res://enemies/fighter/fighter.tscn" id="2_skba4"]
+
+[sub_resource type="Curve2D" id="Curve2D_skba4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 220, 0, 540, 0, 220, 0, -220, 360, 540, 0, -220, 0, 0, 720, 540)
+}
+point_count = 3
+
+[node name="FighterSpawner" type="Node2D" unique_id=2137758461]
+script = ExtResource("1_abwtm")
+fighter_scene = ExtResource("2_skba4")
+
+[node name="SpawnPointX" type="Marker2D" parent="." unique_id=1694684018]
+position = Vector2(-80, 540)
+
+[node name="SpawnPointY" type="Marker2D" parent="." unique_id=400144906]
+position = Vector2(960, -80)
+
+[node name="PathX" type="Path2D" parent="." unique_id=274096859]
+curve = SubResource("Curve2D_skba4")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PathX" unique_id=118322004]
+position = Vector2(0, 540)
+rotation = 1.5707964

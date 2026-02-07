@@ -3,9 +3,10 @@ extends Node2D
 
 @onready var bullet_sprite : AnimatedSprite2D = get_node("BulletSprite")
 @onready var explosion_sprite : AnimatedSprite2D = get_node("ExplosionSprite")
+@onready var lifetime_timer : Timer = get_node("Lifetime")
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 
-@export var speed = 1000 
+@export var speed = 2500 
 
 var velocity = Vector2.ZERO
 
@@ -27,13 +28,19 @@ func explode_bullet(): # Called when bullet hits something
 	await explosion_sprite.animation_finished
 	queue_free()
 
+## BUILT-IN
+
 func _process(delta):
 	position += velocity * delta
 
+## SIGNAL HANDLERS
+
 func _on_hit(_hurtbox: Variant) -> void:
 	hitbox_component.disable_hitbox()
-	queue_free()
-	#explode_bullet()
+	explode_bullet()
 
 func _on_visible_on_screen_notifier_2d_screen_exited(): # delets the bullet when exiting the sceen
 	queue_free()
+
+func _on_lifetime_timeout() -> void:
+	explode_bullet()

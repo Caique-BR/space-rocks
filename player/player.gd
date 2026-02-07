@@ -9,7 +9,7 @@ signal died
 @onready var shield_component : ShieldComponent = get_node("ShieldComponent")
 @onready var radius : int
 
-@export var engine_power = 500 # Sets the ships speed
+@export var engine_power = 2000 # Sets the ships speed
 @export var spin_power = 8000 # Sets the shipss turn speed
 
 enum { INIT, ALIVE, INVUL, DEAD } # "FSM" to manage ships current state
@@ -66,7 +66,7 @@ func _ready():
 func _physics_process(_delta):
 	if dash_dir != 0:
 		linear_velocity = Vector2.ZERO
-		constant_force = Vector2(transform.x.orthogonal() * dash_dir) * 5000
+		constant_force = Vector2(transform.x * dash_dir) * 10000
 		dash_dir = 0
 		dash_timer.start(0.05)
 	elif not dash_timer.time_left: constant_force = thrust
