@@ -6,7 +6,6 @@ extends AnimatableBody2D
 @onready var shield_sprite = $ShieldSprite
 @onready var ship_sprite = $ShipSprite
 @onready var raybeam : Node2D = $RayBeam
-@export var health = 3
 @export var checkpoints : Array[Vector2] ## 0 = top left, 1 bot left, 2 top right, 3 bot right
 
 @onready var hitbox : HitboxComponent = get_tree().root.get_node("/root/Main/Dreadnought/RayBeam/HitboxComponent")
