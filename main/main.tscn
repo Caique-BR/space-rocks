@@ -66,6 +66,7 @@ player = NodePath("../Player")
 
 [node name="DreadnoughtTimer" type="Timer" parent="." unique_id=915849720]
 one_shot = true
+autostart = true
 
 [node name="FighterSpawner" parent="." unique_id=2137758461 instance=ExtResource("12_na0o7")]
 

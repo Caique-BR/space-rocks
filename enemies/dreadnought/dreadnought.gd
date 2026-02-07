@@ -79,3 +79,16 @@ func _on_ship_sprite_frame_changed() -> void:
 			raybeam.show()
 			if ship_sprite.frame % 2: hitbox.set_collision_layer_value(4, true)
 			else: hitbox.set_collision_layer_value(4, false)
+
+
+func _on_health_changed(_new_value: int) -> void:
+	
+	
+	print("changed")
+
+
+func _on_health_depleted() -> void:
+	queue_free()
+	
+	
+	print("depleted")
