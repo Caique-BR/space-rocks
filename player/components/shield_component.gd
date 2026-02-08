@@ -13,6 +13,8 @@ func _process(delta: float) -> void:
 	shield += shield_regen * delta
 
 func set_shield(value: float) -> void:
+	if health_component and health_component.invencible: return
+	
 	shield = clampf(value, 0, max_shield)
 	
 	if shield <= 0:

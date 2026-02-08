@@ -191,6 +191,7 @@ volume_db = -10.0
 [node name="HealthComponent" type="Node" parent="." unique_id=1302177192]
 script = ExtResource("7_boad6")
 max_health = 3
+invencible = true
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269 node_paths=PackedStringArray("player", "rear_exhaust", "engine_sound")]

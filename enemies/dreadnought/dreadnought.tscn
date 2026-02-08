@@ -599,6 +599,9 @@ animations = [{
 "speed": 11.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_jjdvl"]
+radius = 182.4637
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yp1th"]
 radius = 174.0
 height = 352.0
@@ -632,11 +635,18 @@ animation = &"shoot"
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="." unique_id=697132795]
 modulate = Color(1, 1, 1, 0.62352943)
-position = Vector2(-10, -1)
+position = Vector2(0, -7.9999995)
 scale = Vector2(3.25, 3.25)
 sprite_frames = SubResource("SpriteFrames_7y86e")
 autoplay = "default"
 frame_progress = 0.47015715
+
+[node name="Shield" type="Area2D" parent="." unique_id=1187356291]
+collision_layer = 6
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield" unique_id=1872331355]
+shape = SubResource("CircleShape2D_jjdvl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=923101043]
 visible = false
@@ -666,5 +676,6 @@ rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_jmkfm")
 
 [connection signal="frame_changed" from="ShipSprite" to="." method="_on_ship_sprite_frame_changed"]
+[connection signal="area_entered" from="Shield" to="." method="_on_shield_area_entered"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]

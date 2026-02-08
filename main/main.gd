@@ -63,7 +63,7 @@ func _ready():
 	screensize = get_viewport().get_visible_rect().size
 	CameraControls.camera = camera
 	
-	fighter_spawner.spawn_fighter_duo()
+	#fighter_spawner.spawn_fighter_duo()
 	new_game()
 	
 	###### DEBUG

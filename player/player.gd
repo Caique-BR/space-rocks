@@ -69,8 +69,6 @@ func _physics_process(_delta):
 	if movement_vector:
 		rear_exhaust.emitting = true
 		thrust = transform.x * engine_power
-		Input.start_joy_vibration(0, 0.05, 0.05, 0.1)
-		
 		rotation = lerp_angle(rotation, movement_vector.angle(), 0.1)
 	else:
 		rear_exhaust.emitting = false
