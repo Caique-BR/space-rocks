@@ -4,7 +4,6 @@ signal health_changed(new_health)
 signal shield_changed(new_shield)
 signal died
 
-@onready var rear_exhaust : CPUParticles2D = get_node("RearExhaust")
 @onready var dash_timer : Timer = get_node("DashTimer")
 @onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
 @onready var shield_component : ShieldComponent = get_node("ShieldComponent")
@@ -67,11 +66,9 @@ func _ready():
 	
 func _physics_process(_delta):
 	if movement_vector:
-		rear_exhaust.emitting = true
 		thrust = transform.x * engine_power
 		rotation = lerp_angle(rotation, movement_vector.angle(), 0.1)
 	else:
-		rear_exhaust.emitting = false
 		thrust = Vector2.ZERO
 	
 	if not movement_vector and aim_vector:

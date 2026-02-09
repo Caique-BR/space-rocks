@@ -63,7 +63,6 @@ func _ready():
 	screensize = get_viewport().get_visible_rect().size
 	CameraControls.camera = camera
 	
-	#fighter_spawner.spawn_fighter_duo()
 	new_game()
 	
 	###### DEBUG
@@ -113,4 +112,4 @@ func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 func _on_dreadnought_timertest_timeout() -> void:
 	var e = dreadnought_scene.instantiate()
 	e.position = Vector2(950, -200)
-	add_child(e)
+	#add_child(e)

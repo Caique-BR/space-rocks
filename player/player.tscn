@@ -5,89 +5,18 @@
 [ext_resource type="Texture2D" uid="uid://beomgdn6psmo6" path="res://player/assets/ship_dmg0.png" id="3_2ieo8"]
 [ext_resource type="Texture2D" uid="uid://djotuycnviqby" path="res://player/assets/ship.png" id="3_8t03j"]
 [ext_resource type="PackedScene" uid="uid://byo566t5go7kd" path="res://player/weapons/cannon/cannon.tscn" id="3_yllr7"]
+[ext_resource type="Script" uid="uid://dxauybep1l104" path="res://player/engines/ship_engine_module.gd" id="4_32hag"]
 [ext_resource type="Texture2D" uid="uid://ce6cbkkl1ebyh" path="res://player/assets/ship_dmg1.png" id="4_ebec5"]
-[ext_resource type="Texture2D" uid="uid://chvud7x3ki5os" path="res://player/engines/assets/base_spritesheet.png" id="4_wodsf"]
 [ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="4_yw30f"]
 [ext_resource type="Texture2D" uid="uid://88xkle8ei4g6" path="res://player/assets/ship_dmg2.png" id="5_yllr7"]
 [ext_resource type="AudioStream" uid="uid://u8tjqsmo33hg" path="res://assets/sounds/engine.ogg" id="6_boad6"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="7_boad6"]
-[ext_resource type="Texture2D" uid="uid://fi6jgnrh0o0k" path="res://player/engines/assets/base_engine.png" id="8_kb6p2"]
 [ext_resource type="Script" uid="uid://delb4ia663h6v" path="res://player/components/player_input_component.gd" id="8_rgyib"]
 [ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="9_hg6s5"]
 [ext_resource type="Script" uid="uid://cningoo26cdpa" path="res://player/components/shield_component.gd" id="10_8t03j"]
 
-[sub_resource type="Curve" id="Curve_g6k8r"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.17166424), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Gradient" id="Gradient_boad6"]
-offsets = PackedFloat32Array(0, 0.42137095, 0.766129)
-colors = PackedColorArray(0.3801221, 0.8538752, 0.5398637, 1, 0.086000025, 0.6794002, 0.86, 1, 0.6524862, 0.1616782, 0.68890446, 1)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 34.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_32hag"]
-atlas = ExtResource("4_wodsf")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tqiix"]
-atlas = ExtResource("4_wodsf")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e7oew"]
-atlas = ExtResource("4_wodsf")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c35mf"]
-atlas = ExtResource("4_wodsf")
-region = Rect2(0, 48, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_65viv"]
-atlas = ExtResource("4_wodsf")
-region = Rect2(48, 48, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x7c3f"]
-atlas = ExtResource("4_wodsf")
-region = Rect2(96, 48, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bjvpn"]
-atlas = ExtResource("4_wodsf")
-region = Rect2(144, 48, 48, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_wodsf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_32hag")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tqiix")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e7oew")
-}],
-"loop": true,
-"name": &"default",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c35mf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_65viv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x7c3f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bjvpn")
-}],
-"loop": true,
-"name": &"power",
-"speed": 20.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kb6p2"]
 animations = [{
@@ -119,26 +48,6 @@ linear_damp = 4.0
 angular_damp = 5.0
 script = ExtResource("1_rkbax")
 
-[node name="RearExhaust" type="CPUParticles2D" parent="." unique_id=1080729462]
-show_behind_parent = true
-position = Vector2(-22, 0)
-rotation = -3.1415925
-amount = 25
-lifetime = 0.1
-local_coords = true
-emission_shape = 3
-emission_rect_extents = Vector2(1, 5)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_max = 400.0
-angular_velocity_min = 720.0
-angular_velocity_max = 720.0
-radial_accel_min = 85.09
-radial_accel_max = 85.09
-scale_amount_max = 8.0
-scale_amount_curve = SubResource("Curve_g6k8r")
-color_ramp = SubResource("Gradient_boad6")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1416899759]
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_onrkg")
@@ -153,19 +62,10 @@ current_weapon = NodePath("Cannon")
 one_shot = true
 autostart = true
 
-[node name="EngineModule" type="Node2D" parent="." unique_id=652974926]
+[node name="ShipEngineModule" type="Node2D" parent="." unique_id=652974926]
 rotation = 1.5707964
 scale = Vector2(2.1, 2.1)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EngineModule" unique_id=703296753]
-visible = false
-sprite_frames = SubResource("SpriteFrames_wodsf")
-animation = &"power"
-autoplay = "power"
-frame_progress = 0.66313994
-
-[node name="Sprite2D" type="Sprite2D" parent="EngineModule" unique_id=1550722980]
-texture = ExtResource("8_kb6p2")
+script = ExtResource("4_32hag")
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=1026891787]
 texture_filter = 1
@@ -194,10 +94,9 @@ max_health = 3
 invencible = true
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
-[node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269 node_paths=PackedStringArray("player", "rear_exhaust", "engine_sound")]
+[node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269 node_paths=PackedStringArray("player", "engine_sound")]
 script = ExtResource("8_rgyib")
 player = NodePath("..")
-rear_exhaust = NodePath("../RearExhaust")
 engine_sound = NodePath("../EngineSound")
 metadata/_custom_type_script = "uid://delb4ia663h6v"
 

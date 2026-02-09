@@ -14,15 +14,17 @@ signal routine_ended
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 @onready var hurtbox_component : HurtboxComponent = get_node("HurtboxComponent")
 
-var tween_damage : Tween
-var shooting : bool = false
-var bleft : FighterBullet
-var bright : FighterBullet
+var velocity : Vector2 = Vector2.ZERO
 var speed : int = 3000
 var delta_count : float = 0.0
-var velocity : Vector2 = Vector2.ZERO
+
 var on_routine: bool = false
+var shooting : bool = false
+
 var tween_move : Tween
+var tween_damage : Tween
+var bleft : FighterBullet
+var bright : FighterBullet
 
 func shoot():
 	if shooting: return
@@ -45,7 +47,15 @@ func start_routine(_transform: Transform2D, _side: int):
 	on_routine = true
 
 func start_shooting(shooting_point: Transform2D):
-	pass;
+	transform = shooting_point
+	var final_position = Vector2(position)
+	position += transform.x * -1 * 200 
+	if tween_move: tween_move.kill()
+	tween_move = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	tween_move.tween_property(self, "position", final_position, 1)
+	
+	await tween_move.finished
+	shoot()
 
 ## BUILT-IN
 
@@ -54,7 +64,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	delta_count += delta
-	position += velocity * speed * delta
+	if on_routine : position += velocity * speed * delta
 
 ## SIGNAL HANDLERS
 

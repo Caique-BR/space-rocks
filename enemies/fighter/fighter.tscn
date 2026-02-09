@@ -422,7 +422,7 @@ position = Vector2(29, -23)
 position = Vector2(29, 22)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1468937374]
-rect = Rect2(-46, -19, 92, 38)
+rect = Rect2(-234, -19, 280, 38)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1632965821]
 libraries/ = SubResource("AnimationLibrary_fg2hu")

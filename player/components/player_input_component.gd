@@ -10,7 +10,6 @@ signal aim(aim_vector: Vector2)
 @export var engine_sound : AudioStreamPlayer
 
 func get_input(): # reads the player input and applies it to the ship
-	rear_exhaust.emitting = false
 	player.thrust = Vector2.ZERO
 	if player.state in [player.DEAD, player.INIT]: return 
 

@@ -41,6 +41,3 @@ func _on_hit(_hurtbox: Variant) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited(): # delets the bullet when exiting the sceen
 	queue_free()
-
-func _on_lifetime_timeout() -> void:
-	explode_bullet()

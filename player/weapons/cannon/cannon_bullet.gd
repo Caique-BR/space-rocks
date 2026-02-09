@@ -31,9 +31,7 @@ func disintegrate_bullet():
 ## BUILT-IN
 
 func _process(delta):
-	if disintegrating:
-		velocity = velocity / 2	
-	else: position += velocity * delta
+	position += velocity * delta
 	
 
 ## SIGNAL HANDLERS

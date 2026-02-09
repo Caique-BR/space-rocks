@@ -16,12 +16,16 @@ rotation = 1.5707964
 
 [node name="ShootingSpotA" type="Marker2D" parent="." unique_id=1722415856]
 position = Vector2(80, 80)
+rotation = 0.7853982
 
 [node name="ShootingSpotB" type="Marker2D" parent="." unique_id=397776079]
 position = Vector2(1840, 81)
+rotation = 2.3561945
 
 [node name="ShootingSpotC" type="Marker2D" parent="." unique_id=986214910]
 position = Vector2(1840, 1000)
+rotation = 3.9269907
 
 [node name="ShootingSpotD" type="Marker2D" parent="." unique_id=145733096]
 position = Vector2(80, 1000)
+rotation = 5.497787
