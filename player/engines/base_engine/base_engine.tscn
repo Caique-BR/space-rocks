@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cpjn6rqdqsoe7"]
+
+[ext_resource type="Script" uid="uid://b1dy6sppj54q7" path="res://player/engines/base_engine/base_engine.gd" id="1_jh4r5"]
+[ext_resource type="Texture2D" uid="uid://chvud7x3ki5os" path="res://player/engines/base_engine/assets/base_spritesheet.png" id="2_5cyxi"]
+[ext_resource type="Texture2D" uid="uid://fi6jgnrh0o0k" path="res://player/engines/base_engine/assets/base_engine.png" id="3_o1tpb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmn4g"]
+atlas = ExtResource("2_5cyxi")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo00t"]
+atlas = ExtResource("2_5cyxi")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcxws"]
+atlas = ExtResource("2_5cyxi")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkfue"]
+atlas = ExtResource("2_5cyxi")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_32n1v"]
+atlas = ExtResource("2_5cyxi")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8odix"]
+atlas = ExtResource("2_5cyxi")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_stntu"]
+atlas = ExtResource("2_5cyxi")
+region = Rect2(144, 48, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8odix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmn4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo00t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcxws")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkfue")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_32n1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8odix")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_stntu")
+}],
+"loop": true,
+"name": &"thrust",
+"speed": 15.0
+}]
+
+[node name="BaseEngine" type="Node2D" unique_id=1829903821 node_paths=PackedStringArray("engine_sprite", "thrust_sprite")]
+script = ExtResource("1_jh4r5")
+engine_sprite = NodePath("EngineSprite")
+thrust_sprite = NodePath("ThrustSprite")
+metadata/_custom_type_script = "uid://bopegh7jew4xp"
+
+[node name="ThrustSprite" type="AnimatedSprite2D" parent="." unique_id=643276207]
+rotation = 1.5707964
+scale = Vector2(2.1, 2.1)
+sprite_frames = SubResource("SpriteFrames_8odix")
+autoplay = "default"
+frame_progress = 0.093214646
+
+[node name="EngineSprite" type="Sprite2D" parent="." unique_id=1085760565]
+rotation = 1.5707964
+scale = Vector2(2.1, 2.1)
+texture = ExtResource("3_o1tpb")

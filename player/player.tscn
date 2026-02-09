@@ -7,8 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://byo566t5go7kd" path="res://player/weapons/cannon/cannon.tscn" id="3_yllr7"]
 [ext_resource type="Script" uid="uid://dxauybep1l104" path="res://player/engines/ship_engine_module.gd" id="4_32hag"]
 [ext_resource type="Texture2D" uid="uid://ce6cbkkl1ebyh" path="res://player/assets/ship_dmg1.png" id="4_ebec5"]
+[ext_resource type="PackedScene" uid="uid://bspjq2ltr05hs" path="res://player/weapons/blaster/blaster.tscn" id="4_tqiix"]
 [ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="4_yw30f"]
+[ext_resource type="PackedScene" uid="uid://cpjn6rqdqsoe7" path="res://player/engines/base_engine/base_engine.tscn" id="5_wodsf"]
 [ext_resource type="Texture2D" uid="uid://88xkle8ei4g6" path="res://player/assets/ship_dmg2.png" id="5_yllr7"]
+[ext_resource type="PackedScene" uid="uid://cu0wvfqelfi60" path="res://player/engines/burst_engine/burst_engine.tscn" id="6_32hag"]
 [ext_resource type="AudioStream" uid="uid://u8tjqsmo33hg" path="res://assets/sounds/engine.ogg" id="6_boad6"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="7_boad6"]
 [ext_resource type="Script" uid="uid://delb4ia663h6v" path="res://player/components/player_input_component.gd" id="8_rgyib"]
@@ -58,14 +61,21 @@ current_weapon = NodePath("Cannon")
 
 [node name="Cannon" parent="WeaponModule" unique_id=1175998548 instance=ExtResource("3_yllr7")]
 
+[node name="Blaster" parent="WeaponModule" unique_id=300448215 instance=ExtResource("4_tqiix")]
+visible = false
+
 [node name="GunCooldown" type="Timer" parent="WeaponModule" unique_id=1055391723]
 one_shot = true
 autostart = true
 
-[node name="ShipEngineModule" type="Node2D" parent="." unique_id=652974926]
-rotation = 1.5707964
-scale = Vector2(2.1, 2.1)
+[node name="ShipEngineModule" type="Node2D" parent="." unique_id=652974926 node_paths=PackedStringArray("current_engine")]
 script = ExtResource("4_32hag")
+current_engine = NodePath("BaseEngine")
+
+[node name="BaseEngine" parent="ShipEngineModule" unique_id=1829903821 instance=ExtResource("5_wodsf")]
+
+[node name="BurstEngine" parent="ShipEngineModule" unique_id=2070867146 instance=ExtResource("6_32hag")]
+visible = false
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=1026891787]
 texture_filter = 1
@@ -91,13 +101,10 @@ volume_db = -10.0
 [node name="HealthComponent" type="Node" parent="." unique_id=1302177192]
 script = ExtResource("7_boad6")
 max_health = 3
-invencible = true
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
-[node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269 node_paths=PackedStringArray("player", "engine_sound")]
+[node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269]
 script = ExtResource("8_rgyib")
-player = NodePath("..")
-engine_sound = NodePath("../EngineSound")
 metadata/_custom_type_script = "uid://delb4ia663h6v"
 
 [node name="ShieldComponent" type="Node" parent="." unique_id=1509943478 node_paths=PackedStringArray("health_component")]
@@ -124,5 +131,6 @@ shape = SubResource("CircleShape2D_hg6s5")
 [connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]
 [connection signal="aim" from="PlayerInputComponent" to="." method="_on_player_input_component_aim"]
 [connection signal="move" from="PlayerInputComponent" to="." method="_on_player_input_component_move"]
+[connection signal="move" from="PlayerInputComponent" to="ShipEngineModule" method="_on_player_input_component_move"]
 [connection signal="shoot" from="PlayerInputComponent" to="WeaponModule" method="_on_shoot"]
 [connection signal="shield_changed" from="ShieldComponent" to="." method="_on_shield_changed"]

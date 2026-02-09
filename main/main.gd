@@ -41,6 +41,7 @@ func new_game(): # starts the game when receiving the "start_game" signal
 	await $HUD/Timer.timeout
 	playing = true
 	$Music.play()
+	fighter_spawner.spawn_fighter_duo()
 
 func new_level(): # increaces the difficult when changing levels
 	#spawn_boss()

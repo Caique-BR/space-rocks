@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://drh7pfo4ut07y" path="res://assets/space_background.png" id="1_pjrb6"]
 [ext_resource type="Script" uid="uid://dpwttbn6dtxn" path="res://main/main.gd" id="1_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://b082g2egywgl" path="res://enemies/dreadnought/dreadnought.tscn" id="2_bsumw"]
-[ext_resource type="PackedScene" uid="uid://bhrt44op5mi6s" path="res://asteroid/asteroid.tscn" id="2_c651c"]
+[ext_resource type="PackedScene" uid="uid://bhrt44op5mi6s" path="res://enemies/asteroid/asteroid.tscn" id="2_c651c"]
 [ext_resource type="PackedScene" uid="uid://b2cr5fnxayhs6" path="res://player/player.tscn" id="2_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://c28f8ive544sl" path="res://hud/hud.tscn" id="5_3wy1v"]
 [ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="7_grrlh"]

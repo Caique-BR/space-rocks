@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://douadn6xtu3vt"
-path="res://.godot/imported/burst_engine.png-12f24e99eef9a00ffb395b029939abee.ctex"
+uid="uid://dnkkvegxfxydi"
+path="res://.godot/imported/blaster_bullet.png-48166a48ed919545622046d59cbea295.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/engines/assets/burst_engine.png"
-dest_files=["res://.godot/imported/burst_engine.png-12f24e99eef9a00ffb395b029939abee.ctex"]
+source_file="res://player/weapons/blaster/assets/blaster_bullet.png"
+dest_files=["res://.godot/imported/blaster_bullet.png-48166a48ed919545622046d59cbea295.ctex"]
 
 [params]
 

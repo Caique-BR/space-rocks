@@ -1,11 +1,11 @@
-class_name CannonBullet
+class_name BlasterBullet
 extends Node2D
 
 @onready var bullet_sprite : AnimatedSprite2D = get_node("BulletSprite")
 @onready var explosion_sprite : AnimatedSprite2D = get_node("ExplosionSprite")
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 
-@export var speed = 1500
+@export var speed = 1000
 
 var velocity = Vector2.ZERO
 

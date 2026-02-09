@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://bspjq2ltr05hs"]
+
+[ext_resource type="Script" uid="uid://crxvt0fhjd6a2" path="res://player/weapons/blaster/blaster.gd" id="1_2kag0"]
+[ext_resource type="PackedScene" uid="uid://cdnblu2a07nqm" path="res://player/weapons/blaster/blaster_bullet.tscn" id="2_dnbij"]
+[ext_resource type="Texture2D" uid="uid://gjagl0c1xd4t" path="res://player/weapons/blaster/assets/blaster.png" id="2_tlsse"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlsse"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnbij"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oach1"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0wpae"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uom7s"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(144, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65hpv"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(192, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hhvg"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(240, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcwck"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(288, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngcsj"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(336, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5b3bg"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(384, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcnsj"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(432, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mxxb"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(480, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7elkf"]
+atlas = ExtResource("2_tlsse")
+region = Rect2(528, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5mqlw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlsse")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnbij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oach1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0wpae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uom7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65hpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0hhvg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcwck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngcsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5b3bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcnsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mxxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7elkf")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 20.0
+}]
+
+[node name="Blaster" type="Node2D" unique_id=300448215]
+script = ExtResource("1_2kag0")
+projectile_scene = ExtResource("2_dnbij")
+metadata/_custom_type_script = "uid://mrtkta1pt4i6"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=856960745]
+rotation = 1.5707964
+scale = Vector2(2.1, 2.1)
+sprite_frames = SubResource("SpriteFrames_5mqlw")
+animation = &"shoot"
+frame = 11
+frame_progress = 1.0
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=2109404496]
+position = Vector2(31, 0)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

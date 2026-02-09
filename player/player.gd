@@ -4,10 +4,13 @@ signal health_changed(new_health)
 signal shield_changed(new_shield)
 signal died
 
-@onready var dash_timer : Timer = get_node("DashTimer")
 @onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
-@onready var shield_component : ShieldComponent = get_node("ShieldComponent")
 @onready var radius : int
+@onready var dash_timer : Timer = get_node("DashTimer")
+
+@onready var shield_component : ShieldComponent = get_node("ShieldComponent")
+@onready var hurtbox_component : HurtboxComponent = get_node("HurtboxComponent")
+@onready var ship_engine_module : ShipEngineModule = get_node("ShipEngineModule")
 
 @export var engine_power = 2000 # Sets the ships speed
 @export var spin_power = 8000 # Sets the shipss turn speed
@@ -16,13 +19,13 @@ enum { INIT, ALIVE, INVUL, DEAD } # "FSM" to manage ships current state
 
 var screensize = Vector2.ZERO
 
-var thrust = Vector2.ZERO # Force being applied to the engine
-var rotation_dir : int = 0 # Ships turn direction
+var thrust = Vector2.ZERO # Force being applied to the ship engine
 var movement_vector : Vector2
 var aim_vector : Vector2
 
-var state = INIT
-var reset_pos = false
+var state : int = INIT
+var moving : bool = false
+var reset_pos : bool = false
 
 ## SHIP METHODS
 
@@ -45,16 +48,21 @@ func change_state(new_state): # Code for the "FSM", uses the match to determ the
 		ALIVE:
 			$CollisionShape2D.set_deferred("disabled", false)
 			ship_sprite.modulate.a = 1
+			show()
+			hurtbox_component.enable_hurtbox()
+			set_deferred("freeze", false)
 		INVUL:
 			$CollisionShape2D.set_deferred("disabled", true)
-			ship_sprite.modulate.a = .5 # modulate changes the opacity of the sprite, when half transparent the player is immune to dmg
+			ship_sprite.modulate.a = 0.5
+			hurtbox_component.disable_hurtbox()
 			$InvulnerabilityTimer.start()
 		DEAD:
 			$CollisionShape2D.set_deferred("disabled", true)
-			ship_sprite.hide()
-			linear_velocity = Vector2.ZERO
+			hide()
+			set_deferred("freeze", true)
 			died.emit()
 			$EngineSound.stop()
+			hurtbox_component.disable_hurtbox()
 	state = new_state
 
 ## BUILT-IN METHODS
@@ -63,19 +71,19 @@ func _ready():
 	change_state(ALIVE)
 	screensize = get_viewport_rect().size
 	radius = int(ship_sprite.sprite_frames.get_frame_texture("default", 0).get_size().x / 2 * ship_sprite.scale.x)
-	
+
 func _physics_process(_delta):
-	if movement_vector:
-		thrust = transform.x * engine_power
-		rotation = lerp_angle(rotation, movement_vector.angle(), 0.1)
-	else:
-		thrust = Vector2.ZERO
-	
-	if not movement_vector and aim_vector:
+	if not moving and aim_vector:
 		rotation = lerp_angle(rotation, aim_vector.angle(), 0.1)
 	
-	constant_force = thrust
-	
+	if state != INVUL and moving:
+		constant_force = transform.x * ship_engine_module.current_engine.power
+		if ship_engine_module.current_thrust:
+			rotation = lerp_angle(rotation, ship_engine_module.current_thrust.angle(), 0.1)
+	else:
+		constant_force = Vector2.ZERO
+	moving = false
+
 func _integrate_forces(physics_state): # screenwrap
 	var xform = physics_state.transform
 	
@@ -102,8 +110,8 @@ func _on_shield_changed(new_shield: float):
 func _on_invulnerability_timer_timeout(): # time immune after taking dmg
 	change_state(ALIVE)
 
-func _on_player_input_component_move(m: Vector2) -> void:
-	movement_vector = m
+func _on_player_input_component_move(_m: Vector2) -> void:
+	if _m: moving = true
 
 func _on_player_input_component_aim(a: Vector2) -> void:
 	aim_vector = a

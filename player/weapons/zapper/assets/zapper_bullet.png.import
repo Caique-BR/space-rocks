@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chvud7x3ki5os"
-path="res://.godot/imported/base_spritesheet.png-1ced20d0435b5c6cfd0ec60a672adeed.ctex"
+uid="uid://b3skpg6e7kgph"
+path="res://.godot/imported/zapper_bullet.png-f88c7f035ef72a9f66a421d91c522e43.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/engines/base/assets/base_spritesheet.png"
-dest_files=["res://.godot/imported/base_spritesheet.png-1ced20d0435b5c6cfd0ec60a672adeed.ctex"]
+source_file="res://player/weapons/zapper/assets/zapper_bullet.png"
+dest_files=["res://.godot/imported/zapper_bullet.png-f88c7f035ef72a9f66a421d91c522e43.ctex"]
 
 [params]
 

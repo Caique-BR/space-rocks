@@ -32,11 +32,17 @@ window/stretch/mode="canvas_items"
 [file_customization]
 
 folder_colors={
-"res://asteroid/": "gray",
+"res://assets/": "gray",
+"res://components/": "gray",
 "res://enemies/": "red",
+"res://enemies/asteroid/": "red",
+"res://generic/": "gray",
+"res://globals/": "gray",
 "res://hud/": "gray",
 "res://main/": "purple",
-"res://player/": "blue"
+"res://menu/": "gray",
+"res://player/": "blue",
+"res://projectiles/": "gray"
 }
 
 [global_group]
