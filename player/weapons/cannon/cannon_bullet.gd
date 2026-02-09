@@ -8,10 +8,12 @@ extends Node2D
 @export var speed = 1500
 
 var velocity = Vector2.ZERO
+var disintegrating: bool = false
 
 func start(_transform : Transform2D): # calls this when a bullets spawns, telling it correct path
 	transform = _transform
 	velocity = transform.x * speed
+	disintegrate_bullet()
 
 func explode_bullet(): # Called when bullet hits something
 	velocity = Vector2.ZERO
@@ -23,8 +25,18 @@ func explode_bullet(): # Called when bullet hits something
 	await explosion_sprite.animation_finished
 	queue_free()
 
+func disintegrate_bullet():
+	disintegrating = true
+
+## BUILT-IN
+
 func _process(delta):
-	position += velocity * delta
+	if disintegrating:
+		velocity = velocity / 2	
+	else: position += velocity * delta
+	
+
+## SIGNAL HANDLERS
 
 func _on_hit(_hurtbox: Variant) -> void:
 	hitbox_component.disable_hitbox()

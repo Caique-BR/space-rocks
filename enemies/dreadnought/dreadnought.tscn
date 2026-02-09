@@ -596,7 +596,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 11.0
+"speed": 20.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jjdvl"]
@@ -634,12 +634,12 @@ sprite_frames = SubResource("SpriteFrames_g4n8t")
 animation = &"shoot"
 
 [node name="ShieldSprite" type="AnimatedSprite2D" parent="." unique_id=697132795]
-modulate = Color(1, 1, 1, 0.62352943)
-position = Vector2(0, -7.9999995)
+position = Vector2(0, 2.3841858e-07)
 scale = Vector2(3.25, 3.25)
 sprite_frames = SubResource("SpriteFrames_7y86e")
 autoplay = "default"
 frame_progress = 0.47015715
+offset = Vector2(0, -2)
 
 [node name="Shield" type="Area2D" parent="." unique_id=1187356291]
 collision_layer = 6

@@ -28,7 +28,7 @@ func move_to(to: Vector2, on_finished: Callable):
 	engine_thrust.show()
 	#await get_tree().create_timer(3).timeout
 	
-	tween_move.tween_property(self, "position", to, 1)
+	tween_move.tween_property(self, "position", to, 3)
 	
 	tween_move.finished.connect(on_finished)
 
@@ -71,6 +71,9 @@ func _ready() -> void:
 	var p = get_tree().get_nodes_in_group("player")[0]
 	if p is Player: player = p
 
+func _process(delta: float) -> void:
+	shield_sprite.rotation += delta
+
 ## SIGNAL HANDLERS
 
 func _on_ship_sprite_frame_changed() -> void:
@@ -95,14 +98,14 @@ func _on_shield_area_entered(area: Area2D) -> void:
 		if tween_damage: tween_damage.kill()
 		tween_damage = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
 		shield_sprite.scale = Vector2(3.1, 3.1)
-		ship_sprite.modulate = Color(4.416, 4.416, 4.416)
+		shield_sprite.modulate.b = 10
 		tween_damage.tween_property(shield_sprite, "scale", Vector2(3.25, 3.25), 0.5)
-		tween_damage.tween_property(shield_sprite, "modulate", Color(1, 1, 1), 0.5)
+		tween_damage.tween_property(shield_sprite, "modulate", Color(1, 1, 1, 1), 0.5)
 		
-		var projectile = area.get_parent()
-		var shield_hit_pos = Vector2(projectile.global_position)
-		var collision_normal = transform.x.rotated(transform.x.angle_to(shield_hit_pos)) 
+		##
+		
+		var projectile = area.get_parent() ## The projectile
+		var shield_hit_pos = Vector2(projectile.global_position) ## The hitting position
+		var collision_normal = (global_position - shield_hit_pos).normalized() ## 
 		
 		projectile.velocity = projectile.velocity.bounce(collision_normal)
-		projectile.rotation = transform.x.angle()
-		

@@ -90,7 +90,7 @@ func _integrate_forces(physics_state): # screenwrap
 		physics_state.transform.origin = screensize / 2
 		reset_pos = false
 
-## SIGNAL HANDLERS\
+## SIGNAL HANDLERS
 
 func _on_health_changed(new_health): # set the starting lives for the player
 	change_state(INVUL)
