@@ -1,22 +1,43 @@
 [gd_scene format=3 uid="uid://y2m51psxxec5"]
 
-[ext_resource type="Texture2D" uid="uid://drh7pfo4ut07y" path="res://assets/space_background.png" id="1_pjrb6"]
 [ext_resource type="Script" uid="uid://dpwttbn6dtxn" path="res://main/main.gd" id="1_xwkvk"]
 [ext_resource type="PackedScene" uid="uid://b082g2egywgl" path="res://enemies/dreadnought/dreadnought.tscn" id="2_bsumw"]
 [ext_resource type="PackedScene" uid="uid://bhrt44op5mi6s" path="res://enemies/asteroid/asteroid.tscn" id="2_c651c"]
 [ext_resource type="PackedScene" uid="uid://b2cr5fnxayhs6" path="res://player/player.tscn" id="2_xwkvk"]
+[ext_resource type="Texture2D" uid="uid://tolsvixu84t6" path="res://assets/background/starry_background_layer_1.png" id="4_bsumw"]
 [ext_resource type="PackedScene" uid="uid://c28f8ive544sl" path="res://hud/hud.tscn" id="5_3wy1v"]
+[ext_resource type="Texture2D" uid="uid://cuirowc1fblhx" path="res://assets/background/starry_background_layer_2.png" id="5_73k8k"]
+[ext_resource type="Texture2D" uid="uid://ct4u5p77rbl3k" path="res://assets/background/starry_background_layer_3.png" id="6_5xyti"]
 [ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="7_grrlh"]
+[ext_resource type="Texture2D" uid="uid://c3kq2y3ixkhbo" path="res://assets/background/starry_background_layer_4.png" id="7_n3o0a"]
 [ext_resource type="AudioStream" uid="uid://dngoy0poqy7t7" path="res://assets/sounds/levelup.ogg" id="8_0i4oc"]
 [ext_resource type="AudioStream" uid="uid://jl64dctvfi40" path="res://assets/sounds/Funky-Gameplay_Looping.ogg" id="9_bsumw"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
 [ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s758e"]
 
 [sub_resource type="Curve2D" id="Curve2D_c651c"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 119, 62, 0, 0, 0, 0, 1808, 52, 0, 0, 0, 0, 1810, 1004, 0, 0, 0, 0, 118, 1010, 0, 0, 0, 0, 121, 63)
 }
 point_count = 5
+
+[sub_resource type="Environment" id="Environment_73k8k"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_levels/1 = 0.3
+glow_levels/2 = 0.3
+glow_levels/3 = 0.3
+glow_levels/4 = 0.3
+glow_levels/5 = 0.3
+glow_intensity = 0.27
+glow_bloom = 0.22
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+glow_hdr_scale = 1.27
+glow_hdr_luminance_cap = 2.0
 
 [node name="Main" type="Node" unique_id=1414078381 node_paths=PackedStringArray("fighter_spawner")]
 process_mode = 3
@@ -26,14 +47,35 @@ dreadnought_scene = ExtResource("2_bsumw")
 asteroid_scene = ExtResource("2_c651c")
 fighter_spawner = NodePath("FighterSpawner")
 
-[node name="Background" type="Sprite2D" parent="." unique_id=1517349513]
-texture_filter = 1
-position = Vector2(960, 540)
-scale = Vector2(1.1537038, 1.1537037)
-texture = ExtResource("1_pjrb6")
+[node name="Background" type="Node2D" parent="." unique_id=1497782047]
+
+[node name="Layer" type="Sprite2D" parent="Background" unique_id=1628701361]
+position = Vector2(0, 541)
+scale = Vector2(3.1, 3.1)
+texture = ExtResource("4_bsumw")
+
+[node name="Layer2" type="Sprite2D" parent="Background" unique_id=1134935934]
+position = Vector2(0, 541)
+scale = Vector2(3.1, 3.1)
+texture = ExtResource("5_73k8k")
+
+[node name="Layer3" type="Sprite2D" parent="Background" unique_id=1924123051]
+position = Vector2(0, 541)
+scale = Vector2(3.1, 3.1)
+texture = ExtResource("6_5xyti")
+
+[node name="Layer4" type="Sprite2D" parent="Background" unique_id=1882387800]
+position = Vector2(0, 541)
+scale = Vector2(3.1, 3.1)
+texture = ExtResource("7_n3o0a")
+
+[node name="Layer5" type="AnimatedSprite2D" parent="Background" unique_id=1371432435]
+position = Vector2(0, 541)
+scale = Vector2(3.1, 3.1)
+sprite_frames = SubResource("SpriteFrames_s758e")
+frame_progress = 0.39832708
 
 [node name="Player" parent="." unique_id=37309876 instance=ExtResource("2_xwkvk")]
-visible = false
 position = Vector2(973, 542)
 
 [node name="RockPath" type="Path2D" parent="." unique_id=2123958418]
@@ -69,6 +111,9 @@ one_shot = true
 autostart = true
 
 [node name="FighterSpawner" parent="." unique_id=2137758461 instance=ExtResource("12_na0o7")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1909751423]
+environment = SubResource("Environment_73k8k")
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

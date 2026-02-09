@@ -52,6 +52,7 @@ angular_damp = 5.0
 script = ExtResource("1_rkbax")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1416899759]
+visible = false
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_onrkg")
 
@@ -122,6 +123,7 @@ shield_component = NodePath("../ShieldComponent")
 metadata/_custom_type_script = "uid://bh5hqmbepj133"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=512164640]
+visible = false
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_hg6s5")
 
