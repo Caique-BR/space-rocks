@@ -1,21 +1,23 @@
 [gd_scene format=3 uid="uid://c28f8ive544sl"]
 
-[ext_resource type="FontFile" uid="uid://dp4kf5h8w8pxu" path="res://assets/kenvector_future_thin.ttf" id="1_ixfpt"]
 [ext_resource type="Script" uid="uid://dgxh3ni4swrn5" path="res://hud/hud.gd" id="1_uqrat"]
-[ext_resource type="Texture2D" uid="uid://dl7t8dg8h5a0p" path="res://assets/player_small.png" id="2_mdr80"]
-[ext_resource type="Texture2D" uid="uid://bnd0634tmuwn2" path="res://assets/shield_gold.png" id="3_1kkc0"]
-[ext_resource type="Texture2D" uid="uid://l78hjh8usmfn" path="res://assets/bar_glass_200.png" id="4_qv4qp"]
-[ext_resource type="Texture2D" uid="uid://cigd0i42pga8r" path="res://assets/bar_green_200.png" id="5_sh35x"]
-[ext_resource type="Texture2D" uid="uid://batfj8mqveu7w" path="res://assets/play_button.png" id="7_1kkc0"]
-[ext_resource type="Texture2D" uid="uid://bqixowdjau7ba" path="res://assets/play_button_h.png" id="8_qv4qp"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_pkqra"]
-font = ExtResource("1_ixfpt")
-font_size = 64
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ca3a"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_uget6"]
-font = ExtResource("1_ixfpt")
-font_size = 64
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2gk58"]
+bg_color = Color(0.24, 0.6, 0.45599997, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_318vg"]
+bg_color = Color(0.1, 0.1, 0.1, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 0.27450982)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8tcp"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="HUD" type="CanvasLayer" unique_id=921773207]
 script = ExtResource("1_uqrat")
@@ -24,92 +26,39 @@ script = ExtResource("1_uqrat")
 wait_time = 2.0
 one_shot = true
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1902080736]
-anchors_preset = 10
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=784881845]
+z_index = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -40.0
+offset_right = 120.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_6ca3a")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2gk58")
+value = 100.0
+show_percentage = false
+
+[node name="DamageBar" type="ProgressBar" parent="HealthBar" unique_id=142381039]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-offset_top = 968.0
-offset_bottom = 1080.0
-grow_horizontal = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1884161954]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer" unique_id=240970095]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "0"
-label_settings = SubResource("LabelSettings_pkqra")
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer" unique_id=880828098]
-layout_mode = 2
-texture = ExtResource("3_1kkc0")
-stretch_mode = 3
-
-[node name="ShieldBar" type="TextureProgressBar" parent="MarginContainer/HBoxContainer" unique_id=2114642852]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-max_value = 1.0
-step = 0.01
-value = 0.75
-texture_over = ExtResource("4_qv4qp")
-texture_progress = ExtResource("5_sh35x")
-
-[node name="LivesCounter" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1678665562]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="L1" type="TextureRect" parent="MarginContainer/HBoxContainer/LivesCounter" unique_id=972929501]
-layout_mode = 2
-texture = ExtResource("2_mdr80")
-stretch_mode = 5
-
-[node name="L2" type="TextureRect" parent="MarginContainer/HBoxContainer/LivesCounter" unique_id=1674534997]
-layout_mode = 2
-texture = ExtResource("2_mdr80")
-stretch_mode = 5
-
-[node name="L3" type="TextureRect" parent="MarginContainer/HBoxContainer/LivesCounter" unique_id=1829743037]
-layout_mode = 2
-texture = ExtResource("2_mdr80")
-stretch_mode = 5
-
-[node name="Message" type="Label" parent="." unique_id=556684035]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -509.0
-offset_right = 960.0
-offset_bottom = -437.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Space Rocks!"
-label_settings = SubResource("LabelSettings_uget6")
-horizontal_alignment = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_318vg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_w8tcp")
+value = 100.0
+show_percentage = false
 
-[node name="StartButton" type="TextureButton" parent="." unique_id=1067902485]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -121.0
-offset_top = 55.0
-offset_right = 128.0
-offset_bottom = 120.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("7_1kkc0")
-texture_hover = ExtResource("8_qv4qp")
+[node name="Timer" type="Timer" parent="HealthBar" unique_id=2112638468]
+wait_time = 0.4
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

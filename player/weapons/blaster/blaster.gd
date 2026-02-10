@@ -15,6 +15,7 @@ func shoot() -> void:
 
 func _ready() -> void:
 	fire_rate = 1
+	recoil = 20000
 
 ## SIGNAL HANDLERS
 

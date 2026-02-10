@@ -35,27 +35,19 @@ func new_game(): # starts the game when receiving the "start_game" signal
 	get_tree().call_group("asteroids", "queue_free") # removes asteroids from previous run
 	level = 0 
 	score = 0
-	$HUD.update_score(score)
-	$HUD.show_message("Get Ready!")
 	$Player.reset()
-	await $HUD/Timer.timeout
 	playing = true
 	$Music.play()
 	fighter_spawner.spawn_fighter_duo()
 
 func new_level(): # increaces the difficult when changing levels
-	#spawn_boss()
 	level += 1
 	$LevelupSound.play()
-	
-	$HUD.show_message("Wave %s" % level)
-	#$EnemyTimer.start(randi_range(1, 3)) # enemy spawn on timer end
 	
 	for i in level: spawn_asteroid()
 
 func game_over():
 	playing = false
-	$HUD.game_over()
 	$Music.stop()
 
 ## BUILT-IN
@@ -82,13 +74,6 @@ func _input(event): # pause game func
 	if event.is_action_pressed("pause"):
 		if not playing: return
 		get_tree().paused = not get_tree().paused
-		var message = $HUD/VBoxContainer/Message
-		if get_tree().paused:
-			message.text = "Paused"
-			message.show()
-		else:
-			message.text = ""
-			message.hide()
 	if event.is_action_pressed("spawn_asteroid"):
 		$RockPath/RockSpawn.progress = randi()
 
@@ -107,8 +92,6 @@ func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 	#camera.screen_shake(15, 0.5)
 	$ExplosionSound.play()
 	score += 1
-	
-	$HUD.update_score(score)
 
 func _on_dreadnought_timertest_timeout() -> void:
 	var e = dreadnought_scene.instantiate()

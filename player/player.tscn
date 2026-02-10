@@ -61,6 +61,7 @@ script = ExtResource("2_yllr7")
 current_weapon = NodePath("Cannon")
 
 [node name="Cannon" parent="WeaponModule" unique_id=1175998548 instance=ExtResource("3_yllr7")]
+visible = false
 
 [node name="Blaster" parent="WeaponModule" unique_id=300448215 instance=ExtResource("4_tqiix")]
 visible = false
