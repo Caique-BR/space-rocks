@@ -1,11 +1,11 @@
-class_name FighterBullet
+class_name ScoutBullet
 extends Node2D
 
 @onready var bullet_sprite : AnimatedSprite2D = get_node("BulletSprite")
 @onready var explosion_sprite : AnimatedSprite2D = get_node("ExplosionSprite")
 @onready var hitbox_component : HitboxComponent = get_node("HitboxComponent")
 
-@export var speed = 2500 
+@export var speed = 1500 
 
 var velocity = Vector2.ZERO
 

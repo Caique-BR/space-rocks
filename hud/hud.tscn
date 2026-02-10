@@ -6,18 +6,59 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2gk58"]
 bg_color = Color(0.24, 0.6, 0.45599997, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_318vg"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
-expand_margin_left = 1.0
-expand_margin_top = 1.0
-expand_margin_right = 1.0
-expand_margin_bottom = 1.0
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 shadow_color = Color(0, 0, 0, 0.27450982)
 shadow_offset = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8tcp"]
 bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2gk58"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svhta"]
+bg_color = Color(0, 0.54179496, 0.8832054, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjv1a"]
+bg_color = Color(0.1, 0.1, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+shadow_color = Color(0, 0, 0, 0.27450982)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ivg5"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="HUD" type="CanvasLayer" unique_id=921773207]
 script = ExtResource("1_uqrat")
@@ -33,15 +74,17 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -40.0
-offset_right = 120.0
-offset_bottom = -32.0
+offset_left = -219.0
+offset_top = -63.0
+offset_right = 219.0
+offset_bottom = -39.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/background = SubResource("StyleBoxEmpty_6ca3a")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2gk58")
+step = 1.0
 value = 100.0
+rounded = true
 show_percentage = false
 
 [node name="DamageBar" type="ProgressBar" parent="HealthBar" unique_id=142381039]
@@ -58,6 +101,41 @@ value = 100.0
 show_percentage = false
 
 [node name="Timer" type="Timer" parent="HealthBar" unique_id=2112638468]
+wait_time = 0.4
+one_shot = true
+
+[node name="ShieldBar" type="ProgressBar" parent="." unique_id=90521321]
+z_index = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -35.0
+offset_right = 184.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_2gk58")
+theme_override_styles/fill = SubResource("StyleBoxFlat_svhta")
+value = 100.0
+show_percentage = false
+
+[node name="DamageBar" type="ProgressBar" parent="ShieldBar" unique_id=869270741]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_fjv1a")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0ivg5")
+value = 100.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="ShieldBar" unique_id=1581211462]
 wait_time = 0.4
 one_shot = true
 

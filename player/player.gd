@@ -1,13 +1,13 @@
 class_name Player extends RigidBody2D
 
-signal health_changed(new_health)
-signal shield_changed(new_shield)
+signal health_changed(health_ratio)
+signal shield_changed(shield_ratio)
 signal died
 
 @onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
 @onready var radius : int
-@onready var dash_timer : Timer = get_node("DashTimer")
 
+@onready var health_component : HealthComponent = get_node("HealthComponent")
 @onready var shield_component : ShieldComponent = get_node("ShieldComponent")
 @onready var hurtbox_component : HurtboxComponent = get_node("HurtboxComponent")
 @onready var ship_engine_module : ShipEngineModule = get_node("ShipEngineModule")
@@ -25,6 +25,7 @@ var aim_vector : Vector2
 
 var state : int = INIT
 var moving : bool = false
+var damaged : bool = false
 var reset_pos : bool = false
 
 ## SHIP METHODS
@@ -99,7 +100,8 @@ func _integrate_forces(physics_state): # screenwrap
 
 func _on_health_changed(new_health): # set the starting lives for the player
 	change_state(INVUL)
-	health_changed.emit(new_health)
+	health_changed.emit(new_health / health_component.max_health)
+	print(new_health / health_component.max_health)
 
 func _on_health_depleted() -> void:
 	change_state(DEAD)
@@ -110,6 +112,9 @@ func _on_shield_changed(new_shield: float):
 func _on_invulnerability_timer_timeout(): # time immune after taking dmg
 	change_state(ALIVE)
 
+func _on_shield_regen_timer_timeout() -> void:
+	pass
+	
 func _on_player_input_component_move(_m: Vector2) -> void:
 	if _m: moving = true
 

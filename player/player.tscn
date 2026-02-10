@@ -89,9 +89,6 @@ sprite_frames = SubResource("SpriteFrames_kb6p2")
 [node name="Explosion" parent="." unique_id=1727476015 instance=ExtResource("4_yw30f")]
 visible = false
 
-[node name="DashTimer" type="Timer" parent="." unique_id=582847639]
-one_shot = true
-
 [node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1589903483]
 wait_time = 2.0
 one_shot = true
@@ -102,7 +99,7 @@ volume_db = -10.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1302177192]
 script = ExtResource("7_boad6")
-max_health = 3
+max_health = 100.0
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [node name="PlayerInputComponent" type="Node" parent="." unique_id=261053269]
@@ -112,8 +109,14 @@ metadata/_custom_type_script = "uid://delb4ia663h6v"
 [node name="ShieldComponent" type="Node" parent="." unique_id=1509943478 node_paths=PackedStringArray("health_component")]
 script = ExtResource("10_8t03j")
 health_component = NodePath("../HealthComponent")
+max_shield = 100.0
 shield = 100.0
+shield_regen = 30.0
+shield_regen_timer = 2.0
 metadata/_custom_type_script = "uid://cningoo26cdpa"
+
+[node name="RegenTimer" type="Timer" parent="ShieldComponent" unique_id=928415473]
+one_shot = true
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=2055247690 node_paths=PackedStringArray("health_component", "shield_component")]
 collision_layer = 9
@@ -136,4 +139,5 @@ shape = SubResource("CircleShape2D_hg6s5")
 [connection signal="move" from="PlayerInputComponent" to="." method="_on_player_input_component_move"]
 [connection signal="move" from="PlayerInputComponent" to="ShipEngineModule" method="_on_player_input_component_move"]
 [connection signal="shoot" from="PlayerInputComponent" to="WeaponModule" method="_on_shoot"]
+[connection signal="shield_broken" from="ShieldComponent" to="." method="_on_shield_component_shield_broken"]
 [connection signal="shield_changed" from="ShieldComponent" to="." method="_on_shield_changed"]

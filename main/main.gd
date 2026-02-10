@@ -1,12 +1,14 @@
 extends Node
 
 @export var DEBUGGING : bool =  false
+@export var asteroid_scene : PackedScene
 @export var dreadnought_scene : PackedScene
+@export var portal_scene : PackedScene
 
 # change spawn timer on new level to 5, 10
 
-@export var asteroid_scene : PackedScene
-@export var fighter_spawner : FighterSpawner
+@onready var hud : HUD = get_node("HUD")
+@onready var fighter_spawner : FighterSpawner = get_node("FighterSpawner")
 @onready var camera : Camera = get_node("Camera2D")
 @onready var boss_timer : Timer = get_node("DreadnoughtTimer")
 
@@ -39,6 +41,7 @@ func new_game(): # starts the game when receiving the "start_game" signal
 	playing = true
 	$Music.play()
 	fighter_spawner.spawn_fighter_duo()
+	
 
 func new_level(): # increaces the difficult when changing levels
 	level += 1
@@ -55,6 +58,10 @@ func game_over():
 func _ready():
 	screensize = get_viewport().get_visible_rect().size
 	CameraControls.camera = camera
+	
+	var portal : Portal = portal_scene.instantiate()
+	add_child(portal)
+	portal.spawn_portal(Vector2(1100, 540))
 	
 	new_game()
 	
@@ -94,6 +101,6 @@ func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 	score += 1
 
 func _on_dreadnought_timertest_timeout() -> void:
-	var e = dreadnought_scene.instantiate()
-	e.position = Vector2(950, -200)
-	#add_child(e)
+	var dreadnought : Dreadnought = dreadnought_scene.instantiate()
+	dreadnought.position = Vector2(950, -200)
+	add_child(dreadnought)

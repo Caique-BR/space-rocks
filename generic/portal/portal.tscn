@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://bbb1ivlw78ev3"]
+
+[ext_resource type="Texture2D" uid="uid://d26jhm6t3y5vq" path="res://generic/portal/assets/portal.png" id="1_4urq4"]
+[ext_resource type="Script" uid="uid://cgsp4p56wfv0h" path="res://generic/portal/portal.gd" id="1_qgeft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgeft"]
+atlas = ExtResource("1_4urq4")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_733bo"]
+atlas = ExtResource("1_4urq4")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6j6f"]
+atlas = ExtResource("1_4urq4")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0r4j"]
+atlas = ExtResource("1_4urq4")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgsnc"]
+atlas = ExtResource("1_4urq4")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktoqd"]
+atlas = ExtResource("1_4urq4")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8i1jw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgeft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_733bo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6j6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0r4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lgsnc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktoqd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="Curve" id="Curve_efnc0"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_24hsi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_na8fx"]
+colors = PackedColorArray(0.38, 1, 0.48333323, 1, 1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_733bo"]
+radius = 15.0
+height = 88.0
+
+[node name="Portal" type="Area2D" unique_id=1617129024]
+monitoring = false
+script = ExtResource("1_qgeft")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1018178883]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_8i1jw")
+autoplay = "default"
+frame_progress = 0.73006696
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1288605004]
+amount = 100
+lifetime = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(15, 40)
+gravity = Vector2(0, 0)
+orbit_velocity_max = 0.5
+orbit_velocity_curve = SubResource("Curve_efnc0")
+radial_accel_min = -10.0
+scale_amount_curve = SubResource("Curve_24hsi")
+color_ramp = SubResource("Gradient_na8fx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=986146224]
+position = Vector2(2, 0)
+shape = SubResource("CapsuleShape2D_733bo")

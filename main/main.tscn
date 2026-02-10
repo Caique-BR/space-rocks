@@ -14,6 +14,8 @@
 [ext_resource type="AudioStream" uid="uid://jl64dctvfi40" path="res://assets/sounds/Funky-Gameplay_Looping.ogg" id="9_bsumw"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
 [ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
+[ext_resource type="PackedScene" uid="uid://d1u0b6uqin6ks" path="res://enemies/scout/scout.tscn" id="15_5xyti"]
+[ext_resource type="PackedScene" uid="uid://bbb1ivlw78ev3" path="res://generic/portal/portal.tscn" id="16_n3o0a"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s758e"]
 
@@ -24,7 +26,6 @@ _data = {
 point_count = 5
 
 [sub_resource type="Environment" id="Environment_73k8k"]
-background_mode = 3
 tonemap_mode = 1
 glow_enabled = true
 glow_levels/1 = 0.3
@@ -39,13 +40,13 @@ glow_hdr_threshold = 0.0
 glow_hdr_scale = 1.27
 glow_hdr_luminance_cap = 2.0
 
-[node name="Main" type="Node" unique_id=1414078381 node_paths=PackedStringArray("fighter_spawner")]
+[node name="Main" type="Node" unique_id=1414078381]
 process_mode = 3
 script = ExtResource("1_xwkvk")
 DEBUGGING = true
-dreadnought_scene = ExtResource("2_bsumw")
 asteroid_scene = ExtResource("2_c651c")
-fighter_spawner = NodePath("FighterSpawner")
+dreadnought_scene = ExtResource("2_bsumw")
+portal_scene = ExtResource("16_n3o0a")
 
 [node name="Background" type="Node2D" parent="." unique_id=1497782047]
 
@@ -115,9 +116,11 @@ autostart = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1909751423]
 environment = SubResource("Environment_73k8k")
 
+[node name="Scout" parent="." unique_id=353507806 instance=ExtResource("15_5xyti")]
+position = Vector2(464, 418)
+
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]
 [connection signal="shield_changed" from="Player" to="HUD" method="update_shield"]
-[connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
 [connection signal="timeout" from="DreadnoughtTimer" to="." method="_on_dreadnought_timertest_timeout"]
