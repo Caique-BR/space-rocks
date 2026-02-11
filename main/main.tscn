@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
 [ext_resource type="PackedScene" uid="uid://d1u0b6uqin6ks" path="res://enemies/scout/scout.tscn" id="15_5xyti"]
 [ext_resource type="PackedScene" uid="uid://bbb1ivlw78ev3" path="res://generic/portal/portal.tscn" id="16_n3o0a"]
+[ext_resource type="PackedScene" uid="uid://c6qcg3q22qhc6" path="res://generic/notification/notification.tscn" id="17_s758e"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s758e"]
 
@@ -26,6 +27,7 @@ _data = {
 point_count = 5
 
 [sub_resource type="Environment" id="Environment_73k8k"]
+background_mode = 3
 tonemap_mode = 1
 glow_enabled = true
 glow_levels/1 = 0.3
@@ -117,7 +119,10 @@ autostart = true
 environment = SubResource("Environment_73k8k")
 
 [node name="Scout" parent="." unique_id=353507806 instance=ExtResource("15_5xyti")]
-position = Vector2(464, 418)
+position = Vector2(612, 547)
+
+[node name="Notification" parent="." unique_id=1598583828 instance=ExtResource("17_s758e")]
+position = Vector2(607, 476)
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

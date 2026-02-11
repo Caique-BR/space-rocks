@@ -37,7 +37,7 @@ folder_colors={
 "res://components/": "gray",
 "res://enemies/": "red",
 "res://enemies/asteroid/": "red",
-"res://generic/": "gray",
+"res://generic/": "yellow",
 "res://globals/": "gray",
 "res://hud/": "gray",
 "res://main/": "purple",

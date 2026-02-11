@@ -4,6 +4,7 @@ extends Node2D
 signal routine_ended
 
 @onready var scout_bullet_scene : PackedScene = load("res://enemies/scout/scout_bullet/scout_bullet.tscn")
+@onready var portal_scene : PackedScene = load("res://generic/portal/portal.tscn")
 
 @onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
 @onready var shield_sprite : AnimatedSprite2D = get_node("ShieldSprite")
@@ -23,6 +24,7 @@ var on_routine: bool = false
 var shooting : bool = false
 
 var tween_move : Tween
+var tween_scale : Tween
 var tween_damage : Tween
 var bullet : ScoutBullet
 
@@ -32,6 +34,25 @@ func shoot():
 	
 	ship_sprite.play("shoot")
 	shooting = true
+
+func vanish(): 
+	var portal : Portal = portal_scene.instantiate()
+	get_tree().root.add_child(portal)
+	
+	rotation = 0.0
+	portal.spawn_portal(global_position + transform.x * 300)
+	
+	if tween_move: tween_move.kill()
+	if tween_scale: tween_scale.kill()
+	
+	tween_move = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+	
+	tween_move.tween_property(self, "global_position", portal.global_position + transform.x * 100, 1.5)
+	await get_tree().create_timer(0.825).timeout
+	portal.bump_portal()
+	hide()
+
+##
 
 func start_routine(_transform: Transform2D, _side: int):
 	transform = _transform
@@ -59,8 +80,8 @@ func start_shooting(shooting_point: Transform2D):
 ## BUILT-IN
 
 func _ready() -> void:
-	shoot()
-	pass
+	await get_tree().create_timer(1).timeout
+	vanish()
 
 func _process(delta: float) -> void:
 	delta_count += delta

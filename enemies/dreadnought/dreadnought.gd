@@ -97,15 +97,8 @@ func _on_shield_area_entered(area: Area2D) -> void:
 	if area is HitboxComponent:
 		if tween_damage: tween_damage.kill()
 		tween_damage = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
-		shield_sprite.scale = Vector2(3.1, 3.1)
+		shield_sprite.scale = Vector2(3.35, 3.35)
 		shield_sprite.modulate.b = 10
 		tween_damage.tween_property(shield_sprite, "scale", Vector2(3.25, 3.25), 0.5)
 		tween_damage.tween_property(shield_sprite, "modulate", Color(1, 1, 1, 1), 0.5)
 		
-		##
-		
-		var projectile = area.get_parent() ## The projectile
-		var shield_hit_pos = Vector2(projectile.global_position) ## The hitting position
-		var collision_normal = (global_position - shield_hit_pos).normalized() ## 
-		
-		projectile.velocity = projectile.velocity.bounce(collision_normal)
