@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b0edv6ib4qy41"]
+
+[ext_resource type="Shader" uid="uid://dba6ik23kwh2y" path="res://shaders/background.gdshader" id="1_dscg8"]
+
+[resource]
+shader = ExtResource("1_dscg8")
+shader_parameter/spin_rotation_speed = 8.94
+shader_parameter/move_speed = 7.89
+shader_parameter/offset = Vector2(0.995, 1.26)
+shader_parameter/colour_1 = Color(0.23272994, 0.17390001, 0.37, 1)
+shader_parameter/colour_2 = Color(0.51915085, 0.0034629114, 0.92219007, 1)
+shader_parameter/colour_3 = Color(0.00010509963, 0.00022429362, 0.00024738073, 1)
+shader_parameter/contrast = 3.96
+shader_parameter/lighting = 0.4
+shader_parameter/spin_amount = -0.85
+shader_parameter/pixel_filter = 360.0
+shader_parameter/is_rotating = false

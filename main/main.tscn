@@ -4,21 +4,44 @@
 [ext_resource type="PackedScene" uid="uid://b082g2egywgl" path="res://enemies/dreadnought/dreadnought.tscn" id="2_bsumw"]
 [ext_resource type="PackedScene" uid="uid://bhrt44op5mi6s" path="res://enemies/asteroid/asteroid.tscn" id="2_c651c"]
 [ext_resource type="PackedScene" uid="uid://b2cr5fnxayhs6" path="res://player/player.tscn" id="2_xwkvk"]
-[ext_resource type="Texture2D" uid="uid://tolsvixu84t6" path="res://assets/background/starry_background_layer_1.png" id="4_bsumw"]
 [ext_resource type="PackedScene" uid="uid://c28f8ive544sl" path="res://hud/hud.tscn" id="5_3wy1v"]
-[ext_resource type="Texture2D" uid="uid://cuirowc1fblhx" path="res://assets/background/starry_background_layer_2.png" id="5_73k8k"]
-[ext_resource type="Texture2D" uid="uid://ct4u5p77rbl3k" path="res://assets/background/starry_background_layer_3.png" id="6_5xyti"]
+[ext_resource type="Material" uid="uid://b0edv6ib4qy41" path="res://shaders/background.tres" id="5_na0o7"]
+[ext_resource type="Shader" uid="uid://dba6ik23kwh2y" path="res://shaders/background.gdshader" id="6_73k8k"]
 [ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="7_grrlh"]
-[ext_resource type="Texture2D" uid="uid://c3kq2y3ixkhbo" path="res://assets/background/starry_background_layer_4.png" id="7_n3o0a"]
 [ext_resource type="AudioStream" uid="uid://dngoy0poqy7t7" path="res://assets/sounds/levelup.ogg" id="8_0i4oc"]
 [ext_resource type="AudioStream" uid="uid://jl64dctvfi40" path="res://assets/sounds/Funky-Gameplay_Looping.ogg" id="9_bsumw"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
 [ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
-[ext_resource type="PackedScene" uid="uid://d1u0b6uqin6ks" path="res://enemies/scout/scout.tscn" id="15_5xyti"]
 [ext_resource type="PackedScene" uid="uid://bbb1ivlw78ev3" path="res://generic/portal/portal.tscn" id="16_n3o0a"]
-[ext_resource type="PackedScene" uid="uid://c6qcg3q22qhc6" path="res://generic/notification/notification.tscn" id="17_s758e"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_s758e"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xyti"]
+shader = ExtResource("6_73k8k")
+shader_parameter/spin_rotation_speed = 1.185
+shader_parameter/move_speed = 7.89
+shader_parameter/offset = Vector2(0.58, 0.88)
+shader_parameter/colour_1 = Color(0.23272994, 0.17390001, 0.37, 1)
+shader_parameter/colour_2 = Color(0.51915085, 0.0034629114, 0.92219007, 1)
+shader_parameter/colour_3 = Color(0.00010509963, 0.00022429362, 0.00024738073, 1)
+shader_parameter/contrast = 3.96
+shader_parameter/lighting = 0.4
+shader_parameter/spin_amount = -0.92
+shader_parameter/pixel_filter = 360.0
+shader_parameter/is_rotating = true
+
+[sub_resource type="Gradient" id="Gradient_na0o7"]
+offsets = PackedFloat32Array(0, 0.16228071, 0.44298247, 0.7346491, 1)
+colors = PackedColorArray(0.20578647, 0.20578647, 0.20578647, 1, 0.9846491, 0.9846491, 0.9846491, 1, 0.08596143, 0.08596143, 0.08596143, 1, 0.98781234, 0.98781234, 0.98781234, 1, 0.12552631, 0.12552631, 0.12552631, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_73k8k"]
+gradient = SubResource("Gradient_na0o7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5xyti"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(960, 540, 0)
+emission_shape = 3
+emission_box_extents = Vector3(960, 540, 1)
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_73k8k")
 
 [sub_resource type="Curve2D" id="Curve2D_c651c"]
 _data = {
@@ -50,33 +73,31 @@ asteroid_scene = ExtResource("2_c651c")
 dreadnought_scene = ExtResource("2_bsumw")
 portal_scene = ExtResource("16_n3o0a")
 
-[node name="Background" type="Node2D" parent="." unique_id=1497782047]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1515423972]
+material = ExtResource("5_na0o7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Layer" type="Sprite2D" parent="Background" unique_id=1628701361]
-position = Vector2(0, 541)
-scale = Vector2(3.1, 3.1)
-texture = ExtResource("4_bsumw")
+[node name="Background" type="ColorRect" parent="." unique_id=1841658730]
+material = SubResource("ShaderMaterial_5xyti")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1177.0
+offset_top = 606.0
+offset_right = 1.4443359
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Layer2" type="Sprite2D" parent="Background" unique_id=1134935934]
-position = Vector2(0, 541)
-scale = Vector2(3.1, 3.1)
-texture = ExtResource("5_73k8k")
-
-[node name="Layer3" type="Sprite2D" parent="Background" unique_id=1924123051]
-position = Vector2(0, 541)
-scale = Vector2(3.1, 3.1)
-texture = ExtResource("6_5xyti")
-
-[node name="Layer4" type="Sprite2D" parent="Background" unique_id=1882387800]
-position = Vector2(0, 541)
-scale = Vector2(3.1, 3.1)
-texture = ExtResource("7_n3o0a")
-
-[node name="Layer5" type="AnimatedSprite2D" parent="Background" unique_id=1371432435]
-position = Vector2(0, 541)
-scale = Vector2(3.1, 3.1)
-sprite_frames = SubResource("SpriteFrames_s758e")
-frame_progress = 0.39832708
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1039504136]
+amount = 200
+lifetime = 4.0
+visibility_rect = Rect2(0, 0, 1920, 1080)
+process_material = SubResource("ParticleProcessMaterial_5xyti")
 
 [node name="Player" parent="." unique_id=37309876 instance=ExtResource("2_xwkvk")]
 position = Vector2(973, 542)
@@ -117,12 +138,6 @@ autostart = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1909751423]
 environment = SubResource("Environment_73k8k")
-
-[node name="Scout" parent="." unique_id=353507806 instance=ExtResource("15_5xyti")]
-position = Vector2(612, 547)
-
-[node name="Notification" parent="." unique_id=1598583828 instance=ExtResource("17_s758e")]
-position = Vector2(607, 476)
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

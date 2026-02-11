@@ -46,11 +46,14 @@ func vanish():
 	if tween_scale: tween_scale.kill()
 	
 	tween_move = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
-	
 	tween_move.tween_property(self, "global_position", portal.global_position + transform.x * 100, 1.5)
+	
 	await get_tree().create_timer(0.825).timeout
 	portal.bump_portal()
 	hide()
+	
+	hitbox_component.disable_hitbox()
+	hurtbox_component.disable_hurtbox()
 
 ##
 

@@ -97,4 +97,4 @@ func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 func _on_dreadnought_timertest_timeout() -> void:
 	var dreadnought : Dreadnought = dreadnought_scene.instantiate()
 	dreadnought.position = Vector2(950, -200)
-	#add_child(dreadnought)
+	add_child(dreadnought)
