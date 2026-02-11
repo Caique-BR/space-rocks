@@ -49,7 +49,7 @@ func vanish():
 	tween_move.tween_property(self, "global_position", portal.global_position + transform.x * 100, 1.5)
 	
 	await get_tree().create_timer(0.825).timeout
-	portal.bump_portal()
+	portal.destroy_portal()
 	hide()
 	
 	hitbox_component.disable_hitbox()

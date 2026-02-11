@@ -1,7 +1,8 @@
 class_name Portal
 extends Node2D
 
-@onready var portal_sprite : AnimatedSprite2D = get_node("AnimatedSprite2D")
+@export var portal_sprite : AnimatedSprite2D
+@export var particles : GPUParticles2D
 
 var tween_spawn : Tween
 var tween_bump : Tween
@@ -22,4 +23,12 @@ func bump_portal():
 	tween_bump.tween_property(portal_sprite, "scale", Vector2(3.0, 3.0), 1)
 
 func destroy_portal():
-	pass;
+	bump_portal()
+	await get_tree().create_timer(0.2).timeout
+	particles.emitting = false
+	tween_bump.kill()
+	if tween_spawn: tween_spawn.kill()
+	tween_spawn = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
+	tween_spawn.tween_property(portal_sprite, "scale", Vector2.ZERO, 0.4)
+	await tween_spawn.finished
+	queue_free()

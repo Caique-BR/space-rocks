@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://jl64dctvfi40" path="res://assets/sounds/Funky-Gameplay_Looping.ogg" id="9_bsumw"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
 [ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
+[ext_resource type="PackedScene" uid="uid://d1u0b6uqin6ks" path="res://enemies/scout/scout.tscn" id="14_73k8k"]
 [ext_resource type="PackedScene" uid="uid://bbb1ivlw78ev3" path="res://generic/portal/portal.tscn" id="16_n3o0a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5xyti"]
@@ -50,7 +51,6 @@ _data = {
 point_count = 5
 
 [sub_resource type="Environment" id="Environment_73k8k"]
-background_mode = 3
 tonemap_mode = 1
 glow_enabled = true
 glow_levels/1 = 0.3
@@ -74,6 +74,7 @@ dreadnought_scene = ExtResource("2_bsumw")
 portal_scene = ExtResource("16_n3o0a")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1515423972]
+visible = false
 material = ExtResource("5_na0o7")
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,6 +83,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="." unique_id=1841658730]
+visible = false
 material = SubResource("ShaderMaterial_5xyti")
 anchors_preset = 15
 anchor_right = 1.0
@@ -94,6 +96,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1039504136]
+visible = false
 amount = 200
 lifetime = 4.0
 visibility_rect = Rect2(0, 0, 1920, 1080)
@@ -138,6 +141,9 @@ autostart = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1909751423]
 environment = SubResource("Environment_73k8k")
+
+[node name="Scout" parent="." unique_id=353507806 instance=ExtResource("14_73k8k")]
+position = Vector2(488, 290)
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

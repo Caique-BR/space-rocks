@@ -53,44 +53,62 @@ animations = [{
 "speed": 9.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_na8fx"]
+colors = PackedColorArray(0.38, 1, 0.48333323, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qgeft"]
+gradient = SubResource("Gradient_na8fx")
+
 [sub_resource type="Curve" id="Curve_efnc0"]
 _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="CurveTexture" id="CurveTexture_733bo"]
+curve = SubResource("Curve_efnc0")
+
 [sub_resource type="Curve" id="Curve_24hsi"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_na8fx"]
-colors = PackedColorArray(0.38, 1, 0.48333323, 1, 1, 1, 1, 1)
+[sub_resource type="CurveTexture" id="CurveTexture_d6j6f"]
+curve = SubResource("Curve_24hsi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m0r4j"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(15, 40, 0)
+orbit_velocity_max = 0.5
+orbit_velocity_curve = SubResource("CurveTexture_733bo")
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -10.0
+scale_curve = SubResource("CurveTexture_d6j6f")
+color_ramp = SubResource("GradientTexture1D_qgeft")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_733bo"]
 radius = 15.0
 height = 88.0
 
-[node name="Portal" type="Area2D" unique_id=1617129024]
+[node name="Portal" type="Area2D" unique_id=1617129024 node_paths=PackedStringArray("portal_sprite", "particles")]
 monitoring = false
 script = ExtResource("1_qgeft")
+portal_sprite = NodePath("AnimatedSprite2D")
+particles = NodePath("CPUParticles2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1018178883]
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_8i1jw")
 autoplay = "default"
-frame_progress = 0.73006696
+frame_progress = 0.4760287
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1288605004]
+[node name="CPUParticles2D" type="GPUParticles2D" parent="." unique_id=2014626983]
 amount = 100
 lifetime = 2.0
-emission_shape = 3
-emission_rect_extents = Vector2(15, 40)
-gravity = Vector2(0, 0)
-orbit_velocity_max = 0.5
-orbit_velocity_curve = SubResource("Curve_efnc0")
-radial_accel_min = -10.0
-scale_amount_curve = SubResource("Curve_24hsi")
-color_ramp = SubResource("Gradient_na8fx")
+fixed_fps = 0
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_m0r4j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=986146224]
+visible = false
 position = Vector2(2, 0)
 shape = SubResource("CapsuleShape2D_733bo")
