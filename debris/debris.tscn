@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bwnthgqg6t552"]
+
+[ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="1_uaekx"]
+[ext_resource type="Script" uid="uid://cbbv4svga5l7m" path="res://debris/debris.gd" id="1_wjsq2"]
+[ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="2_wjsq2"]
+[ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="3_q521u"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mwrjy"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mwrjy"]
+radius = 30.083218
+
+[node name="Debris" type="RigidBody2D" unique_id=1687942616]
+physics_material_override = SubResource("PhysicsMaterial_mwrjy")
+linear_damp_mode = 1
+script = ExtResource("1_wjsq2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=308007295]
+shape = SubResource("CircleShape2D_mwrjy")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1100972147 node_paths=PackedStringArray("health_component")]
+script = ExtResource("1_uaekx")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://bh5hqmbepj133"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=930452428]
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=327133779]
+script = ExtResource("2_wjsq2")
+metadata/_custom_type_script = "uid://d33wds1kipash"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1630849098]
+
+[node name="HealthComponent" type="Node" parent="." unique_id=998205051]
+script = ExtResource("3_q521u")
+metadata/_custom_type_script = "uid://c8r28mx4wq1r5"

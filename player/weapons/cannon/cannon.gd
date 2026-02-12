@@ -1,53 +1,27 @@
 class_name Cannon
 extends Weapon
 
-@onready var sprite : AnimatedSprite2D = get_node("AnimatedSprite2D")
-var shooting : bool = false
-var left_bullet : CannonBullet;
-var right_bullet : CannonBullet
-
-func shoot() -> void:
-	left_bullet = projectile_scene.instantiate()
-	right_bullet = projectile_scene.instantiate()
-	
-	sprite.play("shoot")
-	shooting = true
-
-## BUILT-IN
+var current_gun_index : int = 0
 
 func _ready() -> void:
 	fire_rate = 0.1
 
-## SIGNAL HANDLERS
+func shoot() -> void:
+	var current_gun : Gun = [gun_left, gun_right][current_gun_index]
+	current_gun.shoot()
+	current_gun_index = 1 - current_gun_index
 
-func _on_animated_sprite_2d_frame_changed() -> void:
-	if sprite.animation == "shoot":
-		if sprite.frame == 2:
-			left_bullet.start($Muzzles/MuzzleLeft.global_transform)
-			get_tree().root.add_child(left_bullet)
-			left_bullet.hitbox_component.set_collision_layer_value(1, false) ## remove layer from players' layer
-			left_bullet.hitbox_component.set_collision_mask_value(1, false) ## remove mask from players' mask
-			
-			left_bullet.hitbox_component.set_collision_layer_value(2, true) ## add layer from enemy layer
-			left_bullet.hitbox_component.set_collision_mask_value(2, true) ## add mask from enemy mask
+## BUILT-IN
 
-			left_bullet.hitbox_component.set_collision_layer_value(3, true) ## add layer from obstacle layer
-			left_bullet.hitbox_component.set_collision_mask_value(3, true) ## add mask from obstacle mask
+func _process(_delta: float) -> void:
+	var mouse_pos = get_global_mouse_position()
+	
+	_update_gun_rotation(gun_left, mouse_pos)
+	_update_gun_rotation(gun_right, mouse_pos)
 
-		if sprite.frame == 3:
-			right_bullet.start($Muzzles/MuzzleRight.global_transform)
-			get_tree().root.add_child(right_bullet)
-			
-			right_bullet.hitbox_component.set_collision_layer_value(1, false) ## remove layer from players' layer
-			right_bullet.hitbox_component.set_collision_mask_value(1, false) ## remove mask from players' mask
-			
-			right_bullet.hitbox_component.set_collision_layer_value(2, true) ## add layer from enemy layer
-			right_bullet.hitbox_component.set_collision_mask_value(2, true) ## add mask from enemy mask
+## PRIVATE
 
-			right_bullet.hitbox_component.set_collision_layer_value(3, true) ## add layer from obstacle layer
-			right_bullet.hitbox_component.set_collision_mask_value(3, true) ## add mask from obstacle mask
-
-func _on_animated_sprite_2d_animation_finished() -> void:
-	if shooting: 
-		shooting = false
-		sprite.play("default")
+func _update_gun_rotation(gun: Node2D, mouse_pos: Vector2) -> void:
+	var direction = gun.global_position.direction_to(mouse_pos)
+	#gun.global_rotation = lerp_angle(gun.global_rotation, direction.angle(), 0.1)
+	gun.global_rotation = direction.angle()

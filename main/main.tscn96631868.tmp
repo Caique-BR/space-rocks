@@ -1,0 +1,457 @@
+[gd_scene format=3 uid="uid://y2m51psxxec5"]
+
+[ext_resource type="Script" uid="uid://dpwttbn6dtxn" path="res://main/main.gd" id="1_xwkvk"]
+[ext_resource type="PackedScene" uid="uid://b082g2egywgl" path="res://enemies/dreadnought/dreadnought.tscn" id="2_bsumw"]
+[ext_resource type="Texture2D" uid="uid://de8bjw0ohp4n6" path="res://debris/asteroid/assets/asteroid_left_debris.png" id="2_vapsy"]
+[ext_resource type="PackedScene" uid="uid://b2cr5fnxayhs6" path="res://player/player.tscn" id="2_xwkvk"]
+[ext_resource type="Texture2D" uid="uid://dtmh73gay75kr" path="res://debris/asteroid/assets/asteroid_right_debris.png" id="3_jofbb"]
+[ext_resource type="Texture2D" uid="uid://cbxt68nf007il" path="res://debris/asteroid/assets/asteroid.png" id="4_re7it"]
+[ext_resource type="PackedScene" uid="uid://c28f8ive544sl" path="res://hud/hud.tscn" id="5_3wy1v"]
+[ext_resource type="FontFile" uid="uid://pahh5bjch6ft" path="res://generic/notification/fonts/peaberry_base.otf" id="5_5xyti"]
+[ext_resource type="Material" uid="uid://b0edv6ib4qy41" path="res://shaders/background.tres" id="5_na0o7"]
+[ext_resource type="Texture2D" uid="uid://cn70vuye720wg" path="res://debris/asteroid/assets/explosion.png" id="5_oagth"]
+[ext_resource type="Texture2D" uid="uid://csxaxyghbytc1" path="res://assets/effects/star.png" id="6_5xyti"]
+[ext_resource type="Shader" uid="uid://dba6ik23kwh2y" path="res://shaders/background.gdshader" id="6_73k8k"]
+[ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="6_n53tw"]
+[ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="7_d00gp"]
+[ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="7_grrlh"]
+[ext_resource type="AudioStream" uid="uid://dngoy0poqy7t7" path="res://assets/sounds/levelup.ogg" id="8_0i4oc"]
+[ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="8_d8vpj"]
+[ext_resource type="AudioStream" uid="uid://jl64dctvfi40" path="res://assets/sounds/Funky-Gameplay_Looping.ogg" id="9_bsumw"]
+[ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
+[ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
+[ext_resource type="PackedScene" uid="uid://bbb1ivlw78ev3" path="res://generic/portal/portal.tscn" id="16_n3o0a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_olyy0"]
+bounce = 1.0
+
+[sub_resource type="GDScript" id="GDScript_0caif"]
+script/source = "class_name Asteroid 
+extends Debris
+
+signal exploded
+
+@onready var animated_sprite2d : AnimatedSprite2D = get_node(\"AnimatedSprite2D\")
+@onready var animation_player : AnimationPlayer = get_node(\"AnimationPlayer\")
+
+@onready var collision_shape2d : CollisionShape2D = get_node(\"CollisionShape2D\")
+@onready var asteroid_texture : Texture2D = load(\"res://assets/asteroid/asteroid.png\")
+
+var tween : Tween
+
+func explode(): 
+	collision_shape2d.set_deferred(\"disabled\", true)
+	linear_velocity = Vector2.ZERO
+	
+	angular_velocity = 0 
+	animated_sprite2d.play(\"explode\")
+	await animated_sprite2d.animation_finished
+	
+	exploded.emit() # emits the exploded signal for dupping asteroids
+
+func create_debris(side: int):
+	var debris : Asteroid = duplicate()
+	var debris_velocity = (transform.x * side) * 100
+	
+	debris.start_debris(global_position + (transform.x * 10) * side, debris_velocity, side)
+	
+	get_parent().call_deferred(\"add_child\", debris)
+
+## BUILT-IN
+
+func _ready() -> void:
+	animated_sprite2d.scale = Vector2(1.0, 1.0)
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(animated_sprite2d, \"scale\", Vector2(3.5, 3.5), 1)
+
+## SIGNAL HANDLERS
+
+func _on_health_changed(_health: int) -> void:
+	if _health == health_component.max_health: return
+	
+	animation_player.play(\"hurt\")
+	animated_sprite2d.frame += 1
+	animated_sprite2d.scale = Vector2(3, 3)
+	
+	if tween: tween.kill()
+	tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween.tween_property(animated_sprite2d, \"scale\", Vector2(3.5, 3.5), 0.5)
+
+func _on_health_depleted() -> void:
+	animation_player.play(\"hurt\")
+	
+	hitbox_component.disable_hitbox()
+	hurtbox_component.disable_hurtbox()
+	
+	CameraControls.camera.screen_shake(10, 0.25)
+	explode()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f7ufr"]
+atlas = ExtResource("2_vapsy")
+region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl1rw"]
+atlas = ExtResource("2_vapsy")
+region = Rect2(38, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oasy2"]
+atlas = ExtResource("3_jofbb")
+region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1svxc"]
+atlas = ExtResource("3_jofbb")
+region = Rect2(38, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5a7f"]
+atlas = ExtResource("4_re7it")
+region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyn6k"]
+atlas = ExtResource("4_re7it")
+region = Rect2(38, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4nvy"]
+atlas = ExtResource("4_re7it")
+region = Rect2(76, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gfwk"]
+atlas = ExtResource("4_re7it")
+region = Rect2(114, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6kuk"]
+atlas = ExtResource("5_oagth")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqgyh"]
+atlas = ExtResource("5_oagth")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61b0o"]
+atlas = ExtResource("5_oagth")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8s8wb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f7ufr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl1rw")
+}],
+"loop": true,
+"name": &"debris_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oasy2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1svxc")
+}],
+"loop": true,
+"name": &"debris_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5a7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cyn6k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4nvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gfwk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6kuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqgyh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61b0o")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 18.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gw88"]
+radius = 65.12296
+
+[sub_resource type="Animation" id="Animation_84fqd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iic4w"]
+resource_name = "hurt"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.35, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(3.2944162, 3.2944162, 3.2944162, 1), Color(1, 1, 1, 1), Color(3.2944162, 3.2944162, 3.2944162, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_84fqd"]
+_data = {
+&"RESET": SubResource("Animation_84fqd"),
+&"hurt": SubResource("Animation_iic4w")
+}
+
+[sub_resource type="PackedScene" id="PackedScene_qs5eo"]
+_bundled = {
+"conn_count": 2,
+"conns": PackedInt32Array(1073741833, 1073741832, 49, 48, 2, 0, 0, 1073741835, 1073741834, 51, 50, 2, 0, 0),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("Asteroid", "RigidBody2D", "asteroids", "mass", "physics_material_override", "linear_damp_mode", "script", "AnimatedSprite2D", "AnimatedSprite2D", "asteroids", "scale", "sprite_frames", "animation", "CollisionShape2D", "CollisionShape2D", "asteroids", "shape", "AnimationPlayer", "AnimationPlayer", "libraries/", "autoplay", "speed_scale", "HitboxComponent", "Area2D", "collision_mask", "script", "damage", "metadata/_custom_type_script", "CollisionShape2D", "CollisionShape2D", "visible", "shape", "HurtboxComponent", "Area2D", "collision_layer", "collision_mask", "script", "health_component", "metadata/_custom_type_script", "CollisionShape2D", "CollisionShape2D", "visible", "shape", "HealthComponent", "Node", "script", "max_health", "metadata/_custom_type_script", "_on_health_changed", "health_changed", "_on_health_depleted", "health_depleted"),
+"node_count": 9,
+"node_ids": PackedInt32Array(1555947250, 2098477608, 352147838, 659913720, 1453108272, 780293824, 2136352451, 1711146476, 2027917006),
+"node_paths": [NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("./HitboxComponent"), NodePath("."), NodePath("./HurtboxComponent"), NodePath("."), NodePath("."), NodePath("HealthComponent"), NodePath("."), NodePath("HealthComponent")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 4, 3, 0, 4, 1, 5, 2, 6, 3, 1, 2, 1073741824, 0, 8, 7, -1, 3, 10, 4, 11, 5, 12, 6, 1, 9, 1073741825, 0, 14, 13, -1, 1, 16, 7, 1, 15, 1073741826, 0, 18, 17, -1, 3, 19, 8, 20, 9, 21, 10, 0, 1073741827, 0, 23, 22, -1, 4, 24, 11, 25, 12, 26, 13, 27, 14, 0, 1073741828, 0, 29, 28, -1, 2, 30, 15, 31, 16, 0, 1073741829, 0, 33, 32, -1, 5, 34, 17, 35, 18, 36, 19, 1073741861, 20, 38, 21, 0, 1073741830, 0, 40, 39, -1, 2, 41, 22, 42, 23, 0, 1073741831, 0, 44, 43, -1, 3, 45, 24, 46, 25, 47, 26, 0),
+"variants": [10.0, SubResource("PhysicsMaterial_olyy0"), 1, SubResource("GDScript_0caif"), Vector2(3.5, 3.5), SubResource("SpriteFrames_8s8wb"), &"explode", SubResource("CircleShape2D_7gw88"), SubResource("AnimationLibrary_84fqd"), &"RESET", 3.0, 0, ExtResource("6_n53tw"), 1, "uid://d33wds1kipash", false, SubResource("CircleShape2D_7gw88"), 6, 6, ExtResource("7_d00gp"), NodePath("../HealthComponent"), "uid://bh5hqmbepj133", false, SubResource("CircleShape2D_7gw88"), ExtResource("8_d8vpj"), 3, "uid://c8r28mx4wq1r5"],
+"version": 3
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73k8k"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0.09, 0.09, 0.09, 0.58431375)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.15847227, 0.15847233, 0.15847221, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n3o0a"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+
+[sub_resource type="Gradient" id="Gradient_na0o7"]
+offsets = PackedFloat32Array(0, 0.16666667, 0.44298247, 0.7346491, 1)
+colors = PackedColorArray(0.20578647, 0.20578647, 0.20578647, 1, 1, 1, 1, 1, 0.08596143, 0.08596143, 0.08596143, 1, 1, 1, 1, 1, 0.12552631, 0.12552631, 0.12552631, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_73k8k"]
+gradient = SubResource("Gradient_na0o7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5xyti"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(960, 540, 0)
+emission_shape = 3
+emission_box_extents = Vector3(960, 540, 1)
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_73k8k")
+
+[sub_resource type="Gradient" id="Gradient_73k8k"]
+offsets = PackedFloat32Array(0, 0.23026316, 0.53289473, 0.7872807, 1)
+colors = PackedColorArray(0.039215688, 0.02745098, 0.003921569, 1, 0.98, 0.60433334, 0, 1, 0.04, 0.025893332, 0.0031999992, 1, 0.98039216, 0.6039216, 0, 1, 0.039215688, 0.02745098, 0.003921569, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5xyti"]
+gradient = SubResource("Gradient_73k8k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n3o0a"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(960, 540, 0)
+emission_shape = 3
+emission_box_extents = Vector3(960, 540, 1)
+angle_min = 80.000015
+angle_max = 80.000015
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.01
+color_ramp = SubResource("GradientTexture1D_5xyti")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xyti"]
+shader = ExtResource("6_73k8k")
+shader_parameter/spin_rotation_speed = 1.185
+shader_parameter/move_speed = 7.89
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/colour_1 = Color(0.23272994, 0.17390001, 0.37, 1)
+shader_parameter/colour_2 = Color(0.51915085, 0.0034629114, 0.92219007, 1)
+shader_parameter/colour_3 = Color(0.00010509963, 0.00022429362, 0.00024738073, 1)
+shader_parameter/contrast = 3.96
+shader_parameter/lighting = 0.4
+shader_parameter/spin_amount = 0.42
+shader_parameter/pixel_filter = 740.0
+shader_parameter/is_rotating = true
+
+[sub_resource type="Curve2D" id="Curve2D_c651c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 119, 62, 0, 0, 0, 0, 1808, 52, 0, 0, 0, 0, 1810, 1004, 0, 0, 0, 0, 118, 1010, 0, 0, 0, 0, 121, 63)
+}
+point_count = 5
+
+[sub_resource type="Environment" id="Environment_73k8k"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_levels/1 = 0.3
+glow_levels/2 = 0.3
+glow_levels/3 = 0.3
+glow_levels/4 = 0.3
+glow_levels/5 = 0.3
+glow_intensity = 0.27
+glow_bloom = 0.22
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+glow_hdr_scale = 1.27
+glow_hdr_luminance_cap = 2.0
+
+[node name="Main" type="Node" unique_id=1414078381]
+process_mode = 3
+script = ExtResource("1_xwkvk")
+DEBUGGING = true
+asteroid_scene = SubResource("PackedScene_qs5eo")
+dreadnought_scene = ExtResource("2_bsumw")
+portal_scene = ExtResource("16_n3o0a")
+
+[node name="UtilityCanvas" type="CanvasLayer" parent="." unique_id=1729865568]
+
+[node name="UtilityTextBox" type="RichTextLabel" parent="UtilityCanvas" unique_id=336566931 groups=["UtilityTextBox"]]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 30.0
+offset_right = -1506.0
+offset_bottom = -822.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("5_5xyti")
+theme_override_styles/normal = SubResource("StyleBoxFlat_73k8k")
+bbcode_enabled = true
+text = "[color=cyan]Printed[/color] values by [color=cyan]Utility[/color] goes here.
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UtilityCanvas/UtilityTextBox" unique_id=244249488]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 194.0
+offset_right = 382.0
+offset_bottom = 234.0
+theme_override_fonts/normal_font = ExtResource("5_5xyti")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_n3o0a")
+bbcode_enabled = true
+text = "[wave]Utility Print Box[/wave]"
+
+[node name="BackgroundCanvas" type="CanvasLayer" parent="." unique_id=1550798392]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundCanvas" unique_id=1515423972]
+material = ExtResource("5_na0o7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stars" type="GPUParticles2D" parent="BackgroundCanvas" unique_id=1039504136]
+amount = 200
+lifetime = 4.0
+visibility_rect = Rect2(0, 0, 1920, 1080)
+process_material = SubResource("ParticleProcessMaterial_5xyti")
+
+[node name="YellowStars" type="GPUParticles2D" parent="BackgroundCanvas" unique_id=1158091200]
+amount = 50
+texture = ExtResource("6_5xyti")
+lifetime = 4.0
+visibility_rect = Rect2(0, 0, 1920, 1080)
+process_material = SubResource("ParticleProcessMaterial_n3o0a")
+
+[node name="SHADER" type="ColorRect" parent="." unique_id=1841658730]
+visible = false
+material = SubResource("ShaderMaterial_5xyti")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1564.0
+offset_top = 699.0
+offset_right = 724.0
+offset_bottom = 699.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Player" parent="." unique_id=37309876 instance=ExtResource("2_xwkvk")]
+position = Vector2(973, 542)
+
+[node name="RockPath" type="Path2D" parent="." unique_id=2123958418]
+curve = SubResource("Curve2D_c651c")
+
+[node name="RockSpawn" type="PathFollow2D" parent="RockPath" unique_id=95194906]
+position = Vector2(119, 62)
+rotation = -0.005920594
+
+[node name="HUD" parent="." unique_id=921773207 instance=ExtResource("5_3wy1v")]
+
+[node name="EnemyTimer" type="Timer" parent="." unique_id=24032461]
+one_shot = true
+
+[node name="ExplosionSound" type="AudioStreamPlayer" parent="." unique_id=497783552]
+stream = ExtResource("7_grrlh")
+
+[node name="LevelupSound" type="AudioStreamPlayer" parent="." unique_id=178876112]
+stream = ExtResource("8_0i4oc")
+volume_db = -5.0
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1321552801]
+stream = ExtResource("9_bsumw")
+volume_db = -10.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1809309133 node_paths=PackedStringArray("player")]
+position = Vector2(960, 540)
+script = ExtResource("10_0i4oc")
+player = NodePath("../Player")
+
+[node name="DreadnoughtTimer" type="Timer" parent="." unique_id=915849720]
+one_shot = true
+autostart = true
+
+[node name="FighterSpawner" parent="." unique_id=2137758461 instance=ExtResource("12_na0o7")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1909751423]
+environment = SubResource("Environment_73k8k")
+
+[connection signal="died" from="Player" to="." method="game_over"]
+[connection signal="health_changed" from="Player" to="HUD" method="update_health"]
+[connection signal="shield_changed" from="Player" to="HUD" method="update_shield"]
+[connection signal="timeout" from="EnemyTimer" to="." method="_on_enemy_timer_timeout"]
+[connection signal="timeout" from="DreadnoughtTimer" to="." method="_on_dreadnought_timertest_timeout"]

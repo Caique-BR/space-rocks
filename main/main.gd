@@ -34,10 +34,10 @@ func spawn_asteroid():
 
 func new_game(): # starts the game when receiving the "start_game" signal
 	$Player.show()
+	fighter_spawner.spawn_fighter_duo()
 	get_tree().call_group("asteroids", "queue_free") # removes asteroids from previous run
 	level = 0 
 	score = 0
-	$Player.reset()
 	playing = true
 	$Music.play()
 
@@ -60,14 +60,14 @@ func _ready():
 	new_game()
 	
 	###### DEBUG
+	Utilily.start(%UtilityTextBox)
 	if DEBUGGING:
 		$ExplosionSound.volume_db = -100
 		$LevelupSound.volume_db = -100
 		$Music.volume_db = -100
 
 func _process(_delta): # changes the level when all the asteroids are destroyed in the currente level
-	if not playing:
-		return
+	if not playing: return
 	if get_tree().get_nodes_in_group("asteroids").size() == 0:
 		new_level()
 
@@ -97,4 +97,4 @@ func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 func _on_dreadnought_timertest_timeout() -> void:
 	var dreadnought : Dreadnought = dreadnought_scene.instantiate()
 	dreadnought.position = Vector2(950, -200)
-	add_child(dreadnought)
+	#add_child(dreadnought)

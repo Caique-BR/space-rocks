@@ -1,4 +1,4 @@
-class_name CannonBullet
+class_name CannonProjectile
 extends Node2D
 
 @onready var bullet_sprite : AnimatedSprite2D = get_node("BulletSprite")
@@ -9,9 +9,13 @@ extends Node2D
 
 var velocity = Vector2.ZERO
 
-func start(_transform : Transform2D): # calls this when a bullets spawns, telling it correct path
+func start(layers: Array[int], _transform : Transform2D): 
 	transform = _transform
 	velocity = transform.x * speed
+	
+	for layer in layers:
+		hitbox_component.set_collision_layer_value(layer, true)
+		hitbox_component.set_collision_mask_value(layer, true)
 
 func explode_bullet(): # Called when bullet hits something
 	velocity = Vector2.ZERO

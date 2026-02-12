@@ -1,96 +1,30 @@
 [gd_scene format=3 uid="uid://byo566t5go7kd"]
 
 [ext_resource type="Script" uid="uid://cv5w87fden1n6" path="res://player/weapons/cannon/cannon.gd" id="1_vh1tf"]
-[ext_resource type="PackedScene" uid="uid://cfc3deo4ekx2j" path="res://player/weapons/cannon/cannon_bullet.tscn" id="2_ale20"]
-[ext_resource type="Texture2D" uid="uid://birjcmint7vdk" path="res://player/weapons/cannon/assets/cannon.png" id="2_ehwhn"]
+[ext_resource type="PackedScene" uid="uid://c01tlq6s80nfq" path="res://player/weapons/cannon/cannon_gun.tscn" id="2_ehwhn"]
+[ext_resource type="Texture2D" uid="uid://birjcmint7vdk" path="res://player/weapons/cannon/assets/cannon.png" id="3_ale20"]
+[ext_resource type="PackedScene" uid="uid://dytj0op6fninj" path="res://player/weapons/aim_line.tscn" id="3_wgt4h"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ale20"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wgt4h"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_88562"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t4gy5"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m0n51"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(144, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x5y72"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(192, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h7tqn"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(240, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5ap1"]
-atlas = ExtResource("2_ehwhn")
-region = Rect2(288, 0, 48, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_snwil"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ale20")
-}],
-"loop": false,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wgt4h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_88562")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t4gy5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m0n51")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x5y72")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h7tqn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p5ap1")
-}],
-"loop": false,
-"name": &"shoot",
-"speed": 30.0
-}]
-
-[node name="Cannon" type="Node2D" unique_id=1175998548]
+[node name="Cannon" type="Node2D" unique_id=2075296988 node_paths=PackedStringArray("gun_left", "gun_right")]
 script = ExtResource("1_vh1tf")
-projectile_scene = ExtResource("2_ale20")
+gun_left = NodePath("CannonGunLeft")
+gun_right = NodePath("CannonGunRight")
 metadata/_custom_type_script = "uid://mrtkta1pt4i6"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=971101953]
-rotation = 1.5689813
+[node name="CannonGunLeft" parent="." unique_id=2080663362 instance=ExtResource("2_ehwhn")]
+position = Vector2(-2, -21)
+
+[node name="AimLine" parent="CannonGunLeft" unique_id=481784934 instance=ExtResource("3_wgt4h")]
+position = Vector2(13, 0)
+
+[node name="CannonGunRight" parent="." unique_id=1937911135 instance=ExtResource("2_ehwhn")]
+position = Vector2(-2, 21)
+
+[node name="AimLine" parent="CannonGunRight" unique_id=667641179 instance=ExtResource("3_wgt4h")]
+position = Vector2(13, 0)
+
+[node name="WeaponSprite" type="Sprite2D" parent="." unique_id=310309730]
+position = Vector2(4.000004, 0)
+rotation = 1.5707964
 scale = Vector2(2.1, 2.1)
-sprite_frames = SubResource("SpriteFrames_snwil")
-animation = &"shoot"
-
-[node name="Muzzles" type="Node2D" parent="." unique_id=282680681]
-
-[node name="MuzzleLeft" type="Marker2D" parent="Muzzles" unique_id=697924358]
-position = Vector2(14, -19)
-
-[node name="MuzzleRight" type="Marker2D" parent="Muzzles" unique_id=610831849]
-position = Vector2(14, 19)
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
+texture = ExtResource("3_ale20")

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dytj0op6fninj"]
+
+[ext_resource type="Script" uid="uid://bnq0ubcjblrn2" path="res://player/weapons/aim_line.gd" id="1_f44nm"]
+[ext_resource type="Texture2D" uid="uid://cj50yki7ychrj" path="res://player/weapons/assets/aim_dashed_line.png" id="1_wrf7p"]
+
+[sub_resource type="Curve" id="Curve_wrf7p"]
+_data = [Vector2(0, 0.5300677), 0.0, 0.46993232, 0, 1, Vector2(1, 1), 0.46993232, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_tj04c"]
+colors = PackedColorArray(0.85, 0.46750003, 0, 0, 0.73, 0.596775, 0.1971, 1)
+
+[node name="AimLine" type="Line2D" unique_id=481784934]
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 90, 0)
+width = 3.0
+width_curve = SubResource("Curve_wrf7p")
+gradient = SubResource("Gradient_tj04c")
+texture = ExtResource("1_wrf7p")
+texture_mode = 1
+joint_mode = 1
+begin_cap_mode = 1
+end_cap_mode = 1
+script = ExtResource("1_f44nm")

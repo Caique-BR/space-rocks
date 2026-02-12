@@ -1,0 +1,195 @@
+[gd_scene format=3 uid="uid://iw35v06hqank"]
+
+[ext_resource type="Script" uid="uid://d0f0e56lnkng4" path="res://debris/asteroid/asteroid.gd" id="1_iic4w"]
+[ext_resource type="Texture2D" uid="uid://cbxt68nf007il" path="res://debris/asteroid/assets/asteroid.png" id="2_84fqd"]
+[ext_resource type="Texture2D" uid="uid://cn70vuye720wg" path="res://debris/asteroid/assets/explosion.png" id="3_7gw88"]
+[ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="4_iic4w"]
+[ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="5_84fqd"]
+[ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="6_7gw88"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ke6mn"]
+radius = 70.0
+
+[sub_resource type="Gradient" id="Gradient_ke6mn"]
+offsets = PackedFloat32Array(0, 0.17982456, 0.3991228, 0.59429824, 1)
+colors = PackedColorArray(0.38039216, 0.3254902, 0.43137255, 1, 0.6039216, 0.5254902, 0.62352943, 1, 0.9254902, 0.6666667, 0.6666667, 1, 0.38039216, 0.3254902, 0.43137255, 1, 0.25882354, 0.25882354, 0.25882354, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0caif"]
+gradient = SubResource("Gradient_ke6mn")
+
+[sub_resource type="Curve" id="Curve_k6pqj"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_08jhv"]
+curve = SubResource("Curve_k6pqj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ke6mn"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 70.35
+spread = 100.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 65.52
+radial_accel_max = 65.52
+scale_min = 4.0
+scale_max = 6.0
+scale_curve = SubResource("CurveTexture_08jhv")
+color_ramp = SubResource("GradientTexture1D_0caif")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hy1he"]
+atlas = ExtResource("2_84fqd")
+region = Rect2(0, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ke6mn"]
+atlas = ExtResource("2_84fqd")
+region = Rect2(38, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0caif"]
+atlas = ExtResource("2_84fqd")
+region = Rect2(76, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6pqj"]
+atlas = ExtResource("2_84fqd")
+region = Rect2(114, 0, 38, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08jhv"]
+atlas = ExtResource("3_7gw88")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rvl6"]
+atlas = ExtResource("3_7gw88")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ux60e"]
+atlas = ExtResource("3_7gw88")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_08jhv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hy1he")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ke6mn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0caif")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6pqj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08jhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rvl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ux60e")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hy1he"]
+radius = 70.0
+
+[sub_resource type="Animation" id="Animation_pwk4h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6277a"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004, 0.6, 0.8000001, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1.5720325, 1.5720325, 1.5720325, 1), Color(2.196666, 2.196666, 2.196666, 1), Color(1.5720325, 1.5720325, 1.5720325, 1), Color(2.196666, 2.196666, 2.196666, 1), Color(1.5720325, 1.5720325, 1.5720325, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3knqm"]
+_data = {
+&"RESET": SubResource("Animation_pwk4h"),
+&"hurt": SubResource("Animation_6277a")
+}
+
+[node name="Asteroid" type="RigidBody2D" unique_id=1616891662 node_paths=PackedStringArray("collision_shape2d", "animated_sprite2d", "animation_player", "hitbox_component", "hurtbox_component", "health_component") groups=["asteroids"]]
+script = ExtResource("1_iic4w")
+collision_shape2d = NodePath("CollisionShape2D")
+animated_sprite2d = NodePath("AnimatedSprite2D")
+animation_player = NodePath("AnimationPlayer")
+hitbox_component = NodePath("HitboxComponent")
+hurtbox_component = NodePath("HurtboxComponent")
+health_component = NodePath("HealthComponent")
+metadata/_custom_type_script = "uid://cbbv4svga5l7m"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=12750279 node_paths=PackedStringArray("health_component")]
+collision_layer = 6
+collision_mask = 6
+script = ExtResource("5_84fqd")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://bh5hqmbepj133"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=551615328]
+visible = false
+shape = SubResource("CircleShape2D_ke6mn")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1614304892]
+script = ExtResource("4_iic4w")
+metadata/_custom_type_script = "uid://d33wds1kipash"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=602225597]
+visible = false
+shape = SubResource("CircleShape2D_ke6mn")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1039370769]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ke6mn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=958926514]
+scale = Vector2(3.5, 3.5)
+sprite_frames = SubResource("SpriteFrames_08jhv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1230140349]
+visible = false
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_hy1he")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1732912990]
+script = ExtResource("6_7gw88")
+max_health = 30.0
+metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1813678043]
+libraries/ = SubResource("AnimationLibrary_3knqm")
+speed_scale = 3.0
+
+[connection signal="mouse_entered" from="HurtboxComponent" to="." method="_on_mouse_entered"]
+[connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
+[connection signal="health_depleted" from="HealthComponent" to="." method="_on_health_depleted"]

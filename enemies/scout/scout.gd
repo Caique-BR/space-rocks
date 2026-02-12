@@ -55,6 +55,10 @@ func vanish():
 	hitbox_component.disable_hitbox()
 	hurtbox_component.disable_hurtbox()
 
+func cross_points(from: Vector2, to: Vector2) -> void:
+	
+	pass;
+
 ##
 
 func start_routine(_transform: Transform2D, _side: int):

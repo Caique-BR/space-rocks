@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://byo566t5go7kd" path="res://player/weapons/cannon/cannon.tscn" id="3_yllr7"]
 [ext_resource type="Script" uid="uid://dxauybep1l104" path="res://player/engines/ship_engine_module.gd" id="4_32hag"]
 [ext_resource type="Texture2D" uid="uid://ce6cbkkl1ebyh" path="res://player/assets/ship_dmg1.png" id="4_ebec5"]
-[ext_resource type="PackedScene" uid="uid://bspjq2ltr05hs" path="res://player/weapons/blaster/blaster.tscn" id="4_tqiix"]
 [ext_resource type="PackedScene" uid="uid://b4yrsqg6hy4nm" path="res://generic/explosion.tscn" id="4_yw30f"]
 [ext_resource type="PackedScene" uid="uid://cpjn6rqdqsoe7" path="res://player/engines/base_engine/base_engine.tscn" id="5_wodsf"]
 [ext_resource type="Texture2D" uid="uid://88xkle8ei4g6" path="res://player/assets/ship_dmg2.png" id="5_yllr7"]
@@ -17,6 +16,7 @@
 [ext_resource type="Script" uid="uid://delb4ia663h6v" path="res://player/components/player_input_component.gd" id="8_rgyib"]
 [ext_resource type="Script" uid="uid://bh5hqmbepj133" path="res://components/hurtbox_component.gd" id="9_hg6s5"]
 [ext_resource type="Script" uid="uid://cningoo26cdpa" path="res://player/components/shield_component.gd" id="10_8t03j"]
+[ext_resource type="PackedScene" uid="uid://cfc3deo4ekx2j" path="res://player/weapons/cannon/cannon_projectile.tscn" id="12_tqiix"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 34.0
@@ -44,31 +44,59 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg6s5"]
 radius = 35.014282
 
-[node name="Player" type="RigidBody2D" unique_id=37309876 groups=["player"]]
+[sub_resource type="Animation" id="Animation_tqiix"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e7oew"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333333, 0.26666668, 0.53333336, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.3, 0.3, 1), Color(1, 1, 1, 1), Color(1, 0.3, 0.3, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c35mf"]
+_data = {
+&"RESET": SubResource("Animation_tqiix"),
+&"hurt": SubResource("Animation_e7oew")
+}
+
+[node name="Player" type="RigidBody2D" unique_id=37309876 node_paths=PackedStringArray("ship_sprite", "animation_player", "health_component", "shield_component", "hurtbox_component", "ship_engine_module") groups=["player"]]
 contact_monitor = true
 max_contacts_reported = 1
 linear_damp = 4.0
 angular_damp = 5.0
 script = ExtResource("1_rkbax")
+ship_sprite = NodePath("ShipSprite")
+animation_player = NodePath("AnimationPlayer")
+health_component = NodePath("HealthComponent")
+shield_component = NodePath("ShieldComponent")
+hurtbox_component = NodePath("HurtboxComponent")
+ship_engine_module = NodePath("ShipEngineModule")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1416899759]
 visible = false
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_onrkg")
-
-[node name="WeaponModule" type="Node2D" parent="." unique_id=1709160419 node_paths=PackedStringArray("current_weapon")]
-script = ExtResource("2_yllr7")
-current_weapon = NodePath("Cannon")
-
-[node name="Cannon" parent="WeaponModule" unique_id=1175998548 instance=ExtResource("3_yllr7")]
-visible = false
-
-[node name="Blaster" parent="WeaponModule" unique_id=300448215 instance=ExtResource("4_tqiix")]
-visible = false
-
-[node name="GunCooldown" type="Timer" parent="WeaponModule" unique_id=1055391723]
-one_shot = true
-autostart = true
 
 [node name="ShipEngineModule" type="Node2D" parent="." unique_id=652974926 node_paths=PackedStringArray("current_engine")]
 script = ExtResource("4_32hag")
@@ -88,6 +116,17 @@ sprite_frames = SubResource("SpriteFrames_kb6p2")
 
 [node name="Explosion" parent="." unique_id=1727476015 instance=ExtResource("4_yw30f")]
 visible = false
+
+[node name="WeaponModule" type="Node2D" parent="." unique_id=1709160419 node_paths=PackedStringArray("current_weapon")]
+script = ExtResource("2_yllr7")
+current_weapon = NodePath("Cannon")
+
+[node name="GunCooldown" type="Timer" parent="WeaponModule" unique_id=1055391723]
+one_shot = true
+autostart = true
+
+[node name="Cannon" parent="WeaponModule" unique_id=2075296988 instance=ExtResource("3_yllr7")]
+projectile_scene = ExtResource("12_tqiix")
 
 [node name="InvulnerabilityTimer" type="Timer" parent="." unique_id=1589903483]
 wait_time = 2.0
@@ -131,6 +170,10 @@ visible = false
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_hg6s5")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=410132034]
+libraries/ = SubResource("AnimationLibrary_c35mf")
+speed_scale = 3.0
+
 [connection signal="timeout" from="WeaponModule/GunCooldown" to="." method="_on_gun_cooldown_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
 [connection signal="health_changed" from="HealthComponent" to="." method="_on_health_changed"]
@@ -141,3 +184,4 @@ shape = SubResource("CircleShape2D_hg6s5")
 [connection signal="shoot" from="PlayerInputComponent" to="WeaponModule" method="_on_shoot"]
 [connection signal="shield_broken" from="ShieldComponent" to="." method="_on_shield_component_shield_broken"]
 [connection signal="shield_changed" from="ShieldComponent" to="." method="_on_shield_changed"]
+[connection signal="damage_taken" from="HurtboxComponent" to="." method="_on_damage_taken"]

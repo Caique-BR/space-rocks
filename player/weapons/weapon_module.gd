@@ -14,7 +14,6 @@ func _ready() -> void:
 			weapons.append(child)
 			child.hide()
 	current_weapon.show()
-	
 
 func _on_shoot() -> void:
 	if gun_cooldown.time_left: return

@@ -9,7 +9,7 @@ extends Node2D
 
 var velocity = Vector2.ZERO
 
-func start(layers: Array[int], _transform : Transform2D): # calls this when a bullets spawns, telling it correct path
+func start(layers: Array[int], _transform : Transform2D): 
 	transform = _transform
 	velocity = transform.x * speed
 	
@@ -17,7 +17,7 @@ func start(layers: Array[int], _transform : Transform2D): # calls this when a bu
 		hitbox_component.set_collision_layer_value(layer, true)
 		hitbox_component.set_collision_mask_value(layer, true)
 
-func explode_bullet(): # Called when bullet hits something
+func explode_bullet(): 
 	velocity = Vector2.ZERO
 
 	bullet_sprite.hide()

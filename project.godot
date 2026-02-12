@@ -29,14 +29,17 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="uid://ceuoe61bk0k1l"
+mouse_cursor/custom_image_hotspot=Vector2(8, 8)
 
 [file_customization]
 
 folder_colors={
 "res://assets/": "gray",
 "res://components/": "gray",
+"res://debris/": "green",
+"res://debris/asteroid/": "green",
 "res://enemies/": "red",
-"res://enemies/asteroid/": "red",
 "res://generic/": "yellow",
 "res://globals/": "gray",
 "res://hud/": "gray",
@@ -49,6 +52,7 @@ folder_colors={
 [global_group]
 
 player=""
+UtilityTextBox=""
 
 [input]
 

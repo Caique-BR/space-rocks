@@ -37,4 +37,4 @@ func _process(delta: float) -> void:
 	else:
 		offset = lerp(offset, Vector2.ZERO, 10.5 * delta)
 	
-	#position = (player.global_position - screensize / 2) * 0.05
+	position = player.global_position

@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://c01tlq6s80nfq"]
+
+[ext_resource type="Script" uid="uid://1x0xc7s85pu3" path="res://player/weapons/cannon/cannon_gun.gd" id="1_tuxk1"]
+[ext_resource type="Texture2D" uid="uid://bei4xs8scf033" path="res://player/weapons/cannon/assets/weapon.png" id="2_47p61"]
+[ext_resource type="PackedScene" uid="uid://cfc3deo4ekx2j" path="res://player/weapons/cannon/cannon_projectile.tscn" id="2_bof1k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuxk1"]
+atlas = ExtResource("2_47p61")
+region = Rect2(0, 0, 8, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47p61"]
+atlas = ExtResource("2_47p61")
+region = Rect2(0, 0, 8, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bof1k"]
+atlas = ExtResource("2_47p61")
+region = Rect2(8, 0, 8, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjp77"]
+atlas = ExtResource("2_47p61")
+region = Rect2(16, 0, 8, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l724h"]
+atlas = ExtResource("2_47p61")
+region = Rect2(24, 0, 8, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4doe"]
+atlas = ExtResource("2_47p61")
+region = Rect2(32, 0, 8, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hy0rq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuxk1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47p61")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bof1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjp77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l724h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4doe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47p61")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 14.0
+}]
+
+[node name="CannonGun" type="Node2D" unique_id=700161307 node_paths=PackedStringArray("muzzle", "gun_sprite")]
+script = ExtResource("1_tuxk1")
+projectile_scene = ExtResource("2_bof1k")
+muzzle = NodePath("Muzzle")
+gun_sprite = NodePath("GunSprite")
+
+[node name="GunSprite" type="AnimatedSprite2D" parent="." unique_id=1303145891]
+position = Vector2(11.000001, 0)
+rotation = 1.5707964
+scale = Vector2(2.1, 2.1)
+sprite_frames = SubResource("SpriteFrames_hy0rq")
+animation = &"shoot"
+autoplay = "default"
+frame = 5
+frame_progress = 1.0
+
+[node name="Muzzle" type="Marker2D" parent="." unique_id=1686438326]
+position = Vector2(14, 0)

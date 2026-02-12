@@ -4,29 +4,29 @@ signal health_changed(health_ratio)
 signal shield_changed(shield_ratio)
 signal died
 
-@onready var ship_sprite : AnimatedSprite2D = get_node("ShipSprite")
-@onready var radius : int
+enum { INIT, ALIVE, INVUL, DEAD }
 
-@onready var health_component : HealthComponent = get_node("HealthComponent")
-@onready var shield_component : ShieldComponent = get_node("ShieldComponent")
-@onready var hurtbox_component : HurtboxComponent = get_node("HurtboxComponent")
-@onready var ship_engine_module : ShipEngineModule = get_node("ShipEngineModule")
+@export var ship_sprite : AnimatedSprite2D
+@export var radius : int
 
-@export var engine_power = 2000 # Sets the ships speed
-@export var spin_power = 8000 # Sets the shipss turn speed
+@export var animation_player : AnimationPlayer
+@export var health_component : HealthComponent
+@export var shield_component : ShieldComponent
+@export var hurtbox_component : HurtboxComponent
 
-enum { INIT, ALIVE, INVUL, DEAD } # "FSM" to manage ships current state
+@export var ship_engine_module : ShipEngineModule
 
-var screensize = Vector2.ZERO
+@export var engine_power = 2000
+@export var spin_power = 8000
 
-var thrust = Vector2.ZERO # Force being applied to the ship engine
+var thrust = Vector2.ZERO
 var movement_vector : Vector2
 var aim_vector : Vector2
 
 var state : int = INIT
 var moving : bool = false
 var damaged : bool = false
-var reset_pos : bool = false
+var tween_damage : Tween
 
 ## SHIP METHODS
 
@@ -35,11 +35,6 @@ func explode(): # Player explode animation
 	$Explosion/AnimationPlayer.play("explosion")
 	await $Explosion/AnimationPlayer.animation_finished
 	$Explosion.hide()
-
-func reset(): # Resets the game for the next try
-	reset_pos = true
-	ship_sprite.show()
-	change_state(ALIVE)
 
 func change_state(new_state): # Code for the "FSM", uses the match to determ the state of the ship
 	match new_state:
@@ -70,7 +65,6 @@ func change_state(new_state): # Code for the "FSM", uses the match to determ the
 
 func _ready():
 	change_state(ALIVE)
-	screensize = get_viewport_rect().size
 	radius = int(ship_sprite.sprite_frames.get_frame_texture("default", 0).get_size().x / 2 * ship_sprite.scale.x)
 
 func _physics_process(_delta):
@@ -84,17 +78,6 @@ func _physics_process(_delta):
 	else:
 		constant_force = Vector2.ZERO
 	moving = false
-
-func _integrate_forces(physics_state): # screenwrap
-	var xform = physics_state.transform
-	
-	xform.origin.x = wrapf(xform.origin.x, 0 - radius, screensize.x + radius)
-	xform.origin.y = wrapf(xform.origin.y, 0 - radius, screensize.y + radius)
-	physics_state.transform = xform
-	
-	if reset_pos: # reset player and put on the center of the screen
-		physics_state.transform.origin = screensize / 2
-		reset_pos = false
 
 ## SIGNAL HANDLERS
 
@@ -120,3 +103,14 @@ func _on_player_input_component_move(_m: Vector2) -> void:
 
 func _on_player_input_component_aim(a: Vector2) -> void:
 	aim_vector = a
+
+func _on_damage_taken(_total: int, from: Vector2) -> void:
+	var damage_direction = (global_position - from).normalized()
+	animation_player.play("hurt")
+	
+	ship_sprite.scale = Vector2(2.5, 2.5)
+	
+	if tween_damage: tween_damage.kill()
+	tween_damage = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_damage.tween_property(ship_sprite, "scale", Vector2(2.1, 2.1), 1)
+	
