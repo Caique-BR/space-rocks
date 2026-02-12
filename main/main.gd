@@ -23,12 +23,12 @@ func spawn_boss():
 func spawn_asteroid():
 	$RockPath/RockSpawn.progress = randi()
 
-	var pos = $RockPath/RockSpawn.position
-	var vel = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
+	var trans : Transform2D = $RockPath/RockSpawn.transform
+	var vel : Vector2 = Vector2.RIGHT.rotated(randf_range(0, TAU)) * randf_range(50, 125)
 
 	var a : Asteroid = asteroid_scene.instantiate()
 
-	a.start(pos, vel)
+	a.start(trans, vel)
 	a.exploded.connect(self._on_asteroid_exploded)
 	call_deferred("add_child", a)
 

@@ -3,21 +3,36 @@ extends Debris
 
 signal exploded
 
-@export var collision_shape2d : CollisionShape2D
+@export var asteroid_debris_scene : PackedScene
 @export var animated_sprite2d : AnimatedSprite2D
 @export var animation_player : AnimationPlayer
 
 var tween : Tween
 
 func explode() -> void:
-	collision_shape2d.set_deferred("disabled", true)
-	set_deferred("linear_velocity", Vector2.ZERO)
-	set_deferred("angular_velocity", 0)
+	stop_motion()
+	hitbox_component.disable_hitbox()
+	hurtbox_component.disable_hurtbox()
 	
 	animated_sprite2d.play("explode")
 	await animated_sprite2d.animation_finished
 	
-	exploded.emit() # emits the exploded signal for dupping asteroids
+	for offset in [-1, 1]:
+		var asteroid_debris : AsteroidDebris = asteroid_debris_scene.instantiate()
+		asteroid_debris.set_side(offset)
+		
+		var debris_transform = Transform2D(transform)
+		debris_transform.origin = debris_transform.origin + (transform.x * 10 * offset)
+		
+		asteroid_debris.start(
+			#global_position + (transform.x * 50 * offset), ## `position`
+			debris_transform, ## `transform`
+			transform.x * 200 * offset ## `linear_velocity`
+		)
+		
+		get_tree().root.add_child(asteroid_debris)
+	
+	exploded.emit()
 	queue_free()
 
 ## Handlers

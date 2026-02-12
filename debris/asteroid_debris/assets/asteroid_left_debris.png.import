@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtmh73gay75kr"
-path="res://.godot/imported/asteroid_right_debris.png-25537ba0548d48b383158ed6e13d8ae7.ctex"
+uid="uid://de8bjw0ohp4n6"
+path="res://.godot/imported/asteroid_left_debris.png-e4a52aeb034ff22f08e70f9930a22191.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://debris/asteroid/assets/asteroid_right_debris.png"
-dest_files=["res://.godot/imported/asteroid_right_debris.png-25537ba0548d48b383158ed6e13d8ae7.ctex"]
+source_file="res://debris/asteroid_debris/assets/asteroid_left_debris.png"
+dest_files=["res://.godot/imported/asteroid_left_debris.png-e4a52aeb034ff22f08e70f9930a22191.ctex"]
 
 [params]
 

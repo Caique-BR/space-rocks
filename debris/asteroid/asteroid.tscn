@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://iw35v06hqank"]
 
 [ext_resource type="Script" uid="uid://d0f0e56lnkng4" path="res://debris/asteroid/asteroid.gd" id="1_iic4w"]
+[ext_resource type="PackedScene" uid="uid://gcrqspctwy0h" path="res://debris/asteroid_debris/asteroid_debris.tscn" id="2_0caif"]
 [ext_resource type="Texture2D" uid="uid://cbxt68nf007il" path="res://debris/asteroid/assets/asteroid.png" id="2_84fqd"]
 [ext_resource type="Texture2D" uid="uid://cn70vuye720wg" path="res://debris/asteroid/assets/explosion.png" id="3_7gw88"]
 [ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="4_iic4w"]
@@ -8,6 +9,9 @@
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="6_7gw88"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ke6mn"]
+radius = 70.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0caif"]
 radius = 70.0
 
 [sub_resource type="Gradient" id="Gradient_ke6mn"]
@@ -21,7 +25,7 @@ gradient = SubResource("Gradient_ke6mn")
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_08jhv"]
+[sub_resource type="CurveTexture" id="CurveTexture_k6pqj"]
 curve = SubResource("Curve_k6pqj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ke6mn"]
@@ -35,7 +39,7 @@ radial_accel_min = 65.52
 radial_accel_max = 65.52
 scale_min = 4.0
 scale_max = 6.0
-scale_curve = SubResource("CurveTexture_08jhv")
+scale_curve = SubResource("CurveTexture_k6pqj")
 color_ramp = SubResource("GradientTexture1D_0caif")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hy1he"]
@@ -62,10 +66,6 @@ region = Rect2(0, 0, 96, 96)
 atlas = ExtResource("3_7gw88")
 region = Rect2(96, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ux60e"]
-atlas = ExtResource("3_7gw88")
-region = Rect2(192, 0, 96, 96)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_08jhv"]
 animations = [{
 "frames": [{
@@ -91,9 +91,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8rvl6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ux60e")
 }],
 "loop": false,
 "name": &"explode",
@@ -139,14 +136,15 @@ _data = {
 &"hurt": SubResource("Animation_6277a")
 }
 
-[node name="Asteroid" type="RigidBody2D" unique_id=1616891662 node_paths=PackedStringArray("collision_shape2d", "animated_sprite2d", "animation_player", "hitbox_component", "hurtbox_component", "health_component") groups=["asteroids"]]
+[node name="Asteroid" type="RigidBody2D" unique_id=1616891662 node_paths=PackedStringArray("animated_sprite2d", "animation_player", "hitbox_component", "hurtbox_component", "health_component", "collision_shape_2d") groups=["asteroids"]]
 script = ExtResource("1_iic4w")
-collision_shape2d = NodePath("CollisionShape2D")
+asteroid_debris_scene = ExtResource("2_0caif")
 animated_sprite2d = NodePath("AnimatedSprite2D")
 animation_player = NodePath("AnimationPlayer")
 hitbox_component = NodePath("HitboxComponent")
 hurtbox_component = NodePath("HurtboxComponent")
 health_component = NodePath("HealthComponent")
+collision_shape_2d = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://cbbv4svga5l7m"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=12750279 node_paths=PackedStringArray("health_component")]
@@ -166,7 +164,7 @@ metadata/_custom_type_script = "uid://d33wds1kipash"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=602225597]
 visible = false
-shape = SubResource("CircleShape2D_ke6mn")
+shape = SubResource("CircleShape2D_0caif")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1039370769]
 amount = 20
@@ -175,6 +173,7 @@ process_material = SubResource("ParticleProcessMaterial_ke6mn")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=958926514]
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_08jhv")
+animation = &"explode"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1230140349]
 visible = false
@@ -183,7 +182,7 @@ shape = SubResource("CircleShape2D_hy1he")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1732912990]
 script = ExtResource("6_7gw88")
-max_health = 30.0
+max_health = 2.0
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1813678043]
