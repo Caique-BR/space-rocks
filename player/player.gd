@@ -65,11 +65,11 @@ func change_state(new_state): # Code for the "FSM", uses the match to determ the
 
 ##
 
-func pickup_item(_p: Pickup):
-	weapon_module.equip_weapon()
-	animation_player.play("hurt")
+func pickup_weapon(weapon_scene: PackedScene):
+	weapon_module.equip_weapon(weapon_scene)
+	animation_player.play("weapon_pickup")
 	
-	ship_sprite.scale = Vector2(2.5, 2.5)
+	ship_sprite.scale = Vector2(1.9, 1.9)
 	
 	if tween_damage: tween_damage.kill()
 	tween_damage = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)

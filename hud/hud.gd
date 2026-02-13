@@ -22,9 +22,8 @@ func update_health(ratio: float) -> void:
 
 func update_shield(ratio: float) -> void:
 	var new_value = ratio * 100
-	Utilily.print_on_screen("shield")
+
 	if shield_tween: shield_tween.kill()
-	print(ratio)
 	shield_tween = shield_bar.create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	shield_tween.tween_property(shield_bar, "value", new_value, 1)
 	

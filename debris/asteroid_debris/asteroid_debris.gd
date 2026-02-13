@@ -10,7 +10,7 @@ extends Debris
 var side : int
 var tween : Tween
 
-func set_side(s: int) -> void:
+func set_side(s: int) -> void: 
 	side = s
 
 ## Animations

@@ -104,7 +104,6 @@ _data = {
 point_count = 5
 
 [sub_resource type="Environment" id="Environment_73k8k"]
-background_mode = 3
 tonemap_mode = 1
 glow_enabled = true
 glow_levels/1 = 0.3

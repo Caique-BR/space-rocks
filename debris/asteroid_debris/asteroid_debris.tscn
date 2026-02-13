@@ -585,7 +585,7 @@ process_material = SubResource("ParticleProcessMaterial_bef8m")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=559153544]
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_u2psc")
-animation = &"explode"
+animation = &"debris_left"
 
 [node name="LeftSideCollision" type="CollisionPolygon2D" parent="." unique_id=2036335657]
 visible = false

@@ -4,21 +4,17 @@ extends Node2D
 @onready var gun_cooldown : Timer = get_node("GunCooldown")
 
 @export var current_weapon : Weapon
-var weapons : Array[Weapon]
 
 ## Methods
 
-func equip_weapon() -> void:
-	current_weapon = weapons[0]
+func equip_weapon(weapon_scene : PackedScene) -> void:
+	var new_weapon : Weapon = weapon_scene.instantiate()
+	current_weapon = new_weapon
 	current_weapon.show()
 
 ## Built-in
 
 func _ready() -> void:
-	for child in get_children():
-		if child is Weapon:
-			weapons.append(child)
-			child.hide()
 	if current_weapon:
 		current_weapon.show()
 
