@@ -173,7 +173,6 @@ process_material = SubResource("ParticleProcessMaterial_ke6mn")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=958926514]
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_08jhv")
-animation = &"explode"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1230140349]
 visible = false
@@ -182,7 +181,7 @@ shape = SubResource("CircleShape2D_hy1he")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1732912990]
 script = ExtResource("6_7gw88")
-max_health = 2.0
+max_health = 4.0
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1813678043]

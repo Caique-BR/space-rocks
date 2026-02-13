@@ -9,11 +9,10 @@
 [ext_resource type="Material" uid="uid://b0edv6ib4qy41" path="res://shaders/background.tres" id="5_na0o7"]
 [ext_resource type="Texture2D" uid="uid://csxaxyghbytc1" path="res://assets/effects/star.png" id="6_5xyti"]
 [ext_resource type="Shader" uid="uid://dba6ik23kwh2y" path="res://shaders/background.gdshader" id="6_73k8k"]
-[ext_resource type="AudioStream" uid="uid://bbu8l2m0sgxd0" path="res://assets/sounds/explosion.wav" id="7_grrlh"]
-[ext_resource type="AudioStream" uid="uid://dngoy0poqy7t7" path="res://assets/sounds/levelup.ogg" id="8_0i4oc"]
-[ext_resource type="AudioStream" uid="uid://jl64dctvfi40" path="res://assets/sounds/Funky-Gameplay_Looping.ogg" id="9_bsumw"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
+[ext_resource type="AudioStream" uid="uid://dvtuoxvuwkvlt" path="res://assets/audio/background.wav" id="11_na0o7"]
 [ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
+[ext_resource type="PackedScene" uid="uid://fy0jrvl3ab4m" path="res://generic/pickup/pickup.tscn" id="14_73k8k"]
 [ext_resource type="PackedScene" uid="uid://bbb1ivlw78ev3" path="res://generic/portal/portal.tscn" id="16_n3o0a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73k8k"]
@@ -80,8 +79,8 @@ shader_parameter/colour_2 = Color(0.51915085, 0.0034629114, 0.92219007, 1)
 shader_parameter/colour_3 = Color(0.00010509963, 0.00022429362, 0.00024738073, 1)
 shader_parameter/contrast = 3.96
 shader_parameter/lighting = 0.4
-shader_parameter/spin_amount = 0.42
-shader_parameter/pixel_filter = 740.0
+shader_parameter/spin_amount = 12.28
+shader_parameter/pixel_filter = 1920.0
 shader_parameter/is_rotating = true
 
 [sub_resource type="Curve2D" id="Curve2D_c651c"]
@@ -91,6 +90,7 @@ _data = {
 point_count = 5
 
 [sub_resource type="Environment" id="Environment_73k8k"]
+background_mode = 3
 tonemap_mode = 1
 glow_enabled = true
 glow_levels/1 = 0.3
@@ -108,7 +108,6 @@ glow_hdr_luminance_cap = 2.0
 [node name="Main" type="Node" unique_id=1414078381]
 process_mode = 3
 script = ExtResource("1_xwkvk")
-DEBUGGING = true
 asteroid_scene = ExtResource("2_5xyti")
 dreadnought_scene = ExtResource("2_bsumw")
 portal_scene = ExtResource("16_n3o0a")
@@ -170,7 +169,6 @@ visibility_rect = Rect2(0, 0, 1920, 1080)
 process_material = SubResource("ParticleProcessMaterial_n3o0a")
 
 [node name="SHADER" type="ColorRect" parent="." unique_id=1841658730]
-visible = false
 material = SubResource("ShaderMaterial_5xyti")
 anchors_preset = 15
 anchor_right = 1.0
@@ -198,16 +196,10 @@ rotation = -0.005920594
 [node name="EnemyTimer" type="Timer" parent="." unique_id=24032461]
 one_shot = true
 
-[node name="ExplosionSound" type="AudioStreamPlayer" parent="." unique_id=497783552]
-stream = ExtResource("7_grrlh")
-
-[node name="LevelupSound" type="AudioStreamPlayer" parent="." unique_id=178876112]
-stream = ExtResource("8_0i4oc")
+[node name="BGMusic" type="AudioStreamPlayer" parent="." unique_id=1321552801]
+stream = ExtResource("11_na0o7")
 volume_db = -5.0
-
-[node name="Music" type="AudioStreamPlayer" parent="." unique_id=1321552801]
-stream = ExtResource("9_bsumw")
-volume_db = -10.0
+autoplay = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1809309133 node_paths=PackedStringArray("player")]
 position = Vector2(960, 540)
@@ -222,6 +214,9 @@ autostart = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1909751423]
 environment = SubResource("Environment_73k8k")
+
+[node name="Pickup" parent="." unique_id=1628948303 instance=ExtResource("14_73k8k")]
+position = Vector2(1126, 672)
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="health_changed" from="Player" to="HUD" method="update_health"]

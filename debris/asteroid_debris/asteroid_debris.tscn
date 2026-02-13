@@ -585,7 +585,7 @@ process_material = SubResource("ParticleProcessMaterial_bef8m")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=559153544]
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_u2psc")
-animation = &"debris_right"
+animation = &"explode"
 
 [node name="LeftSideCollision" type="CollisionPolygon2D" parent="." unique_id=2036335657]
 visible = false
@@ -613,7 +613,7 @@ metadata/_custom_type_script = "uid://d33wds1kipash"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=330779795]
 script = ExtResource("5_byv41")
-max_health = 1.0
+max_health = 2.0
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1832308713]

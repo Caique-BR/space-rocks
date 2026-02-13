@@ -1,14 +1,16 @@
 [gd_scene format=3 uid="uid://byo566t5go7kd"]
 
 [ext_resource type="Script" uid="uid://cv5w87fden1n6" path="res://player/weapons/cannon/cannon.gd" id="1_vh1tf"]
+[ext_resource type="AudioStream" uid="uid://cmug1e8rny7ig" path="res://player/weapons/cannon/assets/cannon_shot.mp3" id="2_88562"]
 [ext_resource type="PackedScene" uid="uid://c01tlq6s80nfq" path="res://player/weapons/cannon/cannon_gun.tscn" id="2_ehwhn"]
 [ext_resource type="Texture2D" uid="uid://birjcmint7vdk" path="res://player/weapons/cannon/assets/cannon.png" id="3_ale20"]
 [ext_resource type="PackedScene" uid="uid://dytj0op6fninj" path="res://player/weapons/aim_line.tscn" id="3_wgt4h"]
 
-[node name="Cannon" type="Node2D" unique_id=2075296988 node_paths=PackedStringArray("gun_left", "gun_right")]
+[node name="Cannon" type="Node2D" unique_id=2075296988 node_paths=PackedStringArray("gun_left", "gun_right", "audio_stream_player")]
 script = ExtResource("1_vh1tf")
 gun_left = NodePath("CannonGunLeft")
 gun_right = NodePath("CannonGunRight")
+audio_stream_player = NodePath("AudioStreamPlayer")
 metadata/_custom_type_script = "uid://mrtkta1pt4i6"
 
 [node name="CannonGunLeft" parent="." unique_id=2080663362 instance=ExtResource("2_ehwhn")]
@@ -28,3 +30,8 @@ position = Vector2(4.000004, 0)
 rotation = 1.5707964
 scale = Vector2(2.1, 2.1)
 texture = ExtResource("3_ale20")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=633705577]
+stream = ExtResource("2_88562")
+volume_db = -15.0
+max_polyphony = 5

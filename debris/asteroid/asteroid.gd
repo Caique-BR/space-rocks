@@ -25,13 +25,13 @@ func explode() -> void:
 		debris_transform.origin = debris_transform.origin + (transform.x * 10 * offset)
 		
 		asteroid_debris.start(
-			#global_position + (transform.x * 50 * offset), ## `position`
-			debris_transform, ## `transform`
-			transform.x * 200 * offset ## `linear_velocity`
+			debris_transform, ## `parameter for transform`
+			transform.x * 200 * offset ## `parameter for linear_velocity`
 		)
 		
 		get_tree().root.add_child(asteroid_debris)
 	
+	CameraControls.camera.screen_shake(10, 0.1)
 	exploded.emit()
 	queue_free()
 

@@ -1,0 +1,2 @@
+class_name PickupResource
+extends Resource

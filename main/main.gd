@@ -1,11 +1,8 @@
 extends Node
 
-@export var DEBUGGING : bool =  false
 @export var asteroid_scene : PackedScene
 @export var dreadnought_scene : PackedScene
 @export var portal_scene : PackedScene
-
-# change spawn timer on new level to 5, 10
 
 @onready var hud : HUD = get_node("HUD")
 @onready var fighter_spawner : FighterSpawner = get_node("FighterSpawner")
@@ -34,22 +31,21 @@ func spawn_asteroid():
 
 func new_game(): # starts the game when receiving the "start_game" signal
 	$Player.show()
-	fighter_spawner.spawn_fighter_duo()
+	#fighter_spawner.spawn_fighter_duo()
 	get_tree().call_group("asteroids", "queue_free") # removes asteroids from previous run
 	level = 0 
 	score = 0
 	playing = true
-	$Music.play()
+	$BGMusic.play()
 
 func new_level(): # increaces the difficult when changing levels
 	level += 1
-	$LevelupSound.play()
 	
 	for i in level: spawn_asteroid()
 
 func game_over():
 	playing = false
-	$Music.stop()
+	$BGMusic.stop()
 
 ## BUILT-IN
 
@@ -59,12 +55,8 @@ func _ready():
 	
 	new_game()
 	
-	###### DEBUG
+	## DEBUG
 	Utilily.start(%UtilityTextBox)
-	if DEBUGGING:
-		$ExplosionSound.volume_db = -100
-		$LevelupSound.volume_db = -100
-		$Music.volume_db = -100
 
 func _process(_delta): # changes the level when all the asteroids are destroyed in the currente level
 	if not playing: return
@@ -91,7 +83,6 @@ func _input(event): # pause game func
 
 func _on_asteroid_exploded(): #dupes the asteroids that gets shot
 	#camera.screen_shake(15, 0.5)
-	$ExplosionSound.play()
 	score += 1
 
 func _on_dreadnought_timertest_timeout() -> void:

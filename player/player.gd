@@ -6,15 +6,16 @@ signal died
 
 enum { INIT, ALIVE, INVUL, DEAD }
 
-@export var ship_sprite : AnimatedSprite2D
-@export var radius : int
-
 @export var animation_player : AnimationPlayer
+@export var ship_sprite : AnimatedSprite2D
+@export var speed_sprite : Sprite2D
+
 @export var health_component : HealthComponent
 @export var shield_component : ShieldComponent
 @export var hurtbox_component : HurtboxComponent
 
 @export var ship_engine_module : ShipEngineModule
+@export var weapon_module : WeaponModule
 
 @export var engine_power = 2000
 @export var spin_power = 8000
@@ -22,6 +23,7 @@ enum { INIT, ALIVE, INVUL, DEAD }
 var thrust = Vector2.ZERO
 var movement_vector : Vector2
 var aim_vector : Vector2
+var radius : int
 
 var state : int = INIT
 var moving : bool = false
@@ -60,6 +62,11 @@ func change_state(new_state): # Code for the "FSM", uses the match to determ the
 			$EngineSound.stop()
 			hurtbox_component.disable_hurtbox()
 	state = new_state
+
+##
+
+func pickup_item(_p: Pickup):
+	weapon_module.equip_weapon()
 
 ## BUILT-IN METHODS
 

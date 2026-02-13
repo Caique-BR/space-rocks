@@ -10,6 +10,7 @@ func shoot() -> void:
 	var current_gun : Gun = [gun_left, gun_right][current_gun_index]
 	current_gun.shoot()
 	current_gun_index = 1 - current_gun_index
+	audio_stream_player.play()
 
 ## BUILT-IN
 

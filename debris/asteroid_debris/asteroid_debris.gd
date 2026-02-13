@@ -47,7 +47,7 @@ func _ready() -> void:
 	
 	collision_shape_2d = collision_shape
 	collision_shape_2d.show()
-	collision_shape.set_deferred("disabled", false)
+	collision_shape.disabled = false
 	hurtbox_component.add_child(collision_shape.duplicate())
 	hitbox_component.add_child(collision_shape.duplicate())
 
