@@ -67,6 +67,13 @@ func change_state(new_state): # Code for the "FSM", uses the match to determ the
 
 func pickup_item(_p: Pickup):
 	weapon_module.equip_weapon()
+	animation_player.play("hurt")
+	
+	ship_sprite.scale = Vector2(2.5, 2.5)
+	
+	if tween_damage: tween_damage.kill()
+	tween_damage = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_damage.tween_property(ship_sprite, "scale", Vector2(2.1, 2.1), 1)
 
 ## BUILT-IN METHODS
 
@@ -91,7 +98,6 @@ func _physics_process(_delta):
 func _on_health_changed(new_health): # set the starting lives for the player
 	change_state(INVUL)
 	health_changed.emit(new_health / health_component.max_health)
-	print(new_health / health_component.max_health)
 
 func _on_health_depleted() -> void:
 	change_state(DEAD)

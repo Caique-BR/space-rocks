@@ -1,6 +1,15 @@
 [gd_scene format=3 uid="uid://c28f8ive544sl"]
 
 [ext_resource type="Script" uid="uid://dgxh3ni4swrn5" path="res://hud/hud.gd" id="1_uqrat"]
+[ext_resource type="Texture2D" uid="uid://ceb6j5nrvwx5i" path="res://assets/hud/ship_cockpit.png" id="2_svhta"]
+[ext_resource type="Shader" uid="uid://1gwivp2jqb4q" path="res://shaders/hologram.gdshader" id="2_w8tcp"]
+[ext_resource type="Texture2D" uid="uid://dtbpg8rrmnqd8" path="res://assets/hud/ship_hull.png" id="3_fjv1a"]
+[ext_resource type="Texture2D" uid="uid://bexlqhn74diuj" path="res://assets/noises/hologram.png" id="3_svhta"]
+[ext_resource type="Texture2D" uid="uid://ccyop5x008emc" path="res://assets/hud/ship_wing.png" id="4_0ivg5"]
+[ext_resource type="Texture2D" uid="uid://ddxptce648mwo" path="res://assets/hud/ship_rear.png" id="5_1kkc0"]
+[ext_resource type="Texture2D" uid="uid://kckyabu6dix" path="res://assets/hud/ship_wing_damage.png" id="8_1kkc0"]
+[ext_resource type="Texture2D" uid="uid://3hh1lky1d0hp" path="res://assets/hud/shield_bar.png" id="9_sh35x"]
+[ext_resource type="Texture2D" uid="uid://wh8vyh87iw6c" path="res://assets/hud/shield_bar_fill.png" id="10_gms7k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ca3a"]
 
@@ -60,6 +69,69 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ivg5"]
+shader = ExtResource("2_w8tcp")
+shader_parameter/baseColor = Color(0.30588236, 0.8352941, 0.9607843, 0)
+shader_parameter/speed = 10.0
+shader_parameter/linesColor = Color(0.6313726, 0.9098039, 0.5568628, 0)
+shader_parameter/linesColorIntensity = -10.0
+shader_parameter/hologramTexture = ExtResource("3_svhta")
+shader_parameter/hologramTextureTiling = Vector2(1, 0.2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sh35x"]
+shader = ExtResource("2_w8tcp")
+shader_parameter/baseColor = Color(1, 1, 1, 0)
+shader_parameter/speed = 2.0
+shader_parameter/linesColor = Color(1, 1, 1, 0)
+shader_parameter/linesColorIntensity = 2.5
+shader_parameter/hologramTexture = ExtResource("3_svhta")
+shader_parameter/hologramTextureTiling = Vector2(1, 0.04)
+
+[sub_resource type="Shader" id="Shader_sh35x"]
+code = "shader_type canvas_item;
+
+uniform vec4 baseColor: source_color = vec4(0.3058, 0.835, 0.960, 1.);
+uniform float speed = 0.5;
+uniform vec4 linesColor: source_color = vec4(0.633232, 0.910156, 0.555693, 1.);
+uniform float linesColorIntensity = 5.;
+uniform sampler2D hologramTexture;
+uniform vec2 hologramTextureTiling = vec2(1., 5.);
+
+vec2 tilingAndOffset(vec2 uv, vec2 tiling, vec2 offset) {
+    return mod(uv * tiling + offset, 1);
+}
+
+void fragment() {
+    vec2 offset = vec2(TIME * speed / 100.0);
+    vec2 tiling = tilingAndOffset(UV, hologramTextureTiling, offset);
+    
+    vec4 noise = texture(hologramTexture, tiling);
+    
+    float fresnel = 0.71;
+    vec4 colorLines = linesColor * vec4(vec3(linesColorIntensity), 1.0);
+    vec4 emission = colorLines * fresnel * noise;
+    
+    vec4 albedo = baseColor;
+    float alpha = dot(noise.rgb, vec3(1.0));
+    vec4 hologram;
+    hologram.rgb = emission.rgb + (1.0 - emission.rgb) * albedo.rgb * albedo.a;
+    hologram.a = emission.a + (1.0 - emission.a) * alpha;
+    hologram.a = hologram.a + (1.0 - hologram.a) * albedo.a;
+    COLOR = texture(TEXTURE, UV);
+    COLOR.rgb = COLOR.rgb + (1.0 - COLOR.rgb) * hologram.rgb;
+    COLOR.a = min(COLOR.a, hologram.a);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gms7k"]
+shader = SubResource("Shader_sh35x")
+shader_parameter/baseColor = Color(1, 1, 1, 0)
+shader_parameter/speed = 5.0
+shader_parameter/linesColor = Color(1, 1, 1, 0)
+shader_parameter/linesColorIntensity = 5.0
+shader_parameter/hologramTexture = ExtResource("3_svhta")
+shader_parameter/hologramTextureTiling = Vector2(1, 0.08)
+
 [node name="HUD" type="CanvasLayer" unique_id=921773207]
 script = ExtResource("1_uqrat")
 
@@ -67,7 +139,8 @@ script = ExtResource("1_uqrat")
 wait_time = 2.0
 one_shot = true
 
-[node name="HealthBar" type="ProgressBar" parent="." unique_id=784881845]
+[node name="HealthBarOLD" type="ProgressBar" parent="." unique_id=784881845]
+visible = false
 z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -87,7 +160,7 @@ value = 100.0
 rounded = true
 show_percentage = false
 
-[node name="DamageBar" type="ProgressBar" parent="HealthBar" unique_id=142381039]
+[node name="DamageBar" type="ProgressBar" parent="HealthBarOLD" unique_id=142381039]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -100,11 +173,12 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_w8tcp")
 value = 100.0
 show_percentage = false
 
-[node name="Timer" type="Timer" parent="HealthBar" unique_id=2112638468]
+[node name="Timer" type="Timer" parent="HealthBarOLD" unique_id=2112638468]
 wait_time = 0.4
 one_shot = true
 
-[node name="ShieldBar" type="ProgressBar" parent="." unique_id=90521321]
+[node name="ShieldBarOLD" type="ProgressBar" parent="." unique_id=90521321]
+visible = false
 z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -122,7 +196,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_svhta")
 value = 100.0
 show_percentage = false
 
-[node name="DamageBar" type="ProgressBar" parent="ShieldBar" unique_id=869270741]
+[node name="DamageBar" type="ProgressBar" parent="ShieldBarOLD" unique_id=869270741]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -135,8 +209,152 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_0ivg5")
 value = 100.0
 show_percentage = false
 
-[node name="Timer" type="Timer" parent="ShieldBar" unique_id=1581211462]
+[node name="Timer" type="Timer" parent="ShieldBarOLD" unique_id=1581211462]
 wait_time = 0.4
 one_shot = true
+
+[node name="ShipDamage" type="Control" parent="." unique_id=1516506310]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ShipDamageShader" type="Control" parent="ShipDamage" unique_id=962068061]
+material = SubResource("ShaderMaterial_0ivg5")
+anchors_preset = 0
+offset_left = 50.000004
+offset_top = 904.0
+offset_right = 90.0
+offset_bottom = 944.0
+scale = Vector2(3.5, 3.5)
+
+[node name="Cockpit" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=1951074367]
+use_parent_material = true
+layout_mode = 0
+offset_top = -0.5
+offset_right = 40.0
+offset_bottom = 39.5
+texture = ExtResource("2_svhta")
+
+[node name="Hull" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=322754415]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_fjv1a")
+
+[node name="WingLeft" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=22954956]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_0ivg5")
+flip_h = true
+
+[node name="WingRight" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=1090940541]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_0ivg5")
+
+[node name="Rear" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=843330664]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_1kkc0")
+
+[node name="ShipDamageTexture" type="Control" parent="ShipDamage" unique_id=525985577]
+modulate = Color(1, 1, 1, 0.7764706)
+anchors_preset = 0
+offset_left = 50.000004
+offset_top = 904.0
+offset_right = 90.0
+offset_bottom = 944.0
+scale = Vector2(3.5, 3.5)
+
+[node name="Cockpit" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=2003333]
+use_parent_material = true
+layout_mode = 0
+offset_top = -0.5
+offset_right = 40.0
+offset_bottom = 39.5
+texture = ExtResource("2_svhta")
+
+[node name="Hull" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=72964620]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_fjv1a")
+
+[node name="WingLeft" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=2092137009]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_0ivg5")
+flip_h = true
+
+[node name="WingRight" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=1980896108]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_1kkc0")
+
+[node name="Rear" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=590788935]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_1kkc0")
+
+[node name="HealthBarShader" type="TextureProgressBar" parent="." unique_id=937093048]
+material = SubResource("ShaderMaterial_sh35x")
+offset_left = 1550.0001
+offset_top = 945.00006
+offset_right = 1628.0001
+offset_bottom = 952.0001
+scale = Vector2(5, 5)
+value = 100.0
+texture_under = ExtResource("9_sh35x")
+texture_progress = ExtResource("10_gms7k")
+tint_progress = Color(0.27999997, 1, 0.45999998, 1)
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=757713366]
+modulate = Color(1, 1, 1, 0.78431374)
+offset_left = 1550.0001
+offset_top = 945.00006
+offset_right = 1628.0001
+offset_bottom = 952.0001
+scale = Vector2(5, 5)
+value = 100.0
+texture_under = ExtResource("9_sh35x")
+texture_progress = ExtResource("10_gms7k")
+tint_progress = Color(0.27999997, 1, 0.45999998, 1)
+
+[node name="ShieldBarShader" type="TextureProgressBar" parent="." unique_id=275471624]
+material = SubResource("ShaderMaterial_gms7k")
+offset_left = 1593.0001
+offset_top = 992.00006
+offset_right = 1671.0001
+offset_bottom = 999.0001
+scale = Vector2(5, 5)
+value = 100.0
+texture_under = ExtResource("9_sh35x")
+texture_progress = ExtResource("10_gms7k")
+
+[node name="ShieldBar" type="TextureProgressBar" parent="." unique_id=4668798]
+modulate = Color(1, 1, 1, 0.78431374)
+offset_left = 1593.0001
+offset_top = 992.00006
+offset_right = 1671.0001
+offset_bottom = 999.0001
+scale = Vector2(5, 5)
+value = 100.0
+texture_under = ExtResource("9_sh35x")
+texture_progress = ExtResource("10_gms7k")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

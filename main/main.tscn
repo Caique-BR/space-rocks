@@ -9,6 +9,7 @@
 [ext_resource type="Material" uid="uid://b0edv6ib4qy41" path="res://shaders/background.tres" id="5_na0o7"]
 [ext_resource type="Texture2D" uid="uid://csxaxyghbytc1" path="res://assets/effects/star.png" id="6_5xyti"]
 [ext_resource type="Shader" uid="uid://dba6ik23kwh2y" path="res://shaders/background.gdshader" id="6_73k8k"]
+[ext_resource type="Script" uid="uid://u713ygbj461i" path="res://main/stars.gd" id="7_5xyti"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
 [ext_resource type="AudioStream" uid="uid://dvtuoxvuwkvlt" path="res://assets/audio/background.wav" id="11_na0o7"]
 [ext_resource type="PackedScene" uid="uid://cdjkr5cyeea87" path="res://enemies/fighter/fighter_spawner.tscn" id="12_na0o7"]
@@ -48,6 +49,7 @@ emission_shape_offset = Vector3(960, 540, 0)
 emission_shape = 3
 emission_box_extents = Vector3(960, 540, 1)
 gravity = Vector3(0, 0, 0)
+scale_max = 2.0
 color_ramp = SubResource("GradientTexture1D_73k8k")
 
 [sub_resource type="Gradient" id="Gradient_73k8k"]
@@ -68,6 +70,18 @@ gravity = Vector3(0, 0, 0)
 scale_min = 0.01
 scale_max = 0.01
 color_ramp = SubResource("GradientTexture1D_5xyti")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_73k8k"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 11.16
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 0.99999774
+linear_accel_max = 0.99999774
+attractor_interaction_enabled = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5xyti"]
 shader = ExtResource("6_73k8k")
@@ -155,20 +169,31 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Stars" type="GPUParticles2D" parent="BackgroundCanvas" unique_id=1039504136]
+[node name="Stars" type="Node2D" parent="." unique_id=506856023 node_paths=PackedStringArray("player")]
+script = ExtResource("7_5xyti")
+player = NodePath("../Player")
+
+[node name="Stars" type="GPUParticles2D" parent="Stars" unique_id=1039504136]
 amount = 200
 lifetime = 4.0
 visibility_rect = Rect2(0, 0, 1920, 1080)
 process_material = SubResource("ParticleProcessMaterial_5xyti")
 
-[node name="YellowStars" type="GPUParticles2D" parent="BackgroundCanvas" unique_id=1158091200]
+[node name="YellowStars" type="GPUParticles2D" parent="Stars" unique_id=1158091200]
 amount = 50
 texture = ExtResource("6_5xyti")
 lifetime = 4.0
 visibility_rect = Rect2(0, 0, 1920, 1080)
 process_material = SubResource("ParticleProcessMaterial_n3o0a")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Stars" unique_id=194030081]
+position = Vector2(626, 220)
+lifetime = 5.0
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_73k8k")
+
 [node name="SHADER" type="ColorRect" parent="." unique_id=1841658730]
+visible = false
 material = SubResource("ShaderMaterial_5xyti")
 anchors_preset = 15
 anchor_right = 1.0
