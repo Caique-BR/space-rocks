@@ -1,140 +1,96 @@
 [gd_scene format=3 uid="uid://fy0jrvl3ab4m"]
 
-[ext_resource type="Script" uid="uid://b0cn2vlytnkh4" path="res://generic/pickup/pickup.gd" id="1_5sefp"]
-[ext_resource type="Texture2D" uid="uid://bxdlq8sgcyr6a" path="res://player/weapons/cannon/assets/cannon_pickup.png" id="2_l5yt3"]
+[ext_resource type="Script" uid="uid://b0cn2vlytnkh4" path="res://generic/pickup/scripts/pickup.gd" id="1_5sefp"]
+[ext_resource type="Texture2D" uid="uid://ct30ls8on8l6m" path="res://generic/pickup/resources/weapons/assets/cannon_pickup.png" id="2_os1ri"]
+[ext_resource type="Shader" uid="uid://bnweh4xrquuq8" path="res://shaders/light_shaft.gdshader" id="3_os1ri"]
 [ext_resource type="AudioStream" uid="uid://f1knwgwa8ncx" path="res://assets/audio/pickup.ogg" id="5_os1ri"]
+[ext_resource type="FontFile" uid="uid://pahh5bjch6ft" path="res://generic/notification/fonts/peaberry_base.otf" id="6_54kgs"]
+[ext_resource type="Texture2D" uid="uid://1c4pwlthdw0e" path="res://assets/corona.png" id="6_t87gw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kx256"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_54kgs"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 22.25
+radial_velocity_min = 9.999977
+radial_velocity_max = 9.999977
+gravity = Vector3(0, 0, 0)
+color = Color(0.2666, 0.86, 0.86, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1yqgq"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(32, 0, 32, 32)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t87gw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_os1ri"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t87gw"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_54kgs"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kcgax"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oaybe"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wdslj"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rxxrx"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ccl06"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ig0cg"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(320, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hpga7"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(352, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1qf3h"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(384, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kr5jy"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(416, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_redoy"]
-atlas = ExtResource("2_l5yt3")
-region = Rect2(448, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0ktbx"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kx256")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1yqgq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_os1ri")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t87gw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_54kgs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kcgax")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oaybe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wdslj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rxxrx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ccl06")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ig0cg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hpga7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1qf3h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kr5jy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_redoy")
-}],
-"loop": true,
-"name": &"default",
-"speed": 15.0
-}]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_54kgs"]
+shader = ExtResource("3_os1ri")
+shader_parameter/Line_Smoothness = 0.10000000149012
+shader_parameter/Line_Width = 0.1470000069825
+shader_parameter/Brightness = 10.0
+shader_parameter/Rotation_deg = 30.0
+shader_parameter/Distortion = 1.50000002375
+shader_parameter/Speed = 0.7
+shader_parameter/Position = 0.0
+shader_parameter/Position_Min = 0.25
+shader_parameter/Position_Max = 0.5
+shader_parameter/Alpha = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5sefp"]
-radius = 71.0
+radius = 20.0
 
-[node name="Pickup" type="Area2D" unique_id=1628948303 node_paths=PackedStringArray("audio_stream_player")]
+[node name="Pickup" type="Area2D" unique_id=1628948303 node_paths=PackedStringArray("sprite_2d", "audio_stream_player", "particles", "collision")]
 monitorable = false
 script = ExtResource("1_5sefp")
+sprite_2d = NodePath("Sprite2D")
 audio_stream_player = NodePath("AudioStreamPlayer")
+particles = NodePath("GPUParticles2D")
+collision = NodePath("CollisionShape2D")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1129923656]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1453423887]
+z_index = -1
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_54kgs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=793319801]
+clip_children = 2
+z_index = -1
+material = SubResource("ShaderMaterial_t87gw")
+rotation = 0.004566468
 scale = Vector2(1.75, 1.75)
-sprite_frames = SubResource("SpriteFrames_0ktbx")
-autoplay = "default"
-frame_progress = 0.18709303
+texture = ExtResource("2_os1ri")
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" unique_id=1858683391]
+material = SubResource("ShaderMaterial_54kgs")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -38.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1859696199]
 shape = SubResource("CircleShape2D_5sefp")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2001543996]
 stream = ExtResource("5_os1ri")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=540127414]
+energy = 0.32
+texture = ExtResource("6_t87gw")
+texture_scale = 0.46
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=891446997]
+visible = false
+offset_left = -34.0
+offset_top = 14.0
+offset_right = 39.800003
+offset_bottom = 50.0
+theme_override_fonts/normal_font = ExtResource("6_54kgs")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[wave amp=5][color=yellow]Cannon[/color][/wave]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

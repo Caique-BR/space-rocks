@@ -1,7 +1,8 @@
 class_name Player extends RigidBody2D
 
-signal health_changed(health_ratio)
-signal shield_changed(shield_ratio)
+signal experience_earned(experience: int)
+signal health_changed(health_ratio: float)
+signal shield_changed(shield_ratio: float)
 signal died
 
 enum { INIT, ALIVE, INVUL, DEAD }
@@ -29,6 +30,8 @@ var state : int = INIT
 var moving : bool = false
 var damaged : bool = false
 var tween_damage : Tween
+
+var experience : int = 0
 
 ## SHIP METHODS
 
@@ -74,6 +77,10 @@ func pickup_weapon(weapon_scene: PackedScene):
 	if tween_damage: tween_damage.kill()
 	tween_damage = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	tween_damage.tween_property(ship_sprite, "scale", Vector2(2.1, 2.1), 1)
+
+func apply_experience(amount: int) -> void:
+	experience += amount
+	experience_earned.emit(experience)
 
 ## BUILT-IN METHODS
 

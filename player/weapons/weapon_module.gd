@@ -9,8 +9,10 @@ extends Node2D
 
 func equip_weapon(weapon_scene : PackedScene) -> void:
 	var new_weapon : Weapon = weapon_scene.instantiate()
+	add_child(new_weapon)
 	current_weapon = new_weapon
 	current_weapon.show()
+	current_weapon.animate_equip()
 
 ## Built-in
 

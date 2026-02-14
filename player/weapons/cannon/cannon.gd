@@ -12,7 +12,22 @@ func shoot() -> void:
 	current_gun_index = 1 - current_gun_index
 	audio_stream_player.play()
 
-## BUILT-IN
+## Animation
+
+func animate_equip() -> void:
+	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_ELASTIC).set_parallel()
+	
+	var gun_left_pos = Vector2(gun_left.position)
+	var gun_right_pos = Vector2(gun_right.position)
+	
+	gun_left.position.y -= 20
+	gun_right.position.y += 20
+	
+	tween.tween_property(gun_left, "position", gun_left_pos, 0.5)
+	tween.tween_property(gun_right, "position", gun_right_pos, 0.5)
+	await tween.finished
+
+## Built-in
 
 func _process(_delta: float) -> void:
 	var mouse_pos = get_global_mouse_position()
@@ -20,7 +35,7 @@ func _process(_delta: float) -> void:
 	_update_gun_rotation(gun_left, mouse_pos)
 	_update_gun_rotation(gun_right, mouse_pos)
 
-## PRIVATE
+## Private
 
 func _update_gun_rotation(gun: Node2D, mouse_pos: Vector2) -> void:
 	var direction = gun.global_position.direction_to(mouse_pos)

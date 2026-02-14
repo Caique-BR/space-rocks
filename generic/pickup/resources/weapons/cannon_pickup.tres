@@ -1,11 +1,13 @@
 [gd_resource type="Resource" script_class="WeaponPickupData" format=3 uid="uid://d2a30i75q6ihm"]
 
-[ext_resource type="Script" uid="uid://da6q6aoif8d2n" path="res://generic/pickup/weapon_pickup_data.gd" id="1_7ly1b"]
-[ext_resource type="Texture2D" uid="uid://djotuycnviqby" path="res://player/assets/ship.png" id="2_8i5sc"]
+[ext_resource type="Script" uid="uid://da6q6aoif8d2n" path="res://generic/pickup/scripts/weapon_pickup_data.gd" id="1_7ly1b"]
+[ext_resource type="Texture2D" uid="uid://ct30ls8on8l6m" path="res://generic/pickup/resources/weapons/assets/cannon_pickup.png" id="2_8i5sc"]
 [ext_resource type="PackedScene" uid="uid://byo566t5go7kd" path="res://player/weapons/cannon/cannon.tscn" id="3_t8vai"]
 
 [resource]
 script = ExtResource("1_7ly1b")
 weapon_scene = ExtResource("3_t8vai")
 texture = ExtResource("2_8i5sc")
+string_id = "Cannon"
+type = "Weapon"
 metadata/_custom_type_script = "uid://da6q6aoif8d2n"

@@ -9,4 +9,7 @@ var fire_rate : float
 var recoil : float
 
 func shoot() -> void:
-	pass;
+	pass
+
+func animate_equip() -> void:
+	pass

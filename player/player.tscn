@@ -125,18 +125,20 @@ scale = Vector2(0.10171056, 0.10171056)
 texture = ExtResource("2_e7oew")
 
 [node name="ShipEngineModule" type="Node2D" parent="." unique_id=652974926 node_paths=PackedStringArray("engine_sound", "current_engine")]
+position = Vector2(-6, 0)
 script = ExtResource("4_32hag")
 engine_sound = NodePath("../EngineSound")
 current_engine = NodePath("BaseEngine")
 
 [node name="BaseEngine" parent="ShipEngineModule" unique_id=1829903821 instance=ExtResource("5_wodsf")]
+visible = false
 
 [node name="BurstEngine" parent="ShipEngineModule" unique_id=2070867146 instance=ExtResource("6_32hag")]
 visible = false
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="." unique_id=1026891787]
 texture_filter = 1
-position = Vector2(3.999999, 0)
+position = Vector2(-7.1525574e-07, 0)
 rotation = 1.5707964
 scale = Vector2(2.1, 2.1)
 sprite_frames = SubResource("SpriteFrames_kb6p2")
@@ -145,6 +147,7 @@ sprite_frames = SubResource("SpriteFrames_kb6p2")
 visible = false
 
 [node name="WeaponModule" type="Node2D" parent="." unique_id=1709160419]
+position = Vector2(-3, 0)
 script = ExtResource("2_yllr7")
 
 [node name="GunCooldown" type="Timer" parent="WeaponModule" unique_id=1055391723]

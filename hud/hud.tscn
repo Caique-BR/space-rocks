@@ -4,163 +4,285 @@
 [ext_resource type="Texture2D" uid="uid://ceb6j5nrvwx5i" path="res://assets/hud/ship_cockpit.png" id="2_svhta"]
 [ext_resource type="Shader" uid="uid://1gwivp2jqb4q" path="res://shaders/hologram.gdshader" id="2_w8tcp"]
 [ext_resource type="Texture2D" uid="uid://dtbpg8rrmnqd8" path="res://assets/hud/ship_hull.png" id="3_fjv1a"]
-[ext_resource type="Texture2D" uid="uid://bexlqhn74diuj" path="res://assets/noises/hologram.png" id="3_svhta"]
 [ext_resource type="Texture2D" uid="uid://ccyop5x008emc" path="res://assets/hud/ship_wing.png" id="4_0ivg5"]
 [ext_resource type="Texture2D" uid="uid://ddxptce648mwo" path="res://assets/hud/ship_rear.png" id="5_1kkc0"]
-[ext_resource type="Texture2D" uid="uid://kckyabu6dix" path="res://assets/hud/ship_wing_damage.png" id="8_1kkc0"]
-[ext_resource type="Texture2D" uid="uid://3hh1lky1d0hp" path="res://assets/hud/shield_bar.png" id="9_sh35x"]
-[ext_resource type="Texture2D" uid="uid://wh8vyh87iw6c" path="res://assets/hud/shield_bar_fill.png" id="10_gms7k"]
+[ext_resource type="Texture2D" uid="uid://dar6g225mmr2o" path="res://assets/hud/ship_demo.png" id="7_1kkc0"]
+[ext_resource type="Texture2D" uid="uid://6kxrc4bq5t4l" path="res://assets/hud/ship_shield_layer.png" id="8_qv4qp"]
+[ext_resource type="FontFile" uid="uid://pahh5bjch6ft" path="res://generic/notification/fonts/peaberry_base.otf" id="9_qv4qp"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6ca3a"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1kkc0"]
+load_path = "res://.godot/imported/hologram.png-8138a2e39dc0da75bc997d31c6078cd6.ctex"
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2gk58"]
-bg_color = Color(0.24, 0.6, 0.45599997, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_318vg"]
-bg_color = Color(0.1, 0.1, 0.1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
-shadow_color = Color(0, 0, 0, 0.27450982)
-shadow_offset = Vector2(0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8tcp"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2gk58"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svhta"]
-bg_color = Color(0, 0.54179496, 0.8832054, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjv1a"]
-bg_color = Color(0.1, 0.1, 0.1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
-shadow_color = Color(0, 0, 0, 0.27450982)
-shadow_offset = Vector2(0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ivg5"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ivg5"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qv4qp"]
 shader = ExtResource("2_w8tcp")
 shader_parameter/baseColor = Color(0.30588236, 0.8352941, 0.9607843, 0)
 shader_parameter/speed = 10.0
 shader_parameter/linesColor = Color(0.6313726, 0.9098039, 0.5568628, 0)
 shader_parameter/linesColorIntensity = -10.0
-shader_parameter/hologramTexture = ExtResource("3_svhta")
+shader_parameter/hologramTexture = SubResource("CompressedTexture2D_1kkc0")
 shader_parameter/hologramTextureTiling = Vector2(1, 0.2)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sh35x"]
-shader = ExtResource("2_w8tcp")
-shader_parameter/baseColor = Color(1, 1, 1, 0)
-shader_parameter/speed = 2.0
-shader_parameter/linesColor = Color(1, 1, 1, 0)
-shader_parameter/linesColorIntensity = 2.5
-shader_parameter/hologramTexture = ExtResource("3_svhta")
-shader_parameter/hologramTextureTiling = Vector2(1, 0.04)
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sh35x"]
+blend_mode = 1
 
-[sub_resource type="Shader" id="Shader_sh35x"]
-code = "shader_type canvas_item;
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sh35x"]
 
-uniform vec4 baseColor: source_color = vec4(0.3058, 0.835, 0.960, 1.);
-uniform float speed = 0.5;
-uniform vec4 linesColor: source_color = vec4(0.633232, 0.910156, 0.555693, 1.);
-uniform float linesColorIntensity = 5.;
-uniform sampler2D hologramTexture;
-uniform vec2 hologramTextureTiling = vec2(1., 5.);
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gms7k"]
+bg_color = Color(0.84, 0.574, 0, 1)
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
 
-vec2 tilingAndOffset(vec2 uv, vec2 tiling, vec2 offset) {
-    return mod(uv * tiling + offset, 1);
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_318vg"]
+bg_color = Color(0.1, 0.1, 0.1, 1)
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_color = Color(0, 0, 0, 0.27450982)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1kkc0"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
+
+[sub_resource type="Animation" id="Animation_1kkc0"]
+resource_name = "intro"
+length = 2.5
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ShipDamage:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 0),
+"points": PackedFloat32Array(1175, 0, 0, 0, -154.43549, 950, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShipLog:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(1098.3231, 0, -91.46338, 0, 0, 963, -0.792, 0, 0, 0),
+"times": PackedFloat32Array(0.5, 1.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ShipLog:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1.5, 2.5)
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipLog")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
 }
 
-void fragment() {
-    vec2 offset = vec2(TIME * speed / 100.0);
-    vec2 tiling = tilingAndOffset(UV, hologramTextureTiling, offset);
-    
-    vec4 noise = texture(hologramTexture, tiling);
-    
-    float fresnel = 0.71;
-    vec4 colorLines = linesColor * vec4(vec3(linesColorIntensity), 1.0);
-    vec4 emission = colorLines * fresnel * noise;
-    
-    vec4 albedo = baseColor;
-    float alpha = dot(noise.rgb, vec3(1.0));
-    vec4 hologram;
-    hologram.rgb = emission.rgb + (1.0 - emission.rgb) * albedo.rgb * albedo.a;
-    hologram.a = emission.a + (1.0 - emission.a) * alpha;
-    hologram.a = hologram.a + (1.0 - hologram.a) * albedo.a;
-    COLOR = texture(TEXTURE, UV);
-    COLOR.rgb = COLOR.rgb + (1.0 - COLOR.rgb) * hologram.rgb;
-    COLOR.a = min(COLOR.a, hologram.a);
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qv4qp"]
+_data = {
+&"intro": SubResource("Animation_1kkc0")
 }
-"
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gms7k"]
-shader = SubResource("Shader_sh35x")
-shader_parameter/baseColor = Color(1, 1, 1, 0)
-shader_parameter/speed = 5.0
-shader_parameter/linesColor = Color(1, 1, 1, 0)
-shader_parameter/linesColorIntensity = 5.0
-shader_parameter/hologramTexture = ExtResource("3_svhta")
-shader_parameter/hologramTextureTiling = Vector2(1, 0.08)
-
-[node name="HUD" type="CanvasLayer" unique_id=921773207]
+[node name="HUD" type="CanvasLayer" unique_id=921773207 node_paths=PackedStringArray("exp_bar", "ship_damage", "animation_player")]
 script = ExtResource("1_uqrat")
+exp_bar = NodePath("ExperienceBar")
+ship_damage = NodePath("ShipDamage")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="Timer" type="Timer" parent="." unique_id=528647623]
 wait_time = 2.0
 one_shot = true
 
-[node name="HealthBarOLD" type="ProgressBar" parent="." unique_id=784881845]
+[node name="ShipDamage" type="Control" parent="." unique_id=1516506310]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -860.0
+offset_top = 95.0
+offset_right = -820.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ShipDamageSplitTexture" type="Control" parent="ShipDamage" unique_id=525985577]
+modulate = Color(1, 1, 1, 0.7764706)
+layout_mode = 1
+anchor_left = 1.7500001
+anchor_top = 1.7500001
+anchor_right = 1.7500001
+anchor_bottom = 1.7500001
+offset_left = -70.00001
+offset_top = -70.00001
+offset_right = -30.000008
+offset_bottom = -30.000008
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.5, 3.5)
+pivot_offset = Vector2(19.714294, 20.857132)
+
+[node name="Cockpit" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture" unique_id=2003333]
+use_parent_material = true
+layout_mode = 0
+offset_top = -0.5
+offset_right = 40.0
+offset_bottom = 39.5
+texture = ExtResource("2_svhta")
+
+[node name="Cockpit" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture/Cockpit" unique_id=1951074367]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_qv4qp")
+layout_mode = 0
+offset_left = 0.20410156
+offset_right = 40.2041
+offset_bottom = 40.0
+texture = ExtResource("2_svhta")
+
+[node name="Hull" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture" unique_id=72964620]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_fjv1a")
+
+[node name="Hull" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture/Hull" unique_id=322754415]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_qv4qp")
+layout_mode = 0
+offset_left = 0.20410156
+offset_right = 40.2041
+offset_bottom = 40.0
+texture = ExtResource("3_fjv1a")
+
+[node name="WingLeft" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture" unique_id=2092137009]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_0ivg5")
+flip_h = true
+
+[node name="WingLeft" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture/WingLeft" unique_id=22954956]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_qv4qp")
+layout_mode = 0
+offset_left = 0.20410156
+offset_right = 40.2041
+offset_bottom = 40.0
+texture = ExtResource("4_0ivg5")
+flip_h = true
+
+[node name="WingRight" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture" unique_id=1980896108]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_0ivg5")
+
+[node name="WingRight" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture/WingRight" unique_id=1090940541]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_qv4qp")
+layout_mode = 0
+offset_left = 0.20410156
+offset_right = 40.2041
+offset_bottom = 40.0
+texture = ExtResource("4_0ivg5")
+
+[node name="Rear" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture" unique_id=590788935]
+use_parent_material = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_1kkc0")
+
+[node name="Rear" type="TextureRect" parent="ShipDamage/ShipDamageSplitTexture/Rear" unique_id=843330664]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_qv4qp")
+layout_mode = 0
+offset_left = 0.20410156
+offset_right = 40.2041
+offset_bottom = 40.0
+texture = ExtResource("5_1kkc0")
+
+[node name="ShipDamage" type="TextureRect" parent="ShipDamage" unique_id=888332563]
 visible = false
+clip_children = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -71.0
+offset_right = 71.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_1kkc0")
+
+[node name="HealthLayer" type="ColorRect" parent="ShipDamage/ShipDamage" unique_id=1898553503]
+material = SubResource("CanvasItemMaterial_sh35x")
+layout_mode = 0
+offset_left = -7.0
+offset_top = -5.0
+offset_right = 149.0
+offset_bottom = 151.0
+color = Color(0, 1.5143418, 0.22515124, 1)
+
+[node name="ShieldLayer" type="TextureRect" parent="ShipDamage/ShipDamage" unique_id=1464233217]
+layout_mode = 0
+offset_right = 142.0
+offset_bottom = 142.0
+texture = ExtResource("8_qv4qp")
+
+[node name="ExperienceBar" type="ProgressBar" parent="." unique_id=784881845]
 z_index = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -219.0
-offset_top = -63.0
-offset_right = 219.0
-offset_bottom = -39.0
+offset_left = 640.0
+offset_top = -8.0
+offset_right = 959.5012
+offset_bottom = 7.8669434
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxEmpty_6ca3a")
-theme_override_styles/fill = SubResource("StyleBoxFlat_2gk58")
+theme_override_styles/background = SubResource("StyleBoxEmpty_sh35x")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gms7k")
+max_value = 1000.0
 step = 1.0
-value = 100.0
-rounded = true
+value = 1.0
 show_percentage = false
 
-[node name="DamageBar" type="ProgressBar" parent="HealthBarOLD" unique_id=142381039]
+[node name="AnimatedBar" type="ProgressBar" parent="ExperienceBar" unique_id=142381039]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -169,192 +291,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_318vg")
-theme_override_styles/fill = SubResource("StyleBoxFlat_w8tcp")
-value = 100.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_1kkc0")
+max_value = 1000.0
+value = 1.0
 show_percentage = false
 
-[node name="Timer" type="Timer" parent="HealthBarOLD" unique_id=2112638468]
-wait_time = 0.4
-one_shot = true
-
-[node name="ShieldBarOLD" type="ProgressBar" parent="." unique_id=90521321]
-visible = false
-z_index = 1
+[node name="ShipLog" type="RichTextLabel" parent="." unique_id=1384087839]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -184.0
-offset_top = -35.0
-offset_right = 184.0
-offset_bottom = -17.0
+offset_left = -263.5
+offset_top = 18.32312
+offset_right = 263.5
+offset_bottom = 98.322754
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_styles/background = SubResource("StyleBoxEmpty_2gk58")
-theme_override_styles/fill = SubResource("StyleBoxFlat_svhta")
-value = 100.0
-show_percentage = false
+theme_override_fonts/normal_font = ExtResource("9_qv4qp")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[wave amp=5][color=cyan]SHIP LOG[/color][/wave]: All system [color=\"yellow\"][wave]nominal[/wave][/color]."
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="DamageBar" type="ProgressBar" parent="ShieldBarOLD" unique_id=869270741]
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_fjv1a")
-theme_override_styles/fill = SubResource("StyleBoxFlat_0ivg5")
-value = 100.0
-show_percentage = false
-
-[node name="Timer" type="Timer" parent="ShieldBarOLD" unique_id=1581211462]
-wait_time = 0.4
-one_shot = true
-
-[node name="ShipDamage" type="Control" parent="." unique_id=1516506310]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ShipDamageShader" type="Control" parent="ShipDamage" unique_id=962068061]
-material = SubResource("ShaderMaterial_0ivg5")
-anchors_preset = 0
-offset_left = 50.000004
-offset_top = 904.0
-offset_right = 90.0
-offset_bottom = 944.0
-scale = Vector2(3.5, 3.5)
-
-[node name="Cockpit" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=1951074367]
-use_parent_material = true
-layout_mode = 0
-offset_top = -0.5
-offset_right = 40.0
-offset_bottom = 39.5
-texture = ExtResource("2_svhta")
-
-[node name="Hull" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=322754415]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_fjv1a")
-
-[node name="WingLeft" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=22954956]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("4_0ivg5")
-flip_h = true
-
-[node name="WingRight" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=1090940541]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("4_0ivg5")
-
-[node name="Rear" type="TextureRect" parent="ShipDamage/ShipDamageShader" unique_id=843330664]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("5_1kkc0")
-
-[node name="ShipDamageTexture" type="Control" parent="ShipDamage" unique_id=525985577]
-modulate = Color(1, 1, 1, 0.7764706)
-anchors_preset = 0
-offset_left = 50.000004
-offset_top = 904.0
-offset_right = 90.0
-offset_bottom = 944.0
-scale = Vector2(3.5, 3.5)
-
-[node name="Cockpit" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=2003333]
-use_parent_material = true
-layout_mode = 0
-offset_top = -0.5
-offset_right = 40.0
-offset_bottom = 39.5
-texture = ExtResource("2_svhta")
-
-[node name="Hull" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=72964620]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("3_fjv1a")
-
-[node name="WingLeft" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=2092137009]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("4_0ivg5")
-flip_h = true
-
-[node name="WingRight" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=1980896108]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("8_1kkc0")
-
-[node name="Rear" type="TextureRect" parent="ShipDamage/ShipDamageTexture" unique_id=590788935]
-use_parent_material = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("5_1kkc0")
-
-[node name="HealthBarShader" type="TextureProgressBar" parent="." unique_id=937093048]
-material = SubResource("ShaderMaterial_sh35x")
-offset_left = 1550.0001
-offset_top = 945.00006
-offset_right = 1628.0001
-offset_bottom = 952.0001
-scale = Vector2(5, 5)
-value = 100.0
-texture_under = ExtResource("9_sh35x")
-texture_progress = ExtResource("10_gms7k")
-tint_progress = Color(0.27999997, 1, 0.45999998, 1)
-
-[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=757713366]
-modulate = Color(1, 1, 1, 0.78431374)
-offset_left = 1550.0001
-offset_top = 945.00006
-offset_right = 1628.0001
-offset_bottom = 952.0001
-scale = Vector2(5, 5)
-value = 100.0
-texture_under = ExtResource("9_sh35x")
-texture_progress = ExtResource("10_gms7k")
-tint_progress = Color(0.27999997, 1, 0.45999998, 1)
-
-[node name="ShieldBarShader" type="TextureProgressBar" parent="." unique_id=275471624]
-material = SubResource("ShaderMaterial_gms7k")
-offset_left = 1593.0001
-offset_top = 992.00006
-offset_right = 1671.0001
-offset_bottom = 999.0001
-scale = Vector2(5, 5)
-value = 100.0
-texture_under = ExtResource("9_sh35x")
-texture_progress = ExtResource("10_gms7k")
-
-[node name="ShieldBar" type="TextureProgressBar" parent="." unique_id=4668798]
-modulate = Color(1, 1, 1, 0.78431374)
-offset_left = 1593.0001
-offset_top = 992.00006
-offset_right = 1671.0001
-offset_bottom = 999.0001
-scale = Vector2(5, 5)
-value = 100.0
-texture_under = ExtResource("9_sh35x")
-texture_progress = ExtResource("10_gms7k")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2096460097]
+libraries/ = SubResource("AnimationLibrary_qv4qp")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

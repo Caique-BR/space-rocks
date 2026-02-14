@@ -1,8 +1,264 @@
 [gd_scene format=3 uid="uid://ciaskmvoq0wkq"]
 
 [ext_resource type="Script" uid="uid://bdvfswco8e0i5" path="res://menu/menu.gd" id="1_j0t7f"]
+[ext_resource type="Texture2D" uid="uid://csxaxyghbytc1" path="res://assets/effects/star.png" id="2_g18jx"]
+[ext_resource type="FontFile" uid="uid://pahh5bjch6ft" path="res://generic/notification/fonts/peaberry_base.otf" id="4_pbjm4"]
+[ext_resource type="Texture2D" uid="uid://djotuycnviqby" path="res://player/assets/ship.png" id="4_svuvw"]
 
-[node name="Menu" type="Control" unique_id=1985349910]
+[sub_resource type="Gradient" id="Gradient_6nwqt"]
+offsets = PackedFloat32Array(0, 0.35964912, 1)
+colors = PackedColorArray(0.20578647, 0.20578647, 0.20578647, 1, 1, 1, 1, 1, 0.13, 0.13, 0.13, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_73k8k"]
+gradient = SubResource("Gradient_6nwqt")
+
+[sub_resource type="Curve" id="Curve_g18jx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6nwqt"]
+curve = SubResource("Curve_g18jx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pbjm4"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(960, 540, 0)
+emission_shape = 3
+emission_box_extents = Vector3(960, 760, 1)
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(10, 10, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_6nwqt")
+color_ramp = SubResource("GradientTexture1D_73k8k")
+
+[sub_resource type="Gradient" id="Gradient_svuvw"]
+offsets = PackedFloat32Array(0, 0.23026316, 0.53289473, 0.7872807, 1)
+colors = PackedColorArray(0.039215688, 0.02745098, 0.003921569, 1, 0.98, 0.60433334, 0, 1, 0.04, 0.025893332, 0.0031999992, 1, 0.98039216, 0.6039216, 0, 1, 0.039215688, 0.02745098, 0.003921569, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5xyti"]
+gradient = SubResource("Gradient_svuvw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_juveg"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(960, 540, 0)
+emission_shape = 3
+emission_box_extents = Vector3(960, 540, 1)
+angle_min = 80.000015
+angle_max = 80.000015
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.01
+color_ramp = SubResource("GradientTexture1D_5xyti")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_svuvw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbjm4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_juveg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v6yed"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s4hbh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6fswf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bc54p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_043lm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iesyu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iuxab"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dmxns"]
+
+[sub_resource type="Animation" id="Animation_svuvw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StartButton:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StartButton:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(960, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera2D:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(540, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera2D:zoom:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Camera2D:zoom:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("StartButton:mouse_filter")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_pbjm4"]
+resource_name = "depart"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StartButton:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StartButton:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.16666667, 0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(960, -0.25, 0, 0.25, 0, 745, -0.16666667, 35.833336, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera2D:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(540, -0.25, 0, 0.25, 0, 530, -0.16666667, 1.6666667, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Camera2D:zoom:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 2, -0.16666667, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Camera2D:zoom:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 2, -0.16666667, -0.16666667, 0, 0),
+"times": PackedFloat32Array(0, 2)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("StartButton:mouse_filter")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(2),
+"points": PackedFloat32Array(2, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_svuvw"]
+_data = {
+&"RESET": SubResource("Animation_svuvw"),
+&"depart": SubResource("Animation_pbjm4")
+}
+
+[sub_resource type="Environment" id="Environment_juveg"]
+background_mode = 3
+tonemap_mode = 1
+glow_enabled = true
+glow_levels/1 = 0.3
+glow_levels/2 = 0.3
+glow_levels/3 = 0.3
+glow_levels/4 = 0.3
+glow_levels/5 = 0.3
+glow_intensity = 0.27
+glow_bloom = 0.22
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+glow_hdr_scale = 1.27
+glow_hdr_luminance_cap = 2.0
+
+[node name="Menu" type="Control" unique_id=1985349910 node_paths=PackedStringArray("start_button", "animation_player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,34 +266,99 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j0t7f")
+start_button = NodePath("StartButton")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1070176627]
-layout_mode = 0
-offset_left = 54.0
-offset_top = 741.0
-offset_right = 343.0
-offset_bottom = 1037.0
+[node name="Background" type="Node" parent="." unique_id=1055956934]
+metadata/_edit_lock_ = true
 
-[node name="Start" type="Button" parent="VBoxContainer" unique_id=1161102827]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Start"
+[node name="BackgroundColor" type="ColorRect" parent="Background" unique_id=712388065]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.003166666, 0, 0.01, 1)
+metadata/_edit_lock_ = true
 
-[node name="Options" type="Button" parent="VBoxContainer" unique_id=739713945]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Options"
+[node name="Stars" type="GPUParticles2D" parent="Background" unique_id=92710058]
+z_index = -1
+amount = 200
+lifetime = 4.0
+visibility_rect = Rect2(0, 0, 1920, 1080)
+process_material = SubResource("ParticleProcessMaterial_pbjm4")
 
-[node name="Credits" type="Button" parent="VBoxContainer" unique_id=105463356]
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "Credits"
+[node name="YellowStars" type="GPUParticles2D" parent="Background" unique_id=1708478590]
+z_index = -1
+amount = 50
+texture = ExtResource("2_g18jx")
+lifetime = 4.0
+visibility_rect = Rect2(0, 0, 1920, 1080)
+process_material = SubResource("ParticleProcessMaterial_juveg")
 
-[node name="Panel" type="Panel" parent="." unique_id=2101708152]
-layout_mode = 0
-offset_left = 1375.0
-offset_top = 662.0
-offset_right = 1889.0
-offset_bottom = 1042.0
+[node name="Stars2" type="GPUParticles2D" parent="Background" unique_id=1253988953]
+z_index = -1
+amount = 10
+lifetime = 2.0
+visibility_rect = Rect2(0, 0, 1920, 1080)
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_pbjm4")
 
-[connection signal="pressed" from="VBoxContainer/Start" to="." method="_on_start_pressed"]
+[node name="ShipSprite" type="Sprite2D" parent="." unique_id=529629955]
+position = Vector2(745, 530)
+scale = Vector2(5.9, 5.9)
+texture = ExtResource("4_svuvw")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1801901253]
+position = Vector2(960, 540)
+
+[node name="StartButton" type="Button" parent="." unique_id=1659849531]
+top_level = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -78.0
+offset_right = 481.0
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(283, 78)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_pbjm4")
+theme_override_font_sizes/font_size = 96
+theme_override_styles/normal = SubResource("StyleBoxEmpty_svuvw")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_pbjm4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_juveg")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_v6yed")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_s4hbh")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_6fswf")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_bc54p")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_043lm")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_iesyu")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_iuxab")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dmxns")
+text = "Depart"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1255832699]
+libraries/ = SubResource("AnimationLibrary_svuvw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=337355825]
+environment = SubResource("Environment_juveg")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=647100625]
+position = Vector2(745, 517)
+gizmo_extents = 10.5
+
+[connection signal="mouse_entered" from="StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="mouse_exited" from="StartButton" to="." method="_on_start_button_mouse_exited"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

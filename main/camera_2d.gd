@@ -12,6 +12,8 @@ var shake_decay : float = 5.0
 var shake_time : float = 0.0
 var shake_time_speed : float = 20.0
 
+var tween_bounce : Tween
+
 var noise : FastNoiseLite = FastNoiseLite.new()
 
 func screen_shake(intensity: int, time: float):
@@ -22,6 +24,16 @@ func screen_shake(intensity: int, time: float):
 	shake_intensity = intensity
 	active_shake_time = time
 	shake_time = 0.0
+
+func zoom_bounce() -> void:
+	if tween_bounce: tween_bounce.kill()
+	
+	zoom = Vector2(0.96, 0.96)
+	
+	tween_bounce = create_tween().set_ease(Tween.EASE_OUT).set_trans		(Tween.TRANS_ELASTIC)
+	tween_bounce.tween_property(self, "zoom", Vector2.ONE, 1)		
+
+## Built-in
 
 func _process(delta: float) -> void:
 	if active_shake_time > 0:
