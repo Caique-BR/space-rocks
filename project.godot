@@ -45,7 +45,7 @@ folder_colors={
 "res://globals/": "gray",
 "res://hud/": "gray",
 "res://main/": "purple",
-"res://menu/": "gray",
+"res://menu/": "orange",
 "res://player/": "blue",
 "res://projectiles/": "gray"
 }

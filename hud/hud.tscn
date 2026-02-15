@@ -73,7 +73,7 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(2, 2),
-"points": PackedFloat32Array(1098.3231, 0, -91.46338, 0, 0, 963, -0.792, 0, 0, 0),
+"points": PackedFloat32Array(1098.3231, 0, -91.46338, 0, 0, 1000, -0.792, 0, 0, 0),
 "times": PackedFloat32Array(0.5, 1.5)
 }
 tracks/2/type = "bezier"
@@ -305,7 +305,7 @@ anchor_bottom = 1.0
 offset_left = -263.5
 offset_top = 18.32312
 offset_right = 263.5
-offset_bottom = 98.322754
+offset_bottom = 98.32263
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("9_qv4qp")

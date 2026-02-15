@@ -8,7 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://csxaxyghbytc1" path="res://assets/effects/star.png" id="6_5xyti"]
 [ext_resource type="Script" uid="uid://u713ygbj461i" path="res://main/stars.gd" id="7_5xyti"]
 [ext_resource type="Script" uid="uid://dqm1qwg1xqxse" path="res://main/camera_2d.gd" id="10_0i4oc"]
+[ext_resource type="Script" uid="uid://cvecwwfn50k22" path="res://managers/asteroid_manager.gd" id="10_bsumw"]
+[ext_resource type="PackedScene" uid="uid://fy0jrvl3ab4m" path="res://generic/pickup/pickup.tscn" id="11_fwcvl"]
 [ext_resource type="AudioStream" uid="uid://dvtuoxvuwkvlt" path="res://assets/audio/background.wav" id="11_na0o7"]
+[ext_resource type="Resource" uid="uid://d2a30i75q6ihm" path="res://generic/pickup/resources/weapons/cannon_pickup.tres" id="12_na0o7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73k8k"]
 content_margin_left = 16.0
@@ -66,7 +69,6 @@ scale_max = 0.01
 color_ramp = SubResource("GradientTexture1D_4hmqs")
 
 [sub_resource type="Environment" id="Environment_73k8k"]
-background_mode = 3
 tonemap_mode = 1
 glow_enabled = true
 glow_levels/1 = 0.3
@@ -139,6 +141,8 @@ _data = {
 &"start": SubResource("Animation_0i4oc")
 }
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0i4oc"]
+
 [node name="Main" type="Node" unique_id=1414078381 node_paths=PackedStringArray("hud", "camera", "animation_player")]
 process_mode = 3
 script = ExtResource("1_xwkvk")
@@ -148,6 +152,7 @@ camera = NodePath("Camera2D")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="UtilityCanvas" type="CanvasLayer" parent="." unique_id=1729865568]
+visible = false
 
 [node name="UtilityTextBox" type="RichTextLabel" parent="UtilityCanvas" unique_id=336566931 groups=["UtilityTextBox"]]
 unique_name_in_owner = true
@@ -234,6 +239,48 @@ environment = SubResource("Environment_73k8k")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1889912731]
 libraries/ = SubResource("AnimationLibrary_bsumw")
+
+[node name="AsteroidManager" type="Node" parent="." unique_id=976439617]
+script = ExtResource("10_bsumw")
+asteroid_scene = ExtResource("2_5xyti")
+spawn_noise = SubResource("FastNoiseLite_0i4oc")
+metadata/_custom_type_script = "uid://cvecwwfn50k22"
+
+[node name="Asteroid" parent="." unique_id=1616891662 instance=ExtResource("2_5xyti")]
+position = Vector2(497, 271)
+linear_velocity = Vector2(-100, -47)
+
+[node name="Asteroid2" parent="." unique_id=1124618915 instance=ExtResource("2_5xyti")]
+position = Vector2(251, 545)
+rotation = -0.5235988
+
+[node name="Asteroid3" parent="." unique_id=1859328724 instance=ExtResource("2_5xyti")]
+position = Vector2(1400.9999, 930)
+rotation = 0.55228484
+
+[node name="Asteroid5" parent="." unique_id=1606281750 instance=ExtResource("2_5xyti")]
+position = Vector2(1691.0001, 594)
+rotation = -0.7853982
+
+[node name="Asteroid6" parent="." unique_id=1688657213 instance=ExtResource("2_5xyti")]
+position = Vector2(364.99997, 827.99994)
+rotation = -0.5235988
+
+[node name="Asteroid7" parent="." unique_id=389060089 instance=ExtResource("2_5xyti")]
+position = Vector2(857.9999, 942)
+rotation = 0.55228484
+
+[node name="Asteroid8" parent="." unique_id=1511267279 instance=ExtResource("2_5xyti")]
+position = Vector2(1217, 791.99994)
+rotation = -0.7853982
+
+[node name="Asteroid4" parent="." unique_id=1082872626 instance=ExtResource("2_5xyti")]
+position = Vector2(1563, 265.00003)
+rotation = 0.55228484
+
+[node name="Pickup" parent="." unique_id=1628948303 instance=ExtResource("11_fwcvl")]
+position = Vector2(1183, 542)
+pickup_data = ExtResource("12_na0o7")
 
 [connection signal="died" from="Player" to="." method="game_over"]
 [connection signal="experience_earned" from="Player" to="HUD" method="update_experience"]
