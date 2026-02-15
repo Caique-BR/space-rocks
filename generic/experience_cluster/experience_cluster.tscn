@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://xcsde8a124du"]
+
+[ext_resource type="Script" uid="uid://btig2f5178n4u" path="res://generic/experience_cluster/experience_cluster.gd" id="1_bcga3"]
+[ext_resource type="PackedScene" uid="uid://fy0jrvl3ab4m" path="res://generic/pickup/pickup.tscn" id="2_ya57u"]
+[ext_resource type="Resource" uid="uid://utijhnmqegjn" path="res://generic/pickup/resources/experience/experience_pickup.tres" id="3_bdval"]
+
+[node name="ExperienceCluster" type="Area2D" unique_id=1676528093 node_paths=PackedStringArray("collision_shape2d")]
+script = ExtResource("1_bcga3")
+collision_shape2d = NodePath("CollisionShape2D")
+pickup_scene = ExtResource("2_ya57u")
+experience_pickup = ExtResource("3_bdval")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=733514112]
+debug_color = Color(0.9816511, 0, 0.3732976, 0.41960785)

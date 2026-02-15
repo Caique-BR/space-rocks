@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cbbv4svga5l7m" path="res://debris/debris.gd" id="1_wjsq2"]
 [ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="2_wjsq2"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="3_q521u"]
+[ext_resource type="Script" uid="uid://u2k1eo6l67k3" path="res://components/drop_component.gd" id="5_q521u"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mwrjy"]
 bounce = 1.0
@@ -35,3 +36,7 @@ metadata/_custom_type_script = "uid://d33wds1kipash"
 [node name="HealthComponent" type="Node" parent="." unique_id=998205051]
 script = ExtResource("3_q521u")
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
+
+[node name="DropComponent" type="Node" parent="." unique_id=1876401212]
+script = ExtResource("5_q521u")
+metadata/_custom_type_script = "uid://u2k1eo6l67k3"

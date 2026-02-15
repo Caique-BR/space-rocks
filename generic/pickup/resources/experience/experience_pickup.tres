@@ -5,8 +5,7 @@
 
 [resource]
 script = ExtResource("1_hcl4e")
-experience_amount = 100
 texture = ExtResource("2_hcl4e")
-string_id = "Experience"
+string_id = "EXP"
 magnetic = true
 metadata/_custom_type_script = "uid://d3itfp6134u5c"

@@ -20,8 +20,9 @@ func explode() -> void:
 	hurtbox_component.disable_hurtbox()
 	hitbox_component.disable_hitbox()
 	
-	animated_sprite2d.scale = Vector2(2.0, 2.0)
+	animated_sprite2d.scale = Vector2(1.0, 1.0)
 	animated_sprite2d.play("explode")
+	drop_component.drop(global_position)
 	await animated_sprite2d.animation_finished
 	queue_free()
 

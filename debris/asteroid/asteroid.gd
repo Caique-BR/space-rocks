@@ -33,6 +33,7 @@ func explode() -> void:
 	
 	CameraControls.camera.screen_shake(10, 0.1)
 	exploded.emit()
+	drop_component.drop(global_position)
 	queue_free()
 
 ## Handlers

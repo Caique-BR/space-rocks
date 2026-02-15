@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bu0m6tpqge754" path="res://assets/explosion.png" id="4_byv41"]
 [ext_resource type="Script" uid="uid://d33wds1kipash" path="res://components/hitbox_component.gd" id="4_hkpkn"]
 [ext_resource type="Script" uid="uid://c8r28mx4wq1r5" path="res://components/health_component.gd" id="5_byv41"]
+[ext_resource type="Script" uid="uid://u2k1eo6l67k3" path="res://components/drop_component.gd" id="8_byv41"]
 
 [sub_resource type="Gradient" id="Gradient_hkpkn"]
 offsets = PackedFloat32Array(0, 0.17982456, 0.3991228, 0.59429824, 1)
@@ -566,7 +567,7 @@ _data = {
 &"hurt": SubResource("Animation_6277a")
 }
 
-[node name="AsteroidDebris" type="RigidBody2D" unique_id=2101753760 node_paths=PackedStringArray("animated_sprite2d", "animation_player", "left_side_collision", "right_side_collision", "hitbox_component", "hurtbox_component", "health_component", "collision_shape_2d")]
+[node name="AsteroidDebris" type="RigidBody2D" unique_id=2101753760 node_paths=PackedStringArray("animated_sprite2d", "animation_player", "left_side_collision", "right_side_collision", "hitbox_component", "hurtbox_component", "health_component", "drop_component", "collision_shape_2d")]
 script = ExtResource("1_hkpkn")
 animated_sprite2d = NodePath("AnimatedSprite2D")
 animation_player = NodePath("AnimationPlayer")
@@ -575,6 +576,7 @@ right_side_collision = NodePath("RightSideCollision")
 hitbox_component = NodePath("HitboxComponent")
 hurtbox_component = NodePath("HurtboxComponent")
 health_component = NodePath("HealthComponent")
+drop_component = NodePath("DropComponent")
 collision_shape_2d = NodePath("LeftSideCollision")
 metadata/_custom_type_script = "uid://cbbv4svga5l7m"
 
@@ -585,7 +587,7 @@ process_material = SubResource("ParticleProcessMaterial_bef8m")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=559153544]
 scale = Vector2(3.5, 3.5)
 sprite_frames = SubResource("SpriteFrames_u2psc")
-animation = &"debris_left"
+animation = &"explode"
 
 [node name="LeftSideCollision" type="CollisionPolygon2D" parent="." unique_id=2036335657]
 visible = false
@@ -615,6 +617,11 @@ metadata/_custom_type_script = "uid://d33wds1kipash"
 script = ExtResource("5_byv41")
 max_health = 2.0
 metadata/_custom_type_script = "uid://c8r28mx4wq1r5"
+
+[node name="DropComponent" type="Node" parent="." unique_id=381471019]
+script = ExtResource("8_byv41")
+total_experience_drop = 100
+metadata/_custom_type_script = "uid://u2k1eo6l67k3"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1832308713]
 libraries/ = SubResource("AnimationLibrary_3knqm")

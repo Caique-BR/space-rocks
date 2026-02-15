@@ -4,6 +4,7 @@ extends RigidBody2D
 @export var hitbox_component : HitboxComponent
 @export var hurtbox_component : HurtboxComponent
 @export var health_component : HealthComponent
+@export var drop_component : DropComponent
 @export var collision_shape_2d : Node2D 
 
 func start(trans: Transform2D, vel: Vector2) -> void:
